@@ -1,0 +1,132 @@
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { Template } from 'meteor/templating';
+import { Blaze } from 'meteor/blaze';
+import "./uploadTemplates.html";
+import Images from '/lib/images.collection.js';
+import Songs from '/imports/api/songs.js';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { ReactiveDict } from 'meteor/reactive-dict';
+
+ 
+export default class FormSubida extends Component {
+  componentDidMount() {
+    // Use Meteor Blaze to render login buttons
+    this.view = Blaze.render(Template.uploadForm,
+      ReactDOM.findDOMNode(this.refs.container));
+  }
+  componentWillUnmount() {
+    // Clean up Blaze view
+    Blaze.remove(this.view);
+  }
+  render() {
+    // Just render a placeholder container that will be filled in
+    return <span ref="container"/>;
+  }
+}
+
+var myFile;
+
+Template.uploadForm.onCreated(function () {
+  this.currentUpload = new ReactiveVar(false);
+  this.state = new ReactiveDict();
+  const instance = Template.instance();
+  instance.state.set('difficultyAmount',1);
+});
+
+Template.uploadForm.helpers({
+  currentUpload: function () {
+    return Template.instance().currentUpload.get();
+  },
+  difficultyList: function () {
+    const instance = Template.instance();
+    var arrayToReturn = [];
+    for( i=0;i<instance.state.get('difficultyAmount');i++){
+      arrayToReturn.push(i+1);
+    }
+    return arrayToReturn;
+  }
+
+});
+
+Template.uploadForm.events({
+  
+  //When uploading/inputing a new file
+  'change #fileInput': function (e, template) {
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      // We upload only one file, in case
+      // there was multiple files selected
+      var file = e.currentTarget.files[0];
+      myFile = file;
+    }
+
+
+  },
+  //When submitting the form
+  'submit .formularioSubida'(event,template) {
+    // Prevent default browser form submit
+    event.preventDefault();
+ 
+    // Get value from form element
+    const target = event.target;
+    const name = target.nameInput.value;
+    const description = target.descriptionInput.value;
+
+    //Create array of difficulties
+    var arrayDifficulties= [];
+    for(i=0;i<template.state.get('difficultyAmount');i++){
+      var toPush;
+      switch(i){
+        case 0:
+          toPush = target.difficulty1.value;
+          break;
+        case 1:
+          toPush = target.difficulty2.value;
+          break;
+        case 2:
+          toPush = target.difficulty3.value;
+          break;
+        case 3:
+          toPush = target.difficulty4.value;
+          break;
+      }
+
+      arrayDifficulties.push(toPush);
+    }
+    
+
+    var file = myFile;
+    if (file) {
+      var uploadInstance = Images.insert({
+        file: file,
+        streams: 'dynamic',
+        chunkSize: 'dynamic'
+      }, false);
+
+      uploadInstance.on('start', function() {
+        template.currentUpload.set(this);
+      });
+
+      uploadInstance.on('end', function(error, fileObj) {
+        if (error) {
+          window.alert('Error during upload: ' + error.reason);
+        } else {
+          window.alert('File "' + fileObj.name + '" successfully uploaded');
+          console.log(fileObj);
+          //File has been uploaded so we insert our Song to the Mongo collection
+          Meteor.call('songs.insert',name,description,fileObj.name,fileObj._id,(fileObj.size/1024/1024).toFixed(2),arrayDifficulties);
+        }
+        template.currentUpload.set(false);
+      });
+
+      uploadInstance.start();
+    }
+
+  },
+  //When changing the amount of difficulties
+  'change #difficultyNumbers': function (event,instance) {
+    instance.state.set('difficultyAmount', event.target.value);
+
+  },
+  
+});

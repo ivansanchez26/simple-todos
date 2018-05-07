@@ -1,23 +1,71 @@
-<template name="uploadForm">
+
+  <template name="uploadForm">
     {{#with currentUpload}}
       Uploading <b>{{file.name}}</b>: 
       <span id="progress">{{progress.get}}%</span>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{progress.get}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progress.get}}%">
+          <span class="sr-only">{{progress.get}}% Complete</span>
+        </div>
+      </div>
     {{else}}
+    <form class="formularioSubida">
+      <input id="nameInput" name="nameInput" type="text" placeholder="Name" required/><br>
+      <input id="descriptionInput" name ="descriptionInput" type="text" placeholder="Description" required/><br>
+      
+      <select name="difficultyNumbers" id="difficultyNumbers"><br>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+      </select>
+      {{#each number in difficultyList}}
+        <br><input id="difficulty{{number}}" name ="difficulty{{number}}" type="number" placeholder="Difficulty{{number}}" min="1" max="20" required/>
+      {{/each}}
       <input id="fileInput" type="file" />
-      <p><small>Upload file in <code>jpeg</code> or <code>png</code> format, with size less or equal to 10MB</small></p>
+      <p><small>Upload file in <code>zip</code> or <code>rar</code> format, with size less or equal to 100MB</small></p>
+      <input id="submitInput" type="submit"/>
+    </form>
     {{/with}}
   </template>
   
+
   <template name="uploadedFiles">
+    <!-- example to show iteration of songs-->
+    <!--{{#each uploadedSongs}}
+      <p>{{> Song}}</p>
+    {{/each}}-->
+    
     {{#if uploadedFiles.count}}
       <ul>
+        <!--Por cada archivo subido-->
         {{#each file in uploadedFiles.each}}
-          <li>
-            <a href="{{file.link}}?download=true" download="{{file.name}}">{{file.name}}</a>
-          </li>
+          <!--Busca los datos de la cancion en la coleccion de Mongo buscando por el id del archivo-->
+          {{#with buscarCancion file._id}}
+            <p>{{> Song}}</p>
+          {{/with}}
+            <li>
+              <a href="{{file.link}}?download=true" download="{{file.name}}">{{file.name}}</a>
+            </li>
+            <p>---------------------------------------------------------------------------------</p>
         {{/each}}
       </ul>
+      
     {{else}}
       <div>No files uploaded, yet</div>
     {{/if}}
+    
   </template>
+
+  <!--Single Song attributes to show, collected from Mongo Collection-->
+  <template name="Song">
+    <li><strong>Name:</strong> {{name}} </li>
+    <strong>Description:</strong> {{description}}<br>
+    <strong>FileName: </strong>{{fileName}}<br>
+    <strong>Size: </strong>{{size}} MB<br>
+    <strong>Uploaded by: </strong>{{username}}<br>
+    {{#each dif in difficulties}}
+      <p>{{dif}}</p>
+    {{/each}}
+  </template>
+

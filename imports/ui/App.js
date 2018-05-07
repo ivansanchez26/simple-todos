@@ -3,17 +3,18 @@ import ReactDOM from 'react-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import { FilesCollection } from 'meteor/ostrio:files';
-import '../uploadFiles/uploadTemplates.html';
 import Blaze from 'meteor/gadicc:blaze-react-component';
+import { Button, FormGroup, FormControl, Jumbotron, ListGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 
-import { images } from '../api/images.js'; 
 import { Tasks } from '../api/tasks.js';
 import { Songs } from '../api/songs.js';
 import Task from './Task.js';
 import Song from './Song.js';
-import Gallery from './gallery.js';
 import AccountsUIWrapper from './AccountsUIWrapper.js';
+import FormSubida from '../uploadFiles/FormSubida';
+import DescargarArchivos from '../uploadFiles/DescargarArchivos';
 
  
 // App component - represents the whole app
@@ -44,18 +45,7 @@ class App extends Component {
     console.log("eee");
   }
 
-  handleSubmitSong(event) {
-    event.preventDefault();
- 
-    // Find the text field via the React ref
-    const name = ReactDOM.findDOMNode(this.refs.songName).value.trim();
-    const description = ReactDOM.findDOMNode(this.refs.songDescription).value.trim();
-
-    Meteor.call('songs.insert', name);
-
-    // Clear form
-    //ReactDOM.findDOMNode(this.refs.textInput).value = '';
-  }
+  
 
  
   renderTasks() {
@@ -96,7 +86,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <header>
+        <Jumbotron>
           <h1>Todo List ({this.props.incompleteCount})</h1>
           
           <label className="hide-completed">
@@ -120,31 +110,20 @@ class App extends Component {
               />
             </form> : ''
           }
-          <form className="new-song" onSubmit={this.handleSubmitSong.bind(this)} >
-              <input
-                type="text"
-                ref="songName"
-                placeholder="Name of the song"
-              />
-              <input
-                type="text"
-                ref="songDescription"
-                placeholder="Description of the song"
-              />
-              
-              <input type="submit" value="Submit"/>
-          </form>
 
-        </header>
+        </Jumbotron>
  
-        <ul>
+        <ListGroup>
           {this.renderTasks()}
-        </ul>
-        <ul>
+        </ListGroup>
+        <ListGroup>
           {this.renderSongs()}
-        </ul>
+        </ListGroup>
         
-        <Gallery />
+        <FormSubida/>
+        <ListGroup>
+          <DescargarArchivos/>
+        </ListGroup>
 
       </div>
 

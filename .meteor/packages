@@ -27,3 +27,5 @@ gadicc:blaze-react-component
 cfs:standard-packages
 cfs:gridfs
 cfs:filesystem
+aldeed:collection2@3.0.0
+reactive-dict

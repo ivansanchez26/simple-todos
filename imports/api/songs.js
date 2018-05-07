@@ -13,10 +13,9 @@ if (Meteor.isServer) {
   }
 
 Meteor.methods({
-    'songs.insert'(name) {
+    'songs.insert'(name,description,fileName,fileId,size,difficulties) {
     
     
-    description = "aa";
       // Make sure the user is logged in before inserting a task
       if (! this.userId) {
         throw new Meteor.Error('not-authorized');
@@ -25,6 +24,10 @@ Meteor.methods({
       Songs.insert({
         name,
         description,
+        fileName,
+        fileId,
+        size,
+        difficulties,
         createdAt: new Date(),
         owner: this.userId,
         username: Meteor.users.findOne(this.userId).username,
@@ -34,6 +37,11 @@ Meteor.methods({
    
       Songs.remove(songId);
     },
+
+    'songs.find'(){
+
+      return Songs.find({});
+    }
    
   
   });

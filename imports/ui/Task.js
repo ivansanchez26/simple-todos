@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Tasks } from '../api/tasks.js';
 import { Meteor } from 'meteor/meteor';
 import classnames from 'classnames';
+import { ListGroupItem } from 'react-bootstrap';
  
 // Task component - represents a single todo item
 export default class Task extends Component {
@@ -27,7 +28,7 @@ export default class Task extends Component {
     });
  
     return (
-      <li className={taskClassName}>
+      <ListGroupItem className={taskClassName}>
         <button className="delete" onClick={this.deleteThisTask.bind(this)}>
           &times;
         </button>
@@ -46,7 +47,7 @@ export default class Task extends Component {
         <span className="text">
           <strong>{this.props.task.username}</strong>: {this.props.task.text}
         </span>
-      </li>
+      </ListGroupItem>
     );
   }
 }
