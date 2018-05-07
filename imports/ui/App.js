@@ -93,6 +93,7 @@ class App extends Component {
 
 export default withTracker(() => {
   Meteor.subscribe('songs');
+  Meteor.subscribe('posts');
   return {
     songs: Songs.find({}).fetch(),
     currentUser: Meteor.user(),

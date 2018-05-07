@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Panel, Button, FormGroup, ControlLabel, FormControl, Modal } from 'react-bootstrap';
 import FieldGroup from 'react-bootstrap';
 import ReactDOM from 'react-dom';
+import { Meteor } from 'meteor/meteor';
 
 import { Posts } from '../../collections/Posts';
 
@@ -24,13 +25,7 @@ export default class NewPost extends Component {
       const title = ReactDOM.findDOMNode(this.inputTitle).value.trim();  
       const content = ReactDOM.findDOMNode(this.inputContent).value.trim(); 
 
-      Posts.insert({
-        owner: Meteor.user().username,
-        title,  
-        content,
-        pinned: false,
-        createdAt: new Date(), // current time
-      });
+      Meteor.call('posts.insert',title,content);
 
       // Clear form
       ReactDOM.findDOMNode(this.inputTitle).value = '';
