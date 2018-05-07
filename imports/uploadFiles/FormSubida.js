@@ -4,7 +4,7 @@ import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 import "./uploadTemplates.html";
 import Images from '/lib/images.collection.js';
-import Songs from '/imports/api/songs.js';
+import Songs from '/imports/collections/songs.js';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveDict } from 'meteor/reactive-dict';
 

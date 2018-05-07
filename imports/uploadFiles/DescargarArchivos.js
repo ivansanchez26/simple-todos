@@ -5,7 +5,7 @@ import { Blaze } from 'meteor/blaze';
 import "./uploadTemplates.html";
 import { ListGroupItem, Button } from 'react-bootstrap';
 import Images from '/lib/images.collection.js';
-import { Songs } from '../api/songs.js';
+import { Songs } from '/imports/collections/songs.js';
 import { ReactiveVar } from 'meteor/reactive-var';
 
 import { withTracker } from 'meteor/react-meteor-data';

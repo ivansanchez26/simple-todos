@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Songs } from '../api/songs.js';
+import { Songs } from '../../collections/songs.js';
 import { Meteor } from 'meteor/meteor';
 import classnames from 'classnames';
 import { ListGroupItem, Button } from 'react-bootstrap';
