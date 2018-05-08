@@ -42,4 +42,16 @@ Meteor.methods({
       check(setChecked, Boolean);
       Posts.update(postId, { $set: { pinned: setChecked } });
     },
+
+    'comment.insert'(content){
+      check(content, String); 
+
+      var comment = {
+        content : content,
+        createdAt: new Date(),
+        owner: this.userId,
+      }
+
+      Posts.update(postId, { $set: { comment: comment } });
+    }
   });
