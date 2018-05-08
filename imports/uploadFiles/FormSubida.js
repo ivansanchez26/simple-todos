@@ -110,7 +110,7 @@ Template.uploadForm.events({
     }
   },
   //When submitting the form
-  'submit .formularioSubida'(event,template) {
+  'submit #formularioSubida'(event,template) {
     // Prevent default browser form submit
     event.preventDefault();
  

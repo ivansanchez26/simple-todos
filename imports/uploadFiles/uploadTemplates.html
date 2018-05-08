@@ -1,7 +1,69 @@
 
   <template name="uploadForm">
+    <!--Collapsable panel-->
+    <div class="panel-group">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" href="#collapse1">Insert new Song</a>
+          </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+          <div class="panel-body">
+            <!--Form content-->
+            <form id="formularioSubida">
+              <!--Title-->
+              <div class="form-group">
+                <label for="Title">Title:</label>
+                <input type="text" class="form-control" id="nameInput">
+              </div>
+              <!--Description-->
+              <div class="form-group">
+                <label for="Description">Description:</label>
+                <input type="text" class="form-control" id="descriptionInput">
+              </div>
+              <!--Select number of difficulties-->
+              <label for="difficultyNumbers">Select number of difficulties (select one):</label>
+              <div class="form-group row">
+                <div class="col-sm-3">
+              <select name="difficultyNumbers" class="form-control" id="difficultyNumbers">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+                </div>
+              </div>
+              <!--Show input for each difficulty-->
+              <div class="form-group row">
+              {{#each number in difficultyList}}
+                <div class="col-sm-3">
+                  <label for="difficulty{{number}}">Difficulty {{number}}:</label>
+                  <input type="number" class="form-control" id="difficulty{{number}}" name ="difficulty{{number}}" min="1" max="20" required>
+                </div>
+              {{/each}}
+              </div>
+              <!-- <div class="form-group row">
+                    <div class="col-xs-2">
+                      <label for="ex1">col-xs-2</label>
+                      <input class="form-control" id="ex1" type="text">
+                    </div>
+                    <div class="col-xs-3">
+                      <label for="ex2">col-xs-3</label>
+                      <input class="form-control" id="ex2" type="text">
+                    </div>
+                    <div class="col-xs-4">
+                      <label for="ex3">col-xs-4</label>
+                      <input class="form-control" id="ex3" type="text">
+                    </div>
+                  </div> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     
-    <form class="formularioSubida">
+    <!--<form class="formularioSubida" >
       <input id="nameInput" name="nameInput" type="text" placeholder="Name" required/><br>
       <input id="descriptionInput" name ="descriptionInput" type="text" placeholder="Description" required/><br>
       
@@ -35,17 +97,17 @@
         <input id="imageInput" type="file" />
       {{/if}}
 
-      {{#each file in imageUploaded.each}}
+      {{#each file in imageUploaded.each}}-->
         <!--Busca los datos de la cancion en la coleccion de Mongo buscando por el id del archivo-->
         
-          
+         <!-- 
           <img src="{{file.link}}" alt="hola" class="img-rounded" width="200"/>
-          <p>---------------------------------------------------------------------------------</p>
+          <p>/////////////////////////////////////////////////////////////////</p>
       {{/each}}
 
       <input id="submitInput" type="submit"/>
     </form>
-    
+  -->
   </template>
   
 
