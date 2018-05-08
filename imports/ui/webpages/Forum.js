@@ -11,9 +11,9 @@ export default class Forum extends Component {
     return (
         <div>
           <NewPost/>
+          <br />
           <PostList/>  
         </div>    
-        //FOR EACH DE LA BASE DE DATOS, COMPONENTE DE    
     );
   }
 }

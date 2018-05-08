@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Panel, ListGroupItem, ListGroup } from 'react-bootstrap';
 
 import { withTracker } from 'meteor/react-meteor-data'; 
 import { Posts } from '../../collections/Posts';
@@ -8,13 +9,20 @@ import Post from './Post';
 class PostList extends Component {
   renderPosts() {
     return this.props.posts.map((post) => (
-      <Post key={post._id} post={post} />
+      <ListGroupItem key={post._id}>
+        <Post post={post}/>
+      </ListGroupItem>
     ));
   }
 
     render() {
       return (
-        <ul>{this.renderPosts()}</ul>
+        <Panel>
+          <Panel.Heading>Title/Author nComments</Panel.Heading>
+          <ListGroup>
+            {this.renderPosts()}
+          </ListGroup>
+        </Panel>
       );
     }
   }
