@@ -46,9 +46,26 @@ Template.uploadedFiles.helpers({
     return a == b;
   },
   buscarCancion: function(idArchivoCancion){
+    console.log('hola');
     return Songs.findOne({fileId : idArchivoCancion});
-  }
+  },
+  
+  
   
 });
+
+Template.Song.helpers({
+  buscarArchivo: function(idArchivo){
+    console.log('hola2');
+    return SongFiles.findOne({_id: idArchivo});
+  },buscarImagenArchivo: function(idImagenArchivo){
+    console.log('hola3');
+    var asdf = SongImages.findOne({_id: idImagenArchivo});
+    console.log(asdf);
+    return SongImages.findOne({_id: idImagenArchivo});
+  }
+
+
+})
 
 

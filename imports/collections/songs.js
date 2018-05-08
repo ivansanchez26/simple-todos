@@ -13,7 +13,7 @@ if (Meteor.isServer) {
   }
 
 Meteor.methods({
-    'songs.insert'(name,description,fileName,fileId,size,difficulties) {
+    'songs.insert'(name,description,fileName,fileId,size,difficulties,imageId) {
     
     
       // Make sure the user is logged in before inserting a task
@@ -28,6 +28,7 @@ Meteor.methods({
         fileId,
         size,
         difficulties,
+        imageId,
         createdAt: new Date(),
         owner: this.userId,
         username: Meteor.users.findOne(this.userId).username,

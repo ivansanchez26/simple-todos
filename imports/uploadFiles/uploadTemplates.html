@@ -35,10 +35,13 @@
         <input id="imageInput" type="file" />
       {{/if}}
 
-      {{#with imageUploaded}}
-        {{> ShowImage}}
-      
-      {{/with}}
+      {{#each file in imageUploaded.each}}
+        <!--Busca los datos de la cancion en la coleccion de Mongo buscando por el id del archivo-->
+        
+          
+          <img src="{{file.link}}" alt="hola" class="img-rounded" width="200"/>
+          <p>---------------------------------------------------------------------------------</p>
+      {{/each}}
 
       <input id="submitInput" type="submit"/>
     </form>
@@ -48,28 +51,9 @@
 
   <template name="uploadedFiles">
     <!-- example to show iteration of songs-->
-    <!--{{#each uploadedSongs}}
-      <p>{{> Song}}</p>
-    {{/each}}-->
-    {{#if uploadedFiles.count}}
-      <ul>
-        <!--Por cada archivo subido-->
-        {{#each file in uploadedFiles.each}}
-          <!--Busca los datos de la cancion en la coleccion de Mongo buscando por el id del archivo-->
-          {{#with buscarCancion file._id}}
-            <p>{{> Song}}</p>
-          {{/with}}
-            <li>
-              <a href="{{file.link}}?download=true" download="{{file.name}}">{{file.name}}</a>
-            </li>
-            <!--<img src="{{file.link}}" alt="hola" class="img-rounded" width="200"/>-->
-            <p>---------------------------------------------------------------------------------</p>
-        {{/each}}
-      </ul>
-      
-    {{else}}
-      <div>No files uploaded, yet</div>
-    {{/if}}
+    {{#each uploadedSongs}}
+      {{> Song}}
+    {{/each}}
     
   </template>
 
@@ -83,10 +67,23 @@
     {{#each dif in difficulties}}
       <p>{{dif}}</p>
     {{/each}}
+    {{#let idImagen=imageId }}
+      {{#with buscarImagenArchivo idImagen}}
+        <p>{{> ShowImage}}</p>
+      {{/with}}
+    {{/let}}
+    {{#let idArchivo=fileId }}
+      {{#with buscarArchivo idArchivo}}
+        <p>{{> ShowFileDownload}}</p>
+      {{/with}}
+    {{/let}}
   </template>
 
 
   <template name="ShowImage">
     <img src="{{link}}" alt="hola" class="img-rounded" width="200"/>
+  </template>
+  <template name="ShowFileDownload">
+    <a href="{{link}}?download=true" download="{{name}}">{{name}}</a>
   </template>
 

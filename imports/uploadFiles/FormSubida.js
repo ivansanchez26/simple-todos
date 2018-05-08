@@ -27,7 +27,7 @@ export default class FormSubida extends Component {
 }
 
 var myFile;
-var myImage;
+//var myImageId;
 
 Template.uploadForm.onCreated(function () {
   this.currentUpload = new ReactiveVar(false);
@@ -35,6 +35,9 @@ Template.uploadForm.onCreated(function () {
   this.state = new ReactiveDict();
   const instance = Template.instance();
   instance.state.set('difficultyAmount',1);
+  instance.state.set('myImageId',undefined);
+
+
 });
 
 Template.uploadForm.helpers({
@@ -53,7 +56,9 @@ Template.uploadForm.helpers({
     return arrayToReturn;
   },
   imageUploaded: function(){
-    return myImage;
+    const instance = Template.instance();
+    var idImagen = instance.state.get('myImageId');
+    return SongImages.find({_id : idImagen});
   }
 
 });
@@ -92,8 +97,8 @@ Template.uploadForm.events({
       uploader.on('uploaded', (error, fileObj) => {
         if (!error) {
           window.alert('File "' + fileObj.name + '" successfully uploaded');
-          myImage = SongImages.find({id : fileObj._id});
-          console.log(myImage);
+          template.state.set('myImageId', fileObj._id);
+          console.log(template.state.get('myImageId'));
         }
       });
 
@@ -156,7 +161,7 @@ Template.uploadForm.events({
           window.alert('File "' + fileObj.name + '" successfully uploaded');
           console.log(fileObj);
           //File has been uploaded so we insert our Song to the Mongo collection
-          Meteor.call('songs.insert',name,description,fileObj.name,fileObj._id,(fileObj.size/1024/1024).toFixed(2),arrayDifficulties);
+          Meteor.call('songs.insert',name,description,fileObj.name,fileObj._id,(fileObj.size/1024/1024).toFixed(2),arrayDifficulties,template.state.get('myImageId'));
         }
         template.currentUpload.set(false);
       });
