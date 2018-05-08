@@ -17,9 +17,9 @@ class PostList extends Component {
       return (
         <Grid>
           <Row>
-              <Col lg={1}> </Col>
-              <Col lg={9}>Title/Author</Col>
-              <Col lg={2}>Comments</Col>
+              <Col xs={1}> </Col>
+              <Col xs={9}>Title/Author</Col>
+              <Col xs={2}>Comments</Col>
           </Row>
           <hr/>
           {this.renderPosts()}

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
 import NewPost from '/imports/ui/Forum/NewPost';
 import PostList from '/imports/ui/Forum/PostList';
 
@@ -10,10 +12,11 @@ export default class Forum extends Component {
   render() {
     return (
         <div>
-          <NewPost/>
+          {Meteor.user() ? <NewPost/>:  ''}          
           <br />
           <PostList/>  
         </div>    
     );
   }
 }
+

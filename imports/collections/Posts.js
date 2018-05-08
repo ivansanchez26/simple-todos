@@ -5,15 +5,10 @@ import { check } from 'meteor/check';
 export const Posts = new Mongo.Collection('posts');
 
 if (Meteor.isServer) {
-
     // This code only runs on the server
-  
     Meteor.publish('posts', function tasksPublication() {
-  
       return Posts.find();
-  
     });
-  
   }
 
 
@@ -42,7 +37,7 @@ Meteor.methods({
       Posts.remove(postId);
     },
   
-    'posts.setChecked'(postId, setChecked) {
+    'posts.setPinned'(postId, setChecked) {
       check(postId, String);
       check(setChecked, Boolean);
       Posts.update(postId, { $set: { pinned: setChecked } });
