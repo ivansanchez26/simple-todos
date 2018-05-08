@@ -8,7 +8,7 @@ import App from '../imports/ui/App.js';
 
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-import Images from '/lib/images.collection.js';
+import SongFiles from '/lib/songFiles.collection.js';
 import './main.html';
 
  

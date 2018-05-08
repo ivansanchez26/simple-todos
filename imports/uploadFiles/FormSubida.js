@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 import "./uploadTemplates.html";
-import Images from '/lib/images.collection.js';
+import SongFiles from '/lib/songFiles.collection.js';
+import SongImages from '/lib/songImages.collection.js';
 import Songs from '/imports/collections/songs.js';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveDict } from 'meteor/reactive-dict';
@@ -26,9 +27,11 @@ export default class FormSubida extends Component {
 }
 
 var myFile;
+var myImage;
 
 Template.uploadForm.onCreated(function () {
   this.currentUpload = new ReactiveVar(false);
+  this.imageUpload = new ReactiveVar(false);
   this.state = new ReactiveDict();
   const instance = Template.instance();
   instance.state.set('difficultyAmount',1);
@@ -38,6 +41,9 @@ Template.uploadForm.helpers({
   currentUpload: function () {
     return Template.instance().currentUpload.get();
   },
+  imageUpload() {
+    Template.instance().imageUpload.get();
+  },
   difficultyList: function () {
     const instance = Template.instance();
     var arrayToReturn = [];
@@ -45,6 +51,9 @@ Template.uploadForm.helpers({
       arrayToReturn.push(i+1);
     }
     return arrayToReturn;
+  },
+  imageUploaded: function(){
+    return myImage;
   }
 
 });
@@ -61,6 +70,39 @@ Template.uploadForm.events({
     }
 
 
+  },
+  //When uploading/inputing a new image
+  'change #imageInput'(e, template) {
+    console.log('aaaaaaaaaaaaa');
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      const uploader = SongImages.insert({
+        file: e.currentTarget.files[0],
+        streams: 'dynamic',
+        chunkSize: 'dynamic'
+      }, false);
+
+      uploader.on('start', function () {
+        template.imageUpload.set(this);
+      });
+
+      uploader.on('end', (error, fileObj) => {
+        template.imageUpload.set(false);
+      });
+
+      uploader.on('uploaded', (error, fileObj) => {
+        if (!error) {
+          window.alert('File "' + fileObj.name + '" successfully uploaded');
+          myImage = SongImages.find({id : fileObj._id});
+          console.log(myImage);
+        }
+      });
+
+      uploader.on('error', (error, fileObj) => {
+        window.alert('Error during upload: ' + error);
+      });
+
+      uploader.start();
+    }
   },
   //When submitting the form
   'submit .formularioSubida'(event,template) {
@@ -97,7 +139,7 @@ Template.uploadForm.events({
 
     var file = myFile;
     if (file) {
-      var uploadInstance = Images.insert({
+      var uploadInstance = SongFiles.insert({
         file: file,
         streams: 'dynamic',
         chunkSize: 'dynamic'

@@ -4,7 +4,8 @@ import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 import "./uploadTemplates.html";
 import { ListGroupItem, Button } from 'react-bootstrap';
-import Images from '/lib/images.collection.js';
+import SongFiles from '/lib/songFiles.collection.js';
+import SongImages from '/lib/songImages.collection.js';
 import { Songs } from '/imports/collections/songs.js';
 import { ReactiveVar } from 'meteor/reactive-var';
 
@@ -36,7 +37,7 @@ export default class DescargarArchivos extends Component {
 
 Template.uploadedFiles.helpers({
   uploadedFiles: function () {
-    return Images.find();
+    return SongFiles.find();
   },
   uploadedSongs: function () {
     return Songs.find({});
