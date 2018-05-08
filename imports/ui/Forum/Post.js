@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Posts } from '../../collections/Posts';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Forum from '../webpages/Forum';
+import { Row, Col } from 'react-bootstrap';
 
 const nComments = Posts.find({ comments: { $gt: 0 } }).count();
 
@@ -20,20 +21,26 @@ export default class Post extends Component {
   render() {
     return (
       <Router>
-          <div>
+        <div>
+          <Row>
+            <Col lg={1}>
             <input
             type="checkbox"
             readOnly
             checked={!!this.props.post.pinned}
             onClick={this.toggleChecked.bind(this)}
             />
-                
+            </Col>
+            <Col lg={9}> 
             <Link to={"/forum/post/"+this.props.post._id}>{this.props.post.title}</Link>
-
+            </Col>
+            <Col lg={2}>
             {nComments}
-
+            </Col>
             <Route exact path={"/forum/post/"+this.props.post._id} component={Forum} />
-          </div>
+          </Row>
+          <hr/>
+        </div>
       </Router>
     );
   }
