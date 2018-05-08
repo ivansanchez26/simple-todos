@@ -10,7 +10,7 @@
         </div>
         <div id="collapse1" class="panel-collapse collapse">
           <div class="panel-body">
-            <!--Form content-->
+            <!--FORM CONTENT-->
             <form id="formularioSubida">
               <!--Title-->
               <div class="form-group">
@@ -43,20 +43,58 @@
                 </div>
               {{/each}}
               </div>
-              <!-- <div class="form-group row">
-                    <div class="col-xs-2">
-                      <label for="ex1">col-xs-2</label>
-                      <input class="form-control" id="ex1" type="text">
-                    </div>
-                    <div class="col-xs-3">
-                      <label for="ex2">col-xs-3</label>
-                      <input class="form-control" id="ex2" type="text">
-                    </div>
-                    <div class="col-xs-4">
-                      <label for="ex3">col-xs-4</label>
-                      <input class="form-control" id="ex3" type="text">
-                    </div>
-                  </div> -->
+              
+              <!--Image upload-->
+              <div class="form-group row">
+                <div class="col-sm-3">
+
+              {{#if imageUpload}}
+                <ul>
+                  <span id="progress">{{imageUpload.progress}}%</span>
+                </ul>
+              {{else}}
+                <label class="btn btn-default btn-file">
+                  Upload Image<input id="imageInput" type="file" hidden/>
+                </label>
+              {{/if}}
+                </div>
+                <div class="col-sm-3">
+                  <!--Show preview of image to Upload-->
+                  {{#with imageUploaded}}
+                    {{> ShowImage }}
+                  {{/with}}
+                </div>
+              </div>
+              <p><small>Upload your image in <code>png</code>, <code>jpg</code> or <code>jpeg</code> format, with size less or equal to 10MB</small></p>
+
+              
+
+
+              <!--File upload-->
+              {{#with currentUpload}}
+                Uploading <b>{{file.name}}</b>: 
+                <span id="progress">{{progress.get}}%</span>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="{{progress.get}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progress.get}}%">
+                    <span class="sr-only">{{progress.get}}% Complete</span>
+                  </div>
+                </div>
+              {{else}}
+                <label class="btn btn-default btn-file">
+                  Upload File<input id="fileInput" type="file" hidden/>
+                </label>
+                <p><small>Upload file in <code>zip</code> or <code>rar</code> format, with size less or equal to 100MB</small></p>
+              {{/with}}
+
+              <!--Input submit-->
+              <label class="btn btn-default btn-file">
+                Add new Song<input id="submitInput" type="submit" hidden/>
+              </label>
+
+              {{#let as = fileText}}
+                <p>{{as}}</p>
+              {{/let}}
+
             </form>
           </div>
         </div>

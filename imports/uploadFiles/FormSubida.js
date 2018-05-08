@@ -36,6 +36,7 @@ Template.uploadForm.onCreated(function () {
   const instance = Template.instance();
   instance.state.set('difficultyAmount',1);
   instance.state.set('myImageId',undefined);
+  instance.state.set('fileText',"text");
 
 
 });
@@ -58,7 +59,11 @@ Template.uploadForm.helpers({
   imageUploaded: function(){
     const instance = Template.instance();
     var idImagen = instance.state.get('myImageId');
-    return SongImages.find({_id : idImagen});
+    return SongImages.findOne({_id : idImagen});
+  },
+  fileText: function(){
+    const instance = Template.instance();
+    return instance.state.get('fileText');
   }
 
 });
@@ -72,6 +77,7 @@ Template.uploadForm.events({
       // there was multiple files selected
       var file = e.currentTarget.files[0];
       myFile = file;
+      template.state.set('fileText',file.name);
     }
 
 
