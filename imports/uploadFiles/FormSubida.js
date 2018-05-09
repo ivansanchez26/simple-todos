@@ -36,7 +36,7 @@ Template.uploadForm.onCreated(function () {
   const instance = Template.instance();
   instance.state.set('difficultyAmount',1);
   instance.state.set('myImageId',undefined);
-  instance.state.set('fileText',"text");
+  instance.state.set('fileText',"");
 
 
 });

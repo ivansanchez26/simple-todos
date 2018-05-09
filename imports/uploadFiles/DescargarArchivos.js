@@ -48,6 +48,12 @@ Template.uploadedFiles.helpers({
   buscarCancion: function(idArchivoCancion){
     return Songs.findOne({fileId : idArchivoCancion});
   },
+  multipleDe3: function(numero){
+    if ((numero+1) % 3 ==0)
+      return true;
+    else
+    return false;
+  }
   
   
   
@@ -56,9 +62,28 @@ Template.uploadedFiles.helpers({
 Template.Song.helpers({
   buscarArchivo: function(idArchivo){
     return SongFiles.findOne({_id: idArchivo});
-  },buscarImagenArchivo: function(idImagenArchivo){
+  },
+  buscarImagenArchivo: function(idImagenArchivo){
     var asdf = SongImages.findOne({_id: idImagenArchivo});
     return SongImages.findOne({_id: idImagenArchivo});
+  },
+  biggerThan15: function(number){
+    if(number>=15)
+      return true;
+    else
+      return false;
+  },
+  biggerThan10: function(number){
+    if(number>=10)
+      return true;
+    else
+      return false;
+  },
+  biggerThan5: function(number){
+    if(number>=5)
+      return true;
+    else
+      return false;
   }
 
 
