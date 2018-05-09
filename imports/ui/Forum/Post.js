@@ -27,6 +27,25 @@ export default class Post extends Component {
     Meteor.call('posts.setPinned', this.props.post._id, !this.state.isToggleOn);
   }
 
+  parsePostCreationDate(date){
+    year = date.getFullYear();
+    month = date.getMonth()+1;
+    dt = date.getDate();
+
+    hour = date.getHours();
+    minute = date.getMinutes();
+    seconds = date.getSeconds();
+
+    if (dt < 10) {
+      dt = '0' + dt;
+    }
+    if (month < 10) {
+      month = '0' + month;
+    }
+
+    return(dt +'/' + month + '/'+ year + ', ' + hour + ':' + minute + ':' + seconds);
+  }
+
   render() {
     return (
       <Router>
@@ -38,7 +57,8 @@ export default class Post extends Component {
             </Button>
             </Col>
             <Col xs={9}> 
-            <Link to={"/forum/post/"+this.props.post._id}>{this.props.post.title}</Link>
+            <Link to={"/forum/post/"+this.props.post._id}>{this.props.post.title}</Link><br/>
+            <p>Submitted at <strong>{this.parsePostCreationDate(this.props.post.createdAt)}</strong> by {this.props.post.username}</p>
             </Col>
             <Col xs={2}>
             {nComments}
