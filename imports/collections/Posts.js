@@ -28,7 +28,7 @@ Meteor.methods({
         createdAt: new Date(),
         owner: this.userId,
         pinned: false,
-        username: Meteor.users.findOne(this.userId).username,
+        username: Meteor.users.findOne(this.userId).username
       });
     },
   
@@ -50,6 +50,7 @@ Meteor.methods({
         content : content,
         createdAt: new Date(),
         owner: this.userId,
+        username: Meteor.users.findOne(this.userId).username
       }
 
       Posts.update(postId, { $set: { comment: comment } });

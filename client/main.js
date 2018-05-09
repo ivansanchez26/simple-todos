@@ -10,10 +10,15 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import SongFiles from '/lib/songFiles.collection.js';
 import './main.html';
+import { BrowserRouter } from 'react-router-dom';
 
  
 Meteor.startup(() => {
-  render(<App />, document.getElementById('render-target'));
+  render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+    , document.getElementById('render-target'));
 });
 
 
