@@ -1,92 +1,201 @@
 
   <template name="uploadForm">
-    
-    <form class="formularioSubida">
-      <input id="nameInput" name="nameInput" type="text" placeholder="Name" required/><br>
-      <input id="descriptionInput" name ="descriptionInput" type="text" placeholder="Description" required/><br>
-      
-      <select name="difficultyNumbers" id="difficultyNumbers"><br>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-      </select>
-      {{#each number in difficultyList}}
-        <br><input id="difficulty{{number}}" name ="difficulty{{number}}" type="number" placeholder="Difficulty{{number}}" min="1" max="20" required/>
-      {{/each}}
-      {{#with currentUpload}}
-        Uploading <b>{{file.name}}</b>: 
-        <span id="progress">{{progress.get}}%</span>
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" aria-valuenow="{{progress.get}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progress.get}}%">
-            <span class="sr-only">{{progress.get}}% Complete</span>
+    <!--Collapsable panel-->
+    <div class="panel-group">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" href="#collapse1"><h3>Insert new Song <i class="glyphicon glyphicon-plus-sign"></i></h3> </a>
+          </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+          <div class="panel-body">
+            <!--FORM CONTENT-->
+            <form id="formularioSubida">
+              <!--Title-->
+              <div class="form-group">
+                <label for="Title">Title:</label>
+                <input type="text" class="form-control" id="nameInput">
+              </div>
+              <!--Description-->
+              <div class="form-group">
+                <label for="Description">Description:</label>
+                <input type="text" class="form-control" id="descriptionInput">
+              </div>
+              <!--Select number of difficulties-->
+              <label for="difficultyNumbers">Select number of difficulties (select one):</label>
+              <div class="form-group row">
+                <div class="col-sm-3">
+              <select name="difficultyNumbers" class="form-control" id="difficultyNumbers">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+                </div>
+              </div>
+              <!--Show input for each difficulty-->
+              <div class="form-group row">
+              {{#each number in difficultyList}}
+                <div class="col-sm-3">
+                  <label for="difficulty{{number}}">Difficulty {{number}}:</label>
+                  <input type="number" class="form-control" id="difficulty{{number}}" name ="difficulty{{number}}" min="1" max="20" required>
+                </div>
+              {{/each}}
+              </div>
+              
+              <!--Image upload-->
+              <div class="form-group row">
+                <div class="col-sm-3">
+
+              {{#if imageUpload}}
+                <ul>
+                  <span id="progress">{{imageUpload.progress}}%</span>
+                </ul>
+              {{else}}
+                <label class="btn btn-default btn-file">
+                  Upload Image<input id="imageInput" type="file" hidden/>
+                </label>
+              {{/if}}
+                </div>
+                <div class="col-sm-3">
+                  <!--Show preview of image to Upload-->
+                  {{#with imageUploaded}}
+                    {{> ShowImageForm }}
+                  {{/with}}
+                </div>
+              </div>
+              <p><small>Upload your image in <code>png</code>, <code>jpg</code> or <code>jpeg</code> format, with size less or equal to 10MB</small></p>
+
+              
+
+
+              <!--File upload-->
+              {{#with currentUpload}}
+                Uploading <b>{{file.name}}</b>: 
+                <span id="progress">{{progress.get}}%</span>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="{{progress.get}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progress.get}}%">
+                    <span class="sr-only">{{progress.get}}% Complete</span>
+                  </div>
+                </div>
+              {{else}}
+                <label class="btn btn-default btn-file">
+                  Upload File<input id="fileInput" type="file" hidden/>
+                </label>
+                <p><small>Upload file in <code>zip</code> or <code>rar</code> format, with size less or equal to 100MB</small></p>
+                {{#let as = fileText}}
+                <p>{{as}}</p>
+              {{/let}}
+              {{/with}}
+
+              <!--Input submit-->
+              <label class="btn btn-default btn-file">
+                Add new Song<input id="submitInput" type="submit" hidden/>
+              </label>
+
+              
+
+            </form>
           </div>
         </div>
-      {{else}}
-        <input id="fileInput" type="file" />
-        <p><small>Upload file in <code>zip</code> or <code>rar</code> format, with size less or equal to 100MB</small></p>
-      {{/with}}
-      {{#if imageUpload}}
-        <ul>
-          <span id="progress">{{imageUpload.progress}}%</span>
-        </ul>
-      {{else}}
-        <p>Insert Image</p>
-        <input id="imageInput" type="file" />
-      {{/if}}
-
-      {{#with imageUploaded}}
-        {{> ShowImage}}
-      
-      {{/with}}
-
-      <input id="submitInput" type="submit"/>
-    </form>
+      </div>
+    </div>
     
   </template>
   
 
   <template name="uploadedFiles">
-    <!-- example to show iteration of songs-->
-    <!--{{#each uploadedSongs}}
-      <p>{{> Song}}</p>
-    {{/each}}-->
-    {{#if uploadedFiles.count}}
-      <ul>
-        <!--Por cada archivo subido-->
-        {{#each file in uploadedFiles.each}}
-          <!--Busca los datos de la cancion en la coleccion de Mongo buscando por el id del archivo-->
-          {{#with buscarCancion file._id}}
-            <p>{{> Song}}</p>
-          {{/with}}
-            <li>
-              <a href="{{file.link}}?download=true" download="{{file.name}}">{{file.name}}</a>
-            </li>
-            <!--<img src="{{file.link}}" alt="hola" class="img-rounded" width="200"/>-->
-            <p>---------------------------------------------------------------------------------</p>
-        {{/each}}
-      </ul>
-      
-    {{else}}
-      <div>No files uploaded, yet</div>
-    {{/if}}
-    
+      <!--Search-->
+      <div class="well">
+        <input type="text" class="form-control" id="searchSongInput" placeholder="Search song by name..."><br>
+        <div class="row">
+          <div class="col-md-1">  
+            <Strong>Difficulties</Strong> 
+
+          </div>
+          <div class="col-md-2">
+            From: <input type="number" class="form-control" id="searchDifficultyFrom" name ="searchDifficultyFrom" min="1" max="20">
+          </div>
+          <div class="col-md-2">
+            To: <input type="number" class="form-control" id="searchDifficultyTo" name ="searchDifficultyTo" min="1" max="20" required>
+          </div>
+        </div>
+        <button id="searchButton" type="button" class="btn btn-default">Search</button>
+      </div>
+
+    <!-- iterate through songs-->
+      <div class="panel-body text-center">  
+        {{#each uploadedSongs}}
+          {{#if multipleDe3 @index}}
+            <div class="row">
+              {{> Song}}
+            </div>
+          {{else}}
+            {{> Song}}
+          {{/if}}
+          {{/each}}
+      </div>
+      <button id="loadMore" type="button" class="btn-primary">Load more...</button>
+        
+        
   </template>
 
   <!--Single Song attributes to show, collected from Mongo Collection-->
   <template name="Song">
-    <li><strong>Name:</strong> {{name}} </li>
-    <strong>Description:</strong> {{description}}<br>
-    <strong>FileName: </strong>{{fileName}}<br>
-    <strong>Size: </strong>{{size}} MB<br>
-    <strong>Uploaded by: </strong>{{username}}<br>
-    {{#each dif in difficulties}}
-      <p>{{dif}}</p>
-    {{/each}}
+
+      <div class="col-md-4">
+          <div class="thumbnail">
+              {{#let idImagen=imageId }}
+                {{#with buscarImagenArchivo idImagen}}
+                  {{> ShowImageInGrid}}
+                {{/with}}
+              {{/let}}
+              <div class="caption">
+                  <h4 class=""><strong>{{name}}</strong></h4>
+
+                  <p class="">{{description}}</p>
+                  <p class=""><small><strong>Size: </strong>{{size}} MB </small></p>
+                  <p class=""><small><strong>Uploaded by: </strong>{{username}}</small><br></p>
+                  {{#each dif in difficulties}}
+                    {{#if biggerThan15 dif}}
+                    <span class="label label-danger">{{dif}}</span>
+                    {{else}}
+                      {{#if biggerThan10 dif}}
+                      <span class="label label-warning">{{dif}}</span>
+                      {{else}}
+                        {{#if biggerThan5 dif}}
+                          <span class="label label-primary">{{dif}}</span>
+                          {{else}}
+                          <span class="label label-info">{{dif}}</span>
+                        {{/if}}
+                      {{/if}}
+                    {{/if}}
+                  {{/each}}
+                  <br>
+                  <br>
+
+                  {{#let idArchivo=fileId }}
+                    {{#with buscarArchivo idArchivo}}
+                      <p>{{> ShowFileDownload}}</p>
+                    {{/with}}
+                  {{/let}}
+              </div>
+          </div>
+      </div> 
+      
+
   </template>
 
 
-  <template name="ShowImage">
+  <template name="ShowImageForm">
     <img src="{{link}}" alt="hola" class="img-rounded" width="200"/>
   </template>
+  <template name="ShowFileDownload">
+    <a href="{{link}}?download=true" class="btn btn-primary btn-md" download="{{name}}">Download <i class="glyphicon glyphicon-download-alt"></i></a>
+  </template>
+  <template name="ShowImageInGrid">
+    <img src="{{link}}" alt="hola" class="img-thumbnail" />
+  </template>
+
 

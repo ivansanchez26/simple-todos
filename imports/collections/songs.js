@@ -8,12 +8,12 @@ if (Meteor.isServer) {
     // This code only runs on the server
     // Only publish tasks that are public or belong to the current user
     Meteor.publish('songs', function songsPublication() {
-        return Songs.find({});
+        return Songs.find({},{sort: {createdAt:-1}});
     });
   }
 
 Meteor.methods({
-    'songs.insert'(name,description,fileName,fileId,size,difficulties) {
+    'songs.insert'(name,description,fileName,fileId,size,difficulties,imageId) {
     
     
       // Make sure the user is logged in before inserting a task
@@ -28,16 +28,21 @@ Meteor.methods({
         fileId,
         size,
         difficulties,
+        imageId,
         createdAt: new Date(),
         owner: this.userId,
         username: Meteor.users.findOne(this.userId).username,
       });
     },
-    'songs.remove'(songId) { 
+    'songs.remove'(songId) {
+   
       Songs.remove(songId);
     },
 
     'songs.find'(){
+
       return Songs.find({});
-    }  
+    }
+   
+  
   });

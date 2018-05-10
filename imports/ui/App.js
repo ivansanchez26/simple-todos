@@ -40,7 +40,7 @@ export class App extends Component {
 export default withTracker(() => {
   Meteor.subscribe('songs');
   return {
-    songs: Songs.find({}).fetch(),
+    songs: Songs.find({},{ sort: { createdAt: -1 } }).fetch(),
     currentUser: Meteor.user(),
   };
 })(App);
