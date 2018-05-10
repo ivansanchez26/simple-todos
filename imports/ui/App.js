@@ -49,42 +49,43 @@ class App extends Component {
   render() {
     return (
       <div>
-        
-      <Router>
-                <div className="container">
-                <br />
-                <Navbar inverse>
-                    <Navbar.Header>
-                        <Navbar.Brand componentClass="span">
-                            <Link to="/" id="logo">Logo</Link>
-                        </Navbar.Brand>
-                    </Navbar.Header>
-                    <Nav>
-                        <NavItem componentClass="span">
-                            <Link to="/">Home</Link>
-                        </NavItem>
-                        <NavItem componentClass="span">
-                            <Link to="/downloads">Downloads</Link>
-                        </NavItem>
-                        <NavItem componentClass="span">
-                            <Link to="/howto">How to play</Link>
-                        </NavItem>
-                        <NavItem componentClass="span">
-                            <Link to="/forum">Forum</Link>
-                        </NavItem>
-                        <NavItem>
-                            <AccountsUIWrapper/>
-                        </NavItem>
-                    </Nav>
-                </Navbar>
+        <Router>
+          <div className="container">
+          <br />
+          <Navbar inverse>
+              <Navbar.Header>
+                  <Navbar.Brand componentClass="span">
+                      <Link to="/" id="logo">Logo</Link>
+                  </Navbar.Brand>
+              </Navbar.Header>
+              <Nav>
+                  <NavItem componentClass="span">
+                      <Link to="/">Home</Link>
+                  </NavItem>
+                  <NavItem componentClass="span">
+                      <Link to="/downloads">Downloads</Link>
+                  </NavItem>
+                  <NavItem componentClass="span">
+                      <Link to="/howto">How to play</Link>
+                  </NavItem>
+                  <NavItem componentClass="span">
+                      <Link to="/forum">Forum</Link>
+                  </NavItem>
+                  <NavItem>
+                      <AccountsUIWrapper/>
+                  </NavItem>
+              </Nav>
+          </Navbar>
 
-                <Route exact path="/" component={Home} />
-                <Route path="/downloads" component={Downloads} />
-                <Route path="/howto" component={Howto} />
-                <Route path="/forum" component={Forum} />
+          <Route exact path="/" component={Home} />
+          <Route path="/downloads" component={Downloads} >
+  
+          </Route>
+          <Route path="/howto" component={Howto} />
+          <Route path="/forum" component={Forum} />
 
-                </div>
-            </Router>
+          </div>
+        </Router>
             
       </div>
     );
