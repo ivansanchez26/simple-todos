@@ -5,7 +5,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
-            <a data-toggle="collapse" href="#collapse1">Insert new Song <i class="glyphicon glyphicon-plus-sign"></i></a>
+            <a data-toggle="collapse" href="#collapse1"><h3>Insert new Song <i class="glyphicon glyphicon-plus-sign"></i></h3> </a>
           </h4>
         </div>
         <div id="collapse1" class="panel-collapse collapse">
@@ -106,11 +106,22 @@
   
 
   <template name="uploadedFiles">
-
+      <!--Search-->
       <div class="well">
-        <input type="text" class="form-control" id="searchSongInput" placeholder="Search song..."><br>
-        <button id="searchButton" type="button" class="btn btn-default">Search</button>
+        <input type="text" class="form-control" id="searchSongInput" placeholder="Search song by name..."><br>
+        <div class="row">
+          <div class="col-md-1">  
+            <Strong>Difficulties</Strong> 
 
+          </div>
+          <div class="col-md-2">
+            From: <input type="number" class="form-control" id="searchDifficultyFrom" name ="searchDifficultyFrom" min="1" max="20">
+          </div>
+          <div class="col-md-2">
+            To: <input type="number" class="form-control" id="searchDifficultyTo" name ="searchDifficultyTo" min="1" max="20" required>
+          </div>
+        </div>
+        <button id="searchButton" type="button" class="btn btn-default">Search</button>
       </div>
 
     <!-- iterate through songs-->

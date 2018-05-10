@@ -136,15 +136,19 @@ Template.uploadForm.events({
       switch(i){
         case 0:
           toPush = target.difficulty1.value;
+          toPush = parseInt(toPush);
           break;
         case 1:
           toPush = target.difficulty2.value;
+          toPush = parseInt(toPush);
           break;
         case 2:
           toPush = target.difficulty3.value;
+          toPush = parseInt(toPush);
           break;
         case 3:
           toPush = target.difficulty4.value;
+          toPush = parseInt(toPush);
           break;
       }
 
@@ -172,6 +176,9 @@ Template.uploadForm.events({
           console.log(fileObj);
           //File has been uploaded so we insert our Song to the Mongo collection
           Meteor.call('songs.insert',name,description,fileObj.name,fileObj._id,(fileObj.size/1024/1024).toFixed(2),arrayDifficulties,template.state.get('myImageId'));
+          //Reload the page so the form gets resetted and the songs are shown correctly 
+          window.location.reload(false); 
+
         }
         template.currentUpload.set(false);
       });

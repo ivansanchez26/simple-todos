@@ -43,6 +43,8 @@ Template.uploadedFiles.onCreated(function () {
   const instance = Template.instance();
   instance.state.set('songsLimit',6);
   instance.state.set('songSearchWord','');
+  instance.state.set('searchDifficultyFrom',0);
+  instance.state.set('searchDifficultyTo',21);
   Meteor.subscribe('songs');
 
 });
@@ -54,7 +56,7 @@ Template.uploadedFiles.helpers({
   },
   uploadedSongs: function () {
     const instance = Template.instance();
-    return Songs.find({name: {$regex: instance.state.get('songSearchWord'), $options: 'i'} },{limit: instance.state.get('songsLimit')});
+    return Songs.find({name: {$regex: instance.state.get('songSearchWord'), $options: 'i'},difficulties:{$gte:parseInt(instance.state.get('searchDifficultyFrom')),$lte:parseInt(instance.state.get('searchDifficultyTo'))} },{limit: instance.state.get('songsLimit')});
   },
   equals: function(a, b) {
     return a == b;
@@ -83,10 +85,24 @@ Template.uploadedFiles.events({
     template.state.set('songsLimit',6);
 
   },
+  'change #searchDifficultyFrom': function (e, template) {
+    var number = e.target.value.toString();
+    if(number==''){
+      number=0;
+      
+    }
+    console.log(number);
+    template.state.set('searchDifficultyFrom',number);
+  },
+  'change #searchDifficultyTo': function (e, template) {
+    var number = e.target.value.toString();
+    if(number=='')
+      number=21;
+    template.state.set('searchDifficultyTo',number);
+
+  },
   'click #searchButton'(event,template) {
-    var text = e.target.searchSongInput.value;
-    template.state.set('songSearchWord',text);
-    template.state.set('songsLimit',6);
+
   },
 })
 
