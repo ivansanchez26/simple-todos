@@ -102,57 +102,19 @@
       </div>
     </div>
     
-    <!--<form class="formularioSubida" >
-      <input id="nameInput" name="nameInput" type="text" placeholder="Name" required/><br>
-      <input id="descriptionInput" name ="descriptionInput" type="text" placeholder="Description" required/><br>
-      
-      <select name="difficultyNumbers" id="difficultyNumbers"><br>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-      </select>
-      {{#each number in difficultyList}}
-        <br><input id="difficulty{{number}}" name ="difficulty{{number}}" type="number" placeholder="Difficulty{{number}}" min="1" max="20" required/>
-      {{/each}}
-      {{#with currentUpload}}
-        Uploading <b>{{file.name}}</b>: 
-        <span id="progress">{{progress.get}}%</span>
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" aria-valuenow="{{progress.get}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progress.get}}%">
-            <span class="sr-only">{{progress.get}}% Complete</span>
-          </div>
-        </div>
-      {{else}}
-        <input id="fileInput" type="file" />
-        <p><small>Upload file in <code>zip</code> or <code>rar</code> format, with size less or equal to 100MB</small></p>
-      {{/with}}
-      {{#if imageUpload}}
-        <ul>
-          <span id="progress">{{imageUpload.progress}}%</span>
-        </ul>
-      {{else}}
-        <p>Insert Image</p>
-        <input id="imageInput" type="file" />
-      {{/if}}
-
-      {{#each file in imageUploaded.each}}-->
-        <!--Busca los datos de la cancion en la coleccion de Mongo buscando por el id del archivo-->
-        
-         <!-- 
-          <img src="{{file.link}}" alt="hola" class="img-rounded" width="200"/>
-          <p>/////////////////////////////////////////////////////////////////</p>
-      {{/each}}
-
-      <input id="submitInput" type="submit"/>
-    </form>
-  -->
   </template>
   
 
   <template name="uploadedFiles">
-    <!-- example to show iteration of songs-->
-      <div class="panel-body">  
+
+      <div class="well">
+        <input type="text" class="form-control" id="searchSongInput" placeholder="Search song..."><br>
+        <button id="searchButton" type="button" class="btn btn-default">Search</button>
+
+      </div>
+
+    <!-- iterate through songs-->
+      <div class="panel-body text-center">  
         {{#each uploadedSongs}}
           {{#if multipleDe3 @index}}
             <div class="row">
@@ -163,6 +125,9 @@
           {{/if}}
           {{/each}}
       </div>
+      <button id="loadMore" type="button" class="btn-primary">Load more...</button>
+
+
 
         
         
@@ -179,10 +144,9 @@
                 {{/with}}
               {{/let}}
               <div class="caption">
-                  <h4 class=""><strong>Name:</strong> {{name}}</h4>
+                  <h4 class=""><strong>{{name}}</strong></h4>
 
-                  <p class=""><strong>Description:</strong> {{description}}</p>
-                  <!--<p class=""><strong>FileName: </strong>{{fileName}}</p>-->
+                  <p class="">{{description}}</p>
                   <p class=""><small><strong>Size: </strong>{{size}} MB </small></p>
                   <p class=""><small><strong>Uploaded by: </strong>{{username}}</small><br></p>
                   {{#each dif in difficulties}}
@@ -202,53 +166,17 @@
                   {{/each}}
                   <br>
                   <br>
-                  <!--<a href="#" class="btn btn-default btn-xs pull-right" role="button">
-                  <i class="glyphicon glyphicon-edit"></i></a> -->
+
                   {{#let idArchivo=fileId }}
                     {{#with buscarArchivo idArchivo}}
                       <p>{{> ShowFileDownload}}</p>
                     {{/with}}
                   {{/let}}
-                  
-
               </div>
           </div>
       </div> 
       
 
-
-    <!--Image to show-->
-
-    <!--
-    {{#let idImagen=imageId }}
-      {{#with buscarImagenArchivo idImagen}}
-        {{> ShowImageinGrid}}
-      {{/with}}
-    {{/let}}
-    -->
-
-    <!--Info about song-->
-
-    <!--
-      <li> <strong>Name:</strong> {{name}}</li>
-    
-    <strong>Description:</strong> {{description}}<br>
-    <strong>FileName: </strong>{{fileName}}<br>
-    <strong>Size: </strong>{{size}} MB<br>
-    <strong>Uploaded by: </strong>{{username}}<br>
-    {{#each dif in difficulties}}
-      <p>{{dif}}</p>
-    {{/each}}
-    -->
-
-    <!--Link to download-->
-    <!--
-      {{#let idArchivo=fileId }}
-      {{#with buscarArchivo idArchivo}}
-        <p>{{> ShowFileDownload}}</p>
-      {{/with}}
-    {{/let}}
-    -->
   </template>
 
 
@@ -256,7 +184,7 @@
     <img src="{{link}}" alt="hola" class="img-rounded" width="200"/>
   </template>
   <template name="ShowFileDownload">
-    <a href="{{link}}?download=true" class="btn btn-default btn-md" download="{{name}}">Download <i class="glyphicon glyphicon-download-alt"></i></a>
+    <a href="{{link}}?download=true" class="btn btn-primary btn-md" download="{{name}}">Download <i class="glyphicon glyphicon-download-alt"></i></a>
   </template>
   <template name="ShowImageInGrid">
     <img src="{{link}}" alt="hola" class="img-thumbnail" />

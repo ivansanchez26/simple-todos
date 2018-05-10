@@ -103,8 +103,12 @@ Template.uploadForm.events({
       uploader.on('uploaded', (error, fileObj) => {
         if (!error) {
           window.alert('File "' + fileObj.name + '" successfully uploaded');
-          template.state.set('myImageId', fileObj._id);
+
           console.log(template.state.get('myImageId'));
+          
+
+          template.state.set('myImageId', fileObj._id);
+          
         }
       });
 

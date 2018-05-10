@@ -95,7 +95,7 @@ export default withTracker(() => {
   Meteor.subscribe('songs');
   Meteor.subscribe('posts');
   return {
-    songs: Songs.find({}).fetch(),
+    songs: Songs.find({},{ sort: { createdAt: -1 } }).fetch(),
     currentUser: Meteor.user(),
   };
 })(App);

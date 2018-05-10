@@ -1,5 +1,9 @@
 /* CSS declarations go here */
 
+body {
+    background-image: url("/images/fondo.jpg");
+}
+
 .navbar-nav span[role=button] {
     padding: 15px;
     display: inline-block;

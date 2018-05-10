@@ -8,6 +8,10 @@ import SongFiles from '/lib/songFiles.collection.js';
 import SongImages from '/lib/songImages.collection.js';
 import { Songs } from '/imports/collections/songs.js';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { ReactiveDict } from 'meteor/reactive-dict';
+import { Meteor } from 'meteor/meteor';
+
+
 
 import { withTracker } from 'meteor/react-meteor-data';
 
@@ -34,13 +38,23 @@ export default class DescargarArchivos extends Component {
 }
 
 
+Template.uploadedFiles.onCreated(function () {
+  this.state = new ReactiveDict();
+  const instance = Template.instance();
+  instance.state.set('songsLimit',6);
+  instance.state.set('songSearchWord','');
+  Meteor.subscribe('songs');
+
+});
+
 
 Template.uploadedFiles.helpers({
   uploadedFiles: function () {
     return SongFiles.find();
   },
   uploadedSongs: function () {
-    return Songs.find({});
+    const instance = Template.instance();
+    return Songs.find({name: {$regex: instance.state.get('songSearchWord'), $options: 'i'} },{limit: instance.state.get('songsLimit')});
   },
   equals: function(a, b) {
     return a == b;
@@ -58,6 +72,24 @@ Template.uploadedFiles.helpers({
   
   
 });
+
+Template.uploadedFiles.events({
+  'click #loadMore'(event,template) {
+    template.state.set('songsLimit',template.state.get('songsLimit')+6);
+  },
+  'change #searchSongInput': function (e, template) {
+    var text = e.target.value;
+    template.state.set('songSearchWord',text);
+    template.state.set('songsLimit',6);
+
+  },
+  'click #searchButton'(event,template) {
+    var text = e.target.searchSongInput.value;
+    template.state.set('songSearchWord',text);
+    template.state.set('songsLimit',6);
+  },
+})
+
 
 Template.Song.helpers({
   buscarArchivo: function(idArchivo){
@@ -88,5 +120,6 @@ Template.Song.helpers({
 
 
 })
+
 
 
