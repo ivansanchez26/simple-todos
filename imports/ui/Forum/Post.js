@@ -42,13 +42,21 @@ export default class Post extends Component {
     if (month < 10) {
       month = '0' + month;
     }
+    if (hour < 10) {
+      hour = '0' + hour;
+    }
+    if (minute < 10) {
+      minute = '0' + minute;
+    }
+    if (seconds < 10) {
+      seconds = '0' + seconds;
+    }
 
     return(dt +'/' + month + '/'+ year + ', ' + hour + ':' + minute + ':' + seconds);
   }
 
   render() {
     return (
-      <Router>
         <div>
           <Row>
             <Col xs={1}>
@@ -63,11 +71,9 @@ export default class Post extends Component {
             <Col xs={2}>
               {nComments}
             </Col>
-
           </Row>
           <hr/>
         </div>
-      </Router>
     );
   }
 }

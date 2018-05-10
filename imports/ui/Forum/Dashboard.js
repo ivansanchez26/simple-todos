@@ -6,12 +6,11 @@ import PostList from '/imports/ui/Forum/PostList';
 import { Panel } from 'react-bootstrap';
 
 export default class Dashboard extends Component {
-
   render() {
     return (
         <Panel>
           <Panel.Body>
-            {Meteor.user() ? <NewPost/>:  ''}          
+            {Meteor.userId() ? <NewPost/>:  ''}
             <br />
             <PostList/>  
           </Panel.Body>

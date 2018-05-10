@@ -11,12 +11,11 @@ import Switch from 'react-router-dom/Switch';
 import Route from 'react-router-dom/Route';
 
 export default class Forum extends Component {
-
   render() {
     return (
       <Switch>
         <Route exact path='/forum' component={Dashboard}/>
-        <Route path='/dashboard/post' component={PostPage}/>
+        <Route path='/forum/:_id' component={PostPage}/>
       </Switch>   
     );
   }

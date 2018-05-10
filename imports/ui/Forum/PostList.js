@@ -29,6 +29,7 @@ class PostList extends Component {
   }
 
 export default withTracker(() => {
+  Meteor.subscribe('posts');
   return {
     posts: Posts.find({},{sort:{pinned: -1,createdAt:-1}}).fetch(),
   };

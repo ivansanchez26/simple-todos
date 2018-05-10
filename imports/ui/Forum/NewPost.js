@@ -52,6 +52,7 @@ export default class NewPost extends Component {
             </FormGroup>
         );
     }
+    
     return (
         <div>    
             <Button bsStyle="success" onClick={this.handleShow}>

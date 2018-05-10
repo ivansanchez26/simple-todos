@@ -33,15 +33,11 @@ Meteor.methods({
         username: Meteor.users.findOne(this.userId).username,
       });
     },
-    'songs.remove'(songId) {
-   
+    'songs.remove'(songId) { 
       Songs.remove(songId);
     },
 
     'songs.find'(){
-
       return Songs.find({});
-    }
-   
-  
+    }  
   });

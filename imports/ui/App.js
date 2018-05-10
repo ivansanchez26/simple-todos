@@ -25,15 +25,13 @@ import Header from './MainComponents/Header';
 import Main from './MainComponents/Main';
  
 // App component - represents the whole app
-class App extends Component {
-  constructor(props){
-    super(props);
-  }
+export class App extends Component {
   render() {
     return (
-      <div>
-        <Header/>
-        <Main/>
+      <div className="container">
+      <br/>
+        <Header />
+        <Main />
       </div>
     );
   }
@@ -41,7 +39,6 @@ class App extends Component {
 
 export default withTracker(() => {
   Meteor.subscribe('songs');
-  Meteor.subscribe('posts');
   return {
     songs: Songs.find({}).fetch(),
     currentUser: Meteor.user(),

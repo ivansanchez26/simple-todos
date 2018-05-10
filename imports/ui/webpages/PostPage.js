@@ -4,7 +4,7 @@ import { Panel, ListGroupItem, ListGroup, Table, Grid, Row, Col, Media } from 'r
 import { withTracker } from 'meteor/react-meteor-data'; 
 import { Posts } from '../../collections/Posts';
 
-class PostList extends Component {
+export default class PostPage extends Component {
   constructor(props){
     super(props);
   }

@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 import '../imports/startup/accounts-config.js';
 
-import App from '../imports/ui/App.js';
+import {App} from '../imports/ui/App.js';
 
 
 import { Template } from 'meteor/templating';
@@ -18,12 +18,5 @@ Meteor.startup(() => {
   <BrowserRouter>
     <App />
   </BrowserRouter>
-    , document.getElementById('render-target'));
+  ,document.getElementById('render-target'));
 });
-
-
-
-
-
-
-
