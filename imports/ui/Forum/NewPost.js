@@ -21,6 +21,7 @@ export default class NewPost extends Component {
 
     handleSubmit(event){
       event.preventDefault();
+      this.setState({ show: false });
       // Find the text field via the React ref
       const title = ReactDOM.findDOMNode(this.inputTitle).value.trim();  
       const content = ReactDOM.findDOMNode(this.inputContent).value.trim(); 
@@ -51,6 +52,7 @@ export default class NewPost extends Component {
             </FormGroup>
         );
     }
+    
     return (
         <div>    
             <Button bsStyle="success" onClick={this.handleShow}>

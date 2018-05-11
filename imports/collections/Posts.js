@@ -5,15 +5,10 @@ import { check } from 'meteor/check';
 export const Posts = new Mongo.Collection('posts');
 
 if (Meteor.isServer) {
-
     // This code only runs on the server
-  
     Meteor.publish('posts', function tasksPublication() {
-  
       return Posts.find();
-  
     });
-  
   }
 
 
@@ -33,7 +28,7 @@ Meteor.methods({
         createdAt: new Date(),
         owner: this.userId,
         pinned: false,
-        username: Meteor.users.findOne(this.userId).username,
+        username: Meteor.users.findOne(this.userId).username
       });
     },
   
@@ -42,9 +37,22 @@ Meteor.methods({
       Posts.remove(postId);
     },
   
-    'posts.setChecked'(postId, setChecked) {
+    'posts.setPinned'(postId, setChecked) {
       check(postId, String);
       check(setChecked, Boolean);
       Posts.update(postId, { $set: { pinned: setChecked } });
     },
+
+    'comment.insert'(content){
+      check(content, String); 
+
+      var comment = {
+        content : content,
+        createdAt: new Date(),
+        owner: this.userId,
+        username: Meteor.users.findOne(this.userId).username
+      }
+
+      Posts.update(postId, { $set: { comment: comment } });
+    }
   });

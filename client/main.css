@@ -1,4 +1,9 @@
 /* CSS declarations go here */
+/* CSS declarations go here */
+
+body {
+    background-image: url("/images/fondo.jpg");
+}
 
 body {
     background-image: url("/images/fondo.jpg");
@@ -10,6 +15,7 @@ body {
     line-height: 20px;
 }
 
+/* Buttons for file inputs */
 .btn-file {
     position: relative;
     overflow: hidden;
