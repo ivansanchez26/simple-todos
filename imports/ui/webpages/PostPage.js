@@ -1,30 +1,58 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { Panel, ListGroupItem, ListGroup, Table, Grid, Row, Col, Media } from 'react-bootstrap';
-import Meteor from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data'; 
 import { Posts } from '../../collections/Posts';
 import PostList from '../Forum/PostList';
 
-export class PostPage extends Component {
+export default class PostPage extends Component {
+
   constructor(props){
     super(props);
   }
 
+  //https://stackoverflow.com/questions/26281323/retrieve-all-elements-in-an-array-in-mongodb
+  //https://forums.meteor.com/t/--foreach-vs-meteors-cursor-foreach-or---map-vs-meteors-cursor-map/3820
+
   getComments() {
-    return {
-      comments: Posts.find({_id: this.props.post._id},{}).fetch(),
-    };
+    var idPost = this.props.match.params.id.toString(); //MrT44pyXhPyATGjwv
+    console.log(idPost);
+    var myPosts = Posts.find(
+      {_id: idPost}
+    ).fetch();
+
+    console.log(myPosts);
+
+    var myLikes = _.chain(myPosts)
+    .pluck('comments')
+    .flatten()
+    .value();
+
+    console.log(myLikes);
+
+    return myLikes;
   }
 
-  renderPosts(commentList) {
-    return commentList.map((post) => (
-        <Media>
+  renderPosts(comments) {
+    if(comments.isArray){
+      console.log("PRUEBA");
+    }else{
+      console.log("PRUEBA2");
+    }
+
+    console.log(comments);
+    comments.forEach(function(comment){
+      return(
+      <Media>
+          {console.log(comment._id)}
+          {console.log(comment.title)}
           <Media.Left>
             <img width={64} height={64} src="/thumbnail.png" alt="thumbnail" />
           </Media.Left>
           <Media.Body>
             <Media.Heading>
-              aaa<small><i> Fecha</i></small>
+              {comment.username}<small><i>Fecha</i></small>
             </Media.Heading>
             <p>
               Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
@@ -34,18 +62,19 @@ export class PostPage extends Component {
             </p>
           </Media.Body>
         </Media>
-    ));
+      ); 
+    });
   }
 
   onEnterPress = (e) => {
     if(e.keyCode == 13 && e.shiftKey == false) {
       e.preventDefault();
-      this.myFormRef.submit();
+      const text = ReactDOM.findDOMNode(this.refs.comment).value.trim();
+      console.log('Prueba antes insert');
+      Meteor.call('comment.insert', text, this.props.match.params.id.toString());
+      ReactDOM.findDOMNode(this.refs.comment).value = '';
+      console.log('Prueba después insert');
     }
-  }
-  
-  submitComment(){
-    Meteor.call('comments.insert', );
   }
 
   render() {
@@ -59,7 +88,7 @@ export class PostPage extends Component {
           </Media.Left>
           <Media.Body>
             <Media.Heading>
-              aaaa<small><i> Fecha</i></small>
+              aaaa<small><i>Fecha</i></small>
             </Media.Heading>
             <p>
               Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
@@ -67,23 +96,18 @@ export class PostPage extends Component {
               tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
               fringilla. Donec lacinia congue felis in faucibus.
             </p>
+            {this.renderPosts(this.getComments())}
           </Media.Body>
-        </Media>
-        {this.renderPosts()}
-        <form>
-          <div class="form-group">
-            <label for="comment">Comment:</label>
-            <textarea class="form-control" rows="5" id="comment" onKeyDown={this.onEnterPress}></textarea>
+        </Media>     
+        {Meteor.userId() ? 
+          <form>
+          <div className="form-group">
+            <label htmlFor="comment">Comment:</label>
+            <textarea className="form-control" rows="5" ref="comment" id="comment" onKeyDown={this.onEnterPress}></textarea>
           </div> 
-        </form>
+        </form> :  ''}
       </Panel>
       </div>
       );
     }
   }
-
-export default withTracker(() => {
-  return {
-    posts: Posts.find({$_id: this.props.post._id}).fetch(),
-  };
-})(PostPage);

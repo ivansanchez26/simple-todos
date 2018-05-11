@@ -15,7 +15,7 @@ export default class Forum extends Component {
     return (
       <Switch>
         <Route exact path='/forum' component={Dashboard}/>
-        <Route path='/forum/:_id' component={PostPage}/>
+        <Route path='/forum/post/:id' component={PostPage}/>
       </Switch>   
     );
   }
