@@ -8,6 +8,7 @@ import Home from "../webpages/Home";
 import Downloads from "../webpages/Downloads";
 import Howto from "../webpages/Howto";
 import Forum from "../webpages/Forum";
+import LoginPage from "../webpages/LoginPage";
 
 export default class Main extends Component {
     render() {
@@ -18,6 +19,7 @@ export default class Main extends Component {
                     <Route path="/downloads" component={Downloads} />
                     <Route path="/howto" component={Howto} />
                     <Route path="/forum" component={Forum} />
+                    <Route path="/login" component={LoginPage} />
                 </Switch> 
             </main>
       );

@@ -11,6 +11,8 @@ body {
     line-height: 20px;
 }
 
+
+/* Buttons for file inputs */
 .btn-file {
     position: relative;
     overflow: hidden;
