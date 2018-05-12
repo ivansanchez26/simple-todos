@@ -192,7 +192,12 @@
     <img src="{{link}}" alt="hola" class="img-rounded" width="200"/>
   </template>
   <template name="ShowFileDownload">
-    <a href="{{link}}?download=true" class="btn btn-primary btn-md" download="{{name}}">Download <i class="glyphicon glyphicon-download-alt"></i></a>
+      {{#unless currentUser.emails.[0].verified}}
+      <p class="alert alert-warning">You need to verify your email address before being able to download.</p>
+      {{else}}
+      <a href="{{link}}?download=true" class="btn btn-primary btn-md" download="{{name}}">Download <i class="glyphicon glyphicon-download-alt"></i></a>
+
+      {{/unless}}
   </template>
   <template name="ShowImageInGrid">
     <img src="{{link}}" alt="hola" class="img-thumbnail" />

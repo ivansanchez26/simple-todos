@@ -3,13 +3,15 @@ import ReactDOM from 'react-dom';
 import { Panel, FormGroup, FormControl, Form, Col, Checkbox, Button } from 'react-bootstrap';
 import Blaze from 'meteor/gadicc:blaze-react-component';
 import { Meteor } from 'meteor/meteor';
+import { Email } from 'meteor/email'
+
 
 export default class Login extends Component {
  
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      email: "",
       password: ""
     };
 
@@ -19,13 +21,15 @@ export default class Login extends Component {
   handleSubmit(event){
     event.preventDefault();
     console.log(event);
-    var myUsername = this.state.username;
+    var myemail = this.state.email;
     var myPassword = this.state.password;
 
-    Meteor.loginWithPassword(myUsername, myPassword, function(error) {
+    Meteor.loginWithPassword(myemail, myPassword, function(error) {
 
       if (Meteor.user()) {
           console.log(Meteor.userId());
+          Bert.alert('Succesful login','success','growl-top-right');
+          
       } else {
           console.log("ERROR: " + error.reason);
       }
@@ -51,12 +55,12 @@ export default class Login extends Component {
         <Panel>
           <Panel.Body>
             <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
-              <FormGroup controlId="formHorizontalUsername">
+              <FormGroup controlId="formHorizontalemail">
                 <Col  sm={2}>
-                  Username
+                  Email
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" placeholder="Username" name="username" onChange={this.handleInputChange.bind(this)} required/>
+                  <FormControl type="email" placeholder="Email" name="email" onChange={this.handleInputChange.bind(this)} required/>
                 </Col>
               </FormGroup>
 
