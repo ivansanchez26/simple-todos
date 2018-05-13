@@ -16,6 +16,17 @@ export class OwnProfile extends Component {
     
     }
 
+    componentDidMount(){
+        if(this.props.userProfile){
+            this.setState({
+                realName : this.props.userProfile.realName,
+                description : this.props.userProfile.description,
+                danLvl : this.props.userProfile.danLvl,
+                firstTime : false,
+            });
+        }
+    }
+
     componentDidUpdate(){
         if(this.state.firstTime){
             this.setState({

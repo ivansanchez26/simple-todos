@@ -3,6 +3,7 @@ import { Panel } from 'react-bootstrap';
 import { withTracker } from 'meteor/react-meteor-data';
 import { OwnProfile } from './OwnProfile';
 import { OtherProfile } from './OtherProfile';
+import { NotFoundProfile} from './NotFoundProfile';
 import {UserProfiles} from '../../collections/userProfiles.js';
 
 
