@@ -10,93 +10,99 @@
         </div>
         <div id="collapse1" class="panel-collapse collapse">
           <div class="panel-body">
+
+            {{#unless currentUser.emails.[0].verified}}
+            <p class="alert alert-warning">You need a verified account before being able to upload new songs.</p>
+            {{else}}
             <!--FORM CONTENT-->
             <form id="formularioSubida">
-              <!--Title-->
-              <div class="form-group">
-                <label for="Title">Title:</label>
-                <input type="text" class="form-control" id="nameInput">
-              </div>
-              <!--Description-->
-              <div class="form-group">
-                <label for="Description">Description:</label>
-                <input type="text" class="form-control" id="descriptionInput">
-              </div>
-              <!--Select number of difficulties-->
-              <label for="difficultyNumbers">Select number of difficulties (select one):</label>
-              <div class="form-group row">
-                <div class="col-sm-3">
-              <select name="difficultyNumbers" class="form-control" id="difficultyNumbers">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-              </select>
+                <!--Title-->
+                <div class="form-group">
+                  <label for="Title">Title:</label>
+                  <input type="text" class="form-control" id="nameInput">
                 </div>
-              </div>
-              <!--Show input for each difficulty-->
-              <div class="form-group row">
-              {{#each number in difficultyList}}
-                <div class="col-sm-3">
-                  <label for="difficulty{{number}}">Difficulty {{number}}:</label>
-                  <input type="number" class="form-control" id="difficulty{{number}}" name ="difficulty{{number}}" min="1" max="20" required>
+                <!--Description-->
+                <div class="form-group">
+                  <label for="Description">Description:</label>
+                  <input type="text" class="form-control" id="descriptionInput">
                 </div>
-              {{/each}}
-              </div>
-              
-              <!--Image upload-->
-              <div class="form-group row">
-                <div class="col-sm-3">
-
-              {{#if imageUpload}}
-                <ul>
-                  <span id="progress">{{imageUpload.progress}}%</span>
-                </ul>
-              {{else}}
-                <label class="btn btn-default btn-file">
-                  Upload Image<input id="imageInput" type="file" hidden/>
-                </label>
-              {{/if}}
-                </div>
-                <div class="col-sm-3">
-                  <!--Show preview of image to Upload-->
-                  {{#with imageUploaded}}
-                    {{> ShowImageForm }}
-                  {{/with}}
-                </div>
-              </div>
-              <p><small>Upload your image in <code>png</code>, <code>jpg</code> or <code>jpeg</code> format, with size less or equal to 10MB</small></p>
-
-              
-
-
-              <!--File upload-->
-              {{#with currentUpload}}
-                Uploading <b>{{file.name}}</b>: 
-                <span id="progress">{{progress.get}}%</span>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="{{progress.get}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progress.get}}%">
-                    <span class="sr-only">{{progress.get}}% Complete</span>
+                <!--Select number of difficulties-->
+                <label for="difficultyNumbers">Select number of difficulties (select one):</label>
+                <div class="form-group row">
+                  <div class="col-sm-3">
+                <select name="difficultyNumbers" class="form-control" id="difficultyNumbers">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
                   </div>
                 </div>
-              {{else}}
+                <!--Show input for each difficulty-->
+                <div class="form-group row">
+                {{#each number in difficultyList}}
+                  <div class="col-sm-3">
+                    <label for="difficulty{{number}}">Difficulty {{number}}:</label>
+                    <input type="number" class="form-control" id="difficulty{{number}}" name ="difficulty{{number}}" min="1" max="20" required>
+                  </div>
+                {{/each}}
+                </div>
+                
+                <!--Image upload-->
+                <div class="form-group row">
+                  <div class="col-sm-3">
+  
+                {{#if imageUpload}}
+                  <ul>
+                    <span id="progress">{{imageUpload.progress}}%</span>
+                  </ul>
+                {{else}}
+                  <label class="btn btn-default btn-file">
+                    Upload Image<input id="imageInput" type="file" hidden/>
+                  </label>
+                {{/if}}
+                  </div>
+                  <div class="col-sm-3">
+                    <!--Show preview of image to Upload-->
+                    {{#with imageUploaded}}
+                      {{> ShowImageForm }}
+                    {{/with}}
+                  </div>
+                </div>
+                <p><small>Upload your image in <code>png</code>, <code>jpg</code> or <code>jpeg</code> format, with size less or equal to 10MB</small></p>
+  
+                
+  
+  
+                <!--File upload-->
+                {{#with currentUpload}}
+                  Uploading <b>{{file.name}}</b>: 
+                  <span id="progress">{{progress.get}}%</span>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{progress.get}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progress.get}}%">
+                      <span class="sr-only">{{progress.get}}% Complete</span>
+                    </div>
+                  </div>
+                {{else}}
+                  <label class="btn btn-default btn-file">
+                    Upload File<input id="fileInput" type="file" hidden/>
+                  </label>
+                  <p><small>Upload file in <code>zip</code> or <code>rar</code> format, with size less or equal to 100MB</small></p>
+                  {{#let as = fileText}}
+                  <p>{{as}}</p>
+                {{/let}}
+                {{/with}}
+  
+                <!--Input submit-->
                 <label class="btn btn-default btn-file">
-                  Upload File<input id="fileInput" type="file" hidden/>
+                  Add new Song<input id="submitInput" type="submit" hidden/>
                 </label>
-                <p><small>Upload file in <code>zip</code> or <code>rar</code> format, with size less or equal to 100MB</small></p>
-                {{#let as = fileText}}
-                <p>{{as}}</p>
-              {{/let}}
-              {{/with}}
-
-              <!--Input submit-->
-              <label class="btn btn-default btn-file">
-                Add new Song<input id="submitInput" type="submit" hidden/>
-              </label>
-
-              
-
-            </form>
+  
+                
+  
+              </form>
+            {{/unless}}
+            
           </div>
         </div>
       </div>
@@ -193,7 +199,7 @@
   </template>
   <template name="ShowFileDownload">
       {{#unless currentUser.emails.[0].verified}}
-      <p class="alert alert-warning">You need to verify your email address before being able to download.</p>
+      <p class="alert alert-warning">You need a verified account before being able to download.</p>
       {{else}}
       <a href="{{link}}?download=true" class="btn btn-primary btn-md" download="{{name}}">Download <i class="glyphicon glyphicon-download-alt"></i></a>
 

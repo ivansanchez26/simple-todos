@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Panel, FormGroup, FormControl, Form, Col, Checkbox, Button, HelpBlock } from 'react-bootstrap';
 import Blaze from 'meteor/gadicc:blaze-react-component';
 import { Meteor } from 'meteor/meteor';
+import Link from 'react-router-dom/Link';
 
 export default class Register extends Component {
   
@@ -20,7 +21,6 @@ export default class Register extends Component {
     
       handleSubmit(event){
         event.preventDefault();
-        console.log(event);
         var myemail = this.state.email;
         var myPassword = this.state.password;
     
@@ -30,20 +30,26 @@ export default class Register extends Component {
                 email: this.state.email,
                 password: this.state.password
              }
-    
+             var userId;
              Accounts.createUser( registerData, ( error ) => {
                 if ( error ) {
                   Bert.alert( error.reason, 'danger' );
+                  return;
                 } else {
                   Meteor.call( 'sendVerificationLink', ( error, response ) => {
                     if ( error ) {
                       Bert.alert( error.reason, 'danger' );
+                      return;
                     } else {
                       Bert.alert( 'Welcome!', 'success' );
                     }
                   });
                 }
               });
+              
+              //Add an empty profile to the profile collection
+              Meteor.call('userProfiles.insert',userId,"","",1,"");
+              
         }
         
         

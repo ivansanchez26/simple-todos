@@ -20,18 +20,16 @@ export default class Login extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-    console.log(event);
     var myemail = this.state.email;
     var myPassword = this.state.password;
 
     Meteor.loginWithPassword(myemail, myPassword, function(error) {
 
       if (Meteor.user()) {
-          console.log(Meteor.userId());
-          Bert.alert('Succesful login','success','growl-top-right');
+        Bert.alert('Succesful login','success','growl-bottom-right');
           
       } else {
-          console.log("ERROR: " + error.reason);
+        Bert.alert('Error: '+error.reason,'danger','growl-top-right');
       }
     });
     

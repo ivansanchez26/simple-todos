@@ -5,9 +5,12 @@ import Blaze from 'meteor/gadicc:blaze-react-component';
 import { Meteor } from 'meteor/meteor';
 import Login from "./Login";
 import Register from "./Register";
+import { withTracker } from 'meteor/react-meteor-data';
+import Link from 'react-router-dom/Link';
 
 
-export default class LoginRegisterBox extends Component {
+
+export class LoginRegisterBox extends Component {
     
     constructor(props) {
         super(props);
@@ -32,17 +35,30 @@ export default class LoginRegisterBox extends Component {
         return (
             <Panel>
                 <Panel.Body>
-                    <Nav bsStyle="tabs" activeKey={this.state.selectedTab.toString()} onSelect={k => this.handleSelect(k)}>
+                {/*Shows the forms if there's no logged user*/}
+                { !this.props.currentUser ?
+                    <div>
+                        <Nav bsStyle="tabs" activeKey={this.state.selectedTab.toString()} onSelect={k => this.handleSelect(k)}>
                         <NavItem eventKey="1">
                             Log In
                         </NavItem>
                         <NavItem eventKey="2">
                             Register
                         </NavItem>
-                    </Nav>
-                    {loginButton}
+                        </Nav>
+                        {loginButton}
+                    </div>
+                     : <h3>You are logged in</h3>
+                }
+                    
                 </Panel.Body>
             </Panel>
         );
     }
 }
+
+export default withTracker(() => {
+    return {
+      currentUser: Meteor.user(),
+    };
+  })(LoginRegisterBox);
