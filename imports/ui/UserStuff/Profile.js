@@ -11,14 +11,16 @@ import {UserProfiles} from '../../collections/userProfiles.js';
 
 export class Profile extends Component {
 
-
   render() {
 
-    var profileToLoad;
+    var profileToLoad = <NotFoundProfile/>;
     if(this.props.currentUserId==this.props.match.params.id){
-      profileToLoad = <OwnProfile userProfile={this.props.userProfile[0]}/>
+      profileToLoad = <OwnProfile userProfile={this.props.userProfile[0]}/>;
     }else{
-      profileToLoad = <OtherProfile userProfile={this.props.userProfile[0]}/>
+      console.log(this.props);
+      if(this.props.userProfile.length!=0){
+        profileToLoad = <OtherProfile userProfile={this.props.userProfile[0]}/>;
+      }
     }
 
     return (

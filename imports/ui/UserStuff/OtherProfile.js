@@ -17,17 +17,17 @@ export class OtherProfile extends Component {
 
   }
 
-  componentDidUpdate(){
-      if(this.state.firstTime){
-          this.setState({
-              realName : this.props.userProfile.realName,
-              description : this.props.userProfile.description,
-              danLvl : this.props.userProfile.danLvl,
-              firstTime : false,
-          });
-      }
-      
-  }
+    componentDidMount(){
+        if(this.state.firstTime){
+            this.setState({
+                realName : this.props.userProfile.realName,
+                description : this.props.userProfile.description,
+                danLvl : this.props.userProfile.danLvl,
+                firstTime : false,
+            });
+        }
+    }
+
 
   renderDanLvlBar(){
 
