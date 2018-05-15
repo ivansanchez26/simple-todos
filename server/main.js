@@ -3,6 +3,7 @@ import '/imports/collections/Posts.js';
 import '../imports/collections/songs.js';
 import '/lib/songFiles.collection.js';
 import '../imports/collections/userProfiles.js';
+import '../imports/collections/danCollection.js';
 import { Email } from 'meteor/email';
 
 

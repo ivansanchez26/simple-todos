@@ -37,12 +37,13 @@ export class Header extends Component {
     }
 
     linkToProfile = "/profile/"+this.props.currentUserId;
+    linkToRanking = "/dan/"+this.props.currentUserId;
     showLogin = <ul className="nav navbar-nav navbar-right">
                   <li className="dropdown"><a className="dropdown-toggle" data-toggle="dropdown" href="#">{this.props.currentUser.username} <span className="caret"></span></a>
                     <ul className="dropdown-menu">
                       <li><Link to={linkToProfile}>My profile</Link></li>
                       <li><a href="#">Reset password</a></li>
-                      <li><a href="#">My Ranking</a></li>
+                      <li><Link to={linkToRanking}>My ranking</Link></li>
                       <li className="divider"></li>
                       <li><a href="#" onClick={this.logOut.bind(this)}>Log out</a></li>
                     </ul>

@@ -10,6 +10,7 @@ import Howto from "../webpages/Howto";
 import Forum from "../webpages/Forum";
 import LoginPage from "../webpages/LoginPage";
 import Profile from '../UserStuff/Profile';
+import DanPage from '../DanStuff/DanPage';
 
 export default class Main extends Component {
     render() {
@@ -22,6 +23,7 @@ export default class Main extends Component {
                     <Route path="/forum" component={Forum} />
                     <Route path="/login" component={LoginPage} />
                     <Route path="/profile/:id" component={Profile} />                    
+                    <Route path="/dan/:id" component={DanPage} />   
                 </Switch> 
             </main>
       );

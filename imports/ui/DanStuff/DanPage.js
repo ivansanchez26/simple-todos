@@ -1,36 +1,36 @@
 import React, { Component } from 'react';
-import { Panel } from 'react-bootstrap';
+import { Panel, Button } from 'react-bootstrap';
 import { withTracker } from 'meteor/react-meteor-data';
-import { OwnProfile } from './OwnProfile';
-import { OtherProfile } from './OtherProfile';
-import { NotFoundProfile} from './NotFoundProfile';
 import {UserProfiles} from '../../collections/userProfiles.js';
+import { Meteor } from 'meteor/meteor';
 
 
 /*TO ACCESS USERID SENT BY ROUTER USE "THIS.PROPS.MATCH.PARAMS.ID"*/
 
-export class Profile extends Component {
+export class DanPage extends Component {
+
+
+    handleCLick(event){
+        event.preventDefault();
+        Meteor.call('danCollection.insert');
+    }
+
 
   render() {
-    var profileToLoad = <NotFoundProfile/>;
-    if(this.props.currentUserId==this.props.match.params.id){
-      profileToLoad = <OwnProfile userProfile={this.props.userProfile[0]}/>;
-    }else{
-      if(this.props.userProfile.length!=0){
-        profileToLoad = <OtherProfile userProfile={this.props.userProfile[0]}/>;
-      }
-    }
+
+    
 
     return (
         <div>
         <Panel>
           <Panel.Body>
-              <h1>Profile</h1>
+              <h1>Ranking</h1>
           </Panel.Body>  
         </Panel>
         <Panel>
           <Panel.Body>
-              {profileToLoad}
+              Explicación Explicación Explicación Explicación Explicación Explicación Explicación Explicación Explicación Explicación Explicación Explicación Explicación Explicación Explicación Explicación Explicación Explicación Explicación Explicación Explicación 
+                <Button onClick={this.handleCLick.bind(this)}>clickame</Button>
           </Panel.Body>  
         </Panel>
 
@@ -45,4 +45,4 @@ export default withTracker(props => {
       currentUserId: Meteor.userId(),
       userProfile: UserProfiles.find({userId: props.match.params.id}).fetch(),
     };
-  })(Profile);
+  })(DanPage);
