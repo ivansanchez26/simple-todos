@@ -6,12 +6,10 @@ export class NotFoundProfile extends Component {
 
     constructor(props) {
         super(props);
-        console.log("asdf");
 
     }
 
     componentDidMount(){
-        console.log("hola");
     }
 
     render() {

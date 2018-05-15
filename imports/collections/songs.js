@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import UserProfiles from './userProfiles';
 
 export const Songs = new Mongo.Collection('songs');
 
@@ -20,7 +21,9 @@ Meteor.methods({
       if (! this.userId) {
         throw new Meteor.Error('not-authorized');
       }
-   
+      
+      var created = new Date();
+
       Songs.insert({
         name,
         description,
@@ -29,10 +32,17 @@ Meteor.methods({
         size,
         difficulties,
         imageId,
-        createdAt: new Date(),
+        createdAt: created,
         owner: this.userId,
         username: Meteor.users.findOne(this.userId).username,
       });
+
+      var songJustInserted = Songs.findOne({createdAt:created});
+      
+      //adds the song to the user's profile
+      Meteor.call('userProfiles.addNewSong',songJustInserted._id,name,difficulties);
+
+
     },
     'songs.remove'(songId) {
    

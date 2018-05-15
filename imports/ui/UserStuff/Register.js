@@ -12,6 +12,7 @@ export default class Register extends Component {
         super(props);
         this.state = {
           email: "",
+          username: "",
           password: "",
           passwordConfirm: "",
         };
@@ -28,6 +29,7 @@ export default class Register extends Component {
         if(this.getValidationStatePassword()=='success' && this.getValidationStatePasswordConfirm()=='success'){
             var registerData = {
                 email: this.state.email,
+                username: this.state.username,
                 password: this.state.password
              }
              var userId;
@@ -48,7 +50,7 @@ export default class Register extends Component {
               });
               
               //Add an empty profile to the profile collection
-              Meteor.call('userProfiles.insert',userId,"","",1,"");
+              Meteor.call('userProfiles.insert',userId,"","",1,[]);
               
         }
         
@@ -96,6 +98,15 @@ export default class Register extends Component {
                     </Col>
                     <Col sm={10}>
                       <FormControl type="email" placeholder="Enter email" name="email" onChange={this.handleInputChange.bind(this)} required/>
+                    </Col>
+                  </FormGroup>
+                  
+                  <FormGroup controlId="formHorizontalUsername">
+                    <Col  sm={2}>
+                      Username
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl type="text" placeholder="Enter username" name="username" onChange={this.handleInputChange.bind(this)} required/>
                     </Col>
                   </FormGroup>
     

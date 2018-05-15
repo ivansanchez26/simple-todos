@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Panel, Row, Col, ProgressBar, Badge } from 'react-bootstrap';
+import { Panel, Row, Col, ProgressBar, Badge, ListGroup } from 'react-bootstrap';
 import { withTracker } from 'meteor/react-meteor-data';
+import { SongUploadedRow } from './SongUploadedRow';
 
 
 export class OtherProfile extends Component {
@@ -12,6 +13,7 @@ export class OtherProfile extends Component {
       realName: "",
       description:"",
       danLvl:1,
+      songs:[],
       firstTime:true,
     };
 
@@ -23,6 +25,7 @@ export class OtherProfile extends Component {
                 realName : this.props.userProfile.realName,
                 description : this.props.userProfile.description,
                 danLvl : this.props.userProfile.danLvl,
+                songs : this.props.userProfile.uploadedSongs,
                 firstTime : false,
             });
         }
@@ -61,6 +64,16 @@ export class OtherProfile extends Component {
       
   }
 
+
+    renderSongsUploaded(){
+        var rows = [];
+
+        for(i=0;i<this.state.songs.length;i++){
+            rows.push(<SongUploadedRow key={i} song={this.state.songs[i]}/>);
+        }
+        return <ListGroup>{rows}</ListGroup>;
+    }
+
   render() {
       return (
           <div>
@@ -95,6 +108,7 @@ export class OtherProfile extends Component {
                   </Col>
               </Row>
               <h3>Uploaded Songs</h3>
+              {this.renderSongsUploaded()}
               
           </div>
       );

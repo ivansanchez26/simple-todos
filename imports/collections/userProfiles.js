@@ -43,7 +43,16 @@ Meteor.methods({
         throw new Meteor.Error('not-authorized');
       }
 
-      UserProfiles.update({userId: this.userId},{$set: {"realName": realName, "description": description}})
+      UserProfiles.update({userId: this.userId},{$set: {"realName": realName, "description": description}});
+
+    },
+    'userProfiles.addNewSong'(songId,songName,songDifficulties){
+
+      if(!this.userId){
+        throw new Meteor.Error('not-authorized');
+      }
+
+      UserProfiles.update({userId: this.userId},{$push: {uploadedSongs: {$each: [{songId,songName,songDifficulties}] }}});
 
     },
 

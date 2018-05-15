@@ -19,11 +19,11 @@
                 <!--Title-->
                 <div class="form-group">
                   <label for="Title">Title:</label>
-                  <input type="text" class="form-control" id="nameInput">
+                  <input type="text" class="form-control" id="nameInput" required>
                 </div>
                 <!--Description-->
                 <div class="form-group">
-                  <label for="Description">Description:</label>
+                  <label for="Description">Description: <small>*Optional</small></label>
                   <input type="text" class="form-control" id="descriptionInput">
                 </div>
                 <!--Select number of difficulties-->
@@ -60,6 +60,7 @@
                   <label class="btn btn-default btn-file">
                     Upload Image<input id="imageInput" type="file" hidden/>
                   </label>
+                  <small>*Optional</small>
                 {{/if}}
                   </div>
                   <div class="col-sm-3">
@@ -92,7 +93,10 @@
                   <p>{{as}}</p>
                 {{/let}}
                 {{/with}}
-  
+                  
+                  <br>
+                  <br>
+
                 <!--Input submit-->
                 <label class="btn btn-default btn-file">
                   Add new Song<input id="submitInput" type="submit" hidden/>
@@ -155,6 +159,9 @@
               {{#let idImagen=imageId }}
                 {{#with buscarImagenArchivo idImagen}}
                   {{> ShowImageInGrid}}
+
+                  {{else}}
+                  <img src="/images/image_not_found.png" class="img-thumbnail"/>
                 {{/with}}
               {{/let}}
               <div class="caption">
@@ -206,7 +213,7 @@
       {{/unless}}
   </template>
   <template name="ShowImageInGrid">
-    <img src="{{link}}" alt="hola" class="img-thumbnail" />
+    <img src="{{link}}" alt="img" class="img-thumbnail" />
   </template>
 
 

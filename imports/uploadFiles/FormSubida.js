@@ -102,10 +102,7 @@ Template.uploadForm.events({
 
       uploader.on('uploaded', (error, fileObj) => {
         if (!error) {
-          Bert.alert( "Your image has been successfully uploaded", 'success','growl-top-right');  
-
-          console.log(template.state.get('myImageId'));
-          
+          Bert.alert( "Your image has been successfully uploaded", 'success','growl-top-right');            
 
           template.state.set('myImageId', fileObj._id);
           
@@ -175,9 +172,8 @@ Template.uploadForm.events({
           Bert.alert( "Error during upload: "+error.reason, 'danger');  
         } else {
           Bert.alert( "Your song has been successfully uploaded", 'success');  
-          console.log(fileObj);
-          //File has been uploaded so we insert our Song to the Mongo collection
-          Meteor.call('songs.insert',name,description,fileObj.name,fileObj._id,(fileObj.size/1024/1024).toFixed(2),arrayDifficulties,template.state.get('myImageId'));
+          //File has been uploaded so we insert our Song to the Mongo collection of Songs, IT WILL ALSO UPLOAD SOME SONG INFO TO THE USER PROFILE
+          Meteor.call('songs.insert',name,description,fileObj.name,fileObj._id,(fileObj.size/1024/1024).toFixed(2),arrayDifficulties,template.state.get('myImageId'), );
 
           //Reload the page so the form gets resetted and the songs are shown correctly 
           window.location.reload(false);
@@ -187,6 +183,8 @@ Template.uploadForm.events({
       });
 
       uploadInstance.start();
+    }else{
+      Bert.alert( 'You need to upload a file before being able to upload a new song', 'warning' );
     }
 
   },

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Panel, Form, FormGroup, Col, HelpBlock, Button, FormControl, ProgressBar, Row, Badge } from 'react-bootstrap';
+import { Panel, Form, FormGroup, Col, HelpBlock, Button, FormControl, ProgressBar, Row, Badge, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
+import { SongUploadedRow } from './SongUploadedRow';
 
 export class OwnProfile extends Component {
 
@@ -11,6 +12,7 @@ export class OwnProfile extends Component {
           realName: "",
           description:"",
           danLvl:1,
+          songs:[],
           firstTime:true,
         };
     
@@ -22,6 +24,7 @@ export class OwnProfile extends Component {
                 realName : this.props.userProfile.realName,
                 description : this.props.userProfile.description,
                 danLvl : this.props.userProfile.danLvl,
+                songs : this.props.userProfile.uploadedSongs,
                 firstTime : false,
             });
         }
@@ -33,6 +36,7 @@ export class OwnProfile extends Component {
                 realName : this.props.userProfile.realName,
                 description : this.props.userProfile.description,
                 danLvl : this.props.userProfile.danLvl,
+                songs : this.props.userProfile.uploadedSongs,
                 firstTime : false,
             });
         }
@@ -88,6 +92,16 @@ export class OwnProfile extends Component {
         
     }
 
+    renderSongsUploaded(){
+        var rows = [];
+
+        for(i=0;i<this.state.songs.length;i++){
+            rows.push(<SongUploadedRow key={i} song={this.state.songs[i]}/>);
+        }
+        return <ListGroup>{rows}</ListGroup>;
+    }
+
+
     render() {
         return (
             <div>
@@ -125,6 +139,7 @@ export class OwnProfile extends Component {
                     </Col>
                 </Row>
                 <h3>Uploaded Songs</h3>
+                {this.renderSongsUploaded()}
                 
             </div>
         );

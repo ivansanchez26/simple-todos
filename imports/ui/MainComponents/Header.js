@@ -38,7 +38,7 @@ export class Header extends Component {
 
     linkToProfile = "/profile/"+this.props.currentUserId;
     showLogin = <ul className="nav navbar-nav navbar-right">
-                  <li className="dropdown"><a className="dropdown-toggle" data-toggle="dropdown" href="#">{this.props.currentUser.emails[0].address} <span className="caret"></span></a>
+                  <li className="dropdown"><a className="dropdown-toggle" data-toggle="dropdown" href="#">{this.props.currentUser.username} <span className="caret"></span></a>
                     <ul className="dropdown-menu">
                       <li><Link to={linkToProfile}>My profile</Link></li>
                       <li><a href="#">Reset password</a></li>
@@ -68,7 +68,6 @@ export class Header extends Component {
             <li><Link to="/downloads">Downloads</Link></li>
             <li><Link to="/howto">How to play</Link></li>
             <li><Link to="/forum">Forum</Link></li>
-            <li><AccountsUIWrapper/></li>
           </ul>
           {showLogin}
         </div>
