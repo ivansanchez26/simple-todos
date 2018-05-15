@@ -7,7 +7,8 @@ import Switch from "react-router-dom/Switch";
 import Home from "../webpages/Home";
 import Downloads from "../webpages/Downloads";
 import Howto from "../webpages/Howto";
-import Forum from "../webpages/Forum";
+import Dashboard from '../Forum/Dashboard';
+import Post from '../Forum/Post';
 
 export default class Main extends Component {
     render() {
@@ -17,7 +18,8 @@ export default class Main extends Component {
                     <Route exact path="/" component={Home} />
                     <Route path="/downloads" component={Downloads} />
                     <Route path="/howto" component={Howto} />
-                    <Route path="/forum" component={Forum} />
+                    <Route exact path='/forum' component={Dashboard}/>
+                    <Route path='/post/:id' component={Post}/>
                 </Switch> 
             </main>
       );

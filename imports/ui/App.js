@@ -19,7 +19,6 @@ import DescargarArchivos from '../uploadFiles/DescargarArchivos.js';
 import Home from './webpages/Home';
 import Downloads from './webpages/Downloads';
 import Howto from './webpages/Howto';
-import Forum from './webpages/Forum';
 
 import Header from './MainComponents/Header';
 import Main from './MainComponents/Main';
