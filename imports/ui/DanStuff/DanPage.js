@@ -27,16 +27,33 @@ export class DanPage extends Component {
     var stringOfPassed = res[2];
     var passed;
     var lvlPassed = false;
+    var lvlUnpassed = false;
     if(stringOfPassed==1){
       passed = true;
     }else{
       paseed = false;
     }
+    
+
+    if(songNumber==1){
+      if(!passed && this.props.danInfo[0].levels[positionInArray].song2.passed && this.props.danInfo[0].levels[positionInArray].song3.passed && this.props.danInfo[0].levels[positionInArray].song4.passed)
+        lvlPassed = true;
+    }else if(songNumber==2){
+      if(this.props.danInfo[0].levels[positionInArray].song1.passed && !passed && this.props.danInfo[0].levels[positionInArray].song3.passed && this.props.danInfo[0].levels[positionInArray].song4.passed)
+        lvlPassed = true;
+    }else if(songNumber==3){
+      if(this.props.danInfo[0].levels[positionInArray].song1.passed && this.props.danInfo[0].levels[positionInArray].song2.passed && !passed && this.props.danInfo[0].levels[positionInArray].song4.passed)
+        lvlPassed = true;
+    }else if(songNumber==4){
+      if(this.props.danInfo[0].levels[positionInArray].song1.passed && this.props.danInfo[0].levels[positionInArray].song2.passed && this.props.danInfo[0].levels[positionInArray].song3.passed && !passed)
+        lvlPassed = true;
+    }
+
     if(this.props.danInfo[0].levels[positionInArray].song1.passed && this.props.danInfo[0].levels[positionInArray].song2.passed && this.props.danInfo[0].levels[positionInArray].song3.passed && this.props.danInfo[0].levels[positionInArray].song4.passed)
-      lvlPassed = true;
+      lvlUnpassed=true;
+    
 
-
-    Meteor.call('danCollection.updateSong',positionInArray,songNumber,passed,lvlPassed);
+    Meteor.call('danCollection.updateSong',positionInArray,songNumber,passed,lvlPassed,lvlUnpassed);
   }
 
   renderListItem(positionInArray,songNumber){
@@ -71,10 +88,9 @@ export class DanPage extends Component {
 
   renderSongShiet(){
     var rows = [];
-    console.log(this.props.danInfo[0]);
+    //console.log(this.props.danInfo[0]);
 
     
-
     if(this.props.danInfo[0]!=undefined){
       
       for(i=0;i<this.props.danInfo[0].levels.length;i++){
@@ -136,9 +152,7 @@ export class DanPage extends Component {
         </Panel>
         <Panel>
           <Panel.Body>
-          <Button onClick={this.handleCLick.bind(this)}>clickame</Button>
-
-                {this.renderSongShiet()}
+            {this.renderSongShiet()}
           </Panel.Body>  
         </Panel>
         

@@ -50,8 +50,9 @@ export default class Register extends Component {
               });
               
               //Add an empty profile to the profile collection
-              Meteor.call('userProfiles.insert',userId,"","",1,[]);
-              
+              Meteor.call('userProfiles.insert',userId,"","",0,[]);
+              //
+              Meteor.call('danCollection.insert');
         }
         
         

@@ -2,12 +2,10 @@
 /* CSS declarations go here */
 
 body {
-    background-image: url("/images/fondo.jpg");
+    background-image: url("/images/tile2.jpg");
 }
 
-body {
-    background-image: url("/images/fondo.jpg");
-}
+
 
 .navbar-nav span[role=button] {
     padding: 15px;
