@@ -8,7 +8,7 @@ if (Meteor.isServer) {
     // This code only runs on the server
     // Only publish tasks that are public or belong to the current user
     Meteor.publish('danCollection', function danCollectionPublication() {
-        return DanCollection.find({});
+        return DanCollection.find({userId:this.userId});
     });
   }
 
@@ -22,7 +22,12 @@ Meteor.methods({
       maxLvl= 0;
 
       levels = [];
-
+      //name = "asdf";
+      //passed = false;
+      song1 = {name:"Song name", passed:false};
+      song2 = {name:"Song name", passed:false};
+      song3 = {name:"Song name", passed:false};
+      song4 = {name:"Song name", passed:false};
    
       DanCollection.insert({
         userId,
@@ -31,7 +36,14 @@ Meteor.methods({
         createdAt: new Date(),
       });
 
-      DanCollection.update({userId: this.userId},{$push: {uploadedSongs: {$each: [{songId,songName,songDifficulties}] }}});
+      for(i=0;i<20;i++){
+        DanCollection.update({userId: this.userId},{$push: {levels: {$each: [{song1,song2,song3,song4}] }}});
+      }
+      
+
+
+
+      
 
 
     },
