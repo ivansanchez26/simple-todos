@@ -12,9 +12,6 @@ export class DanPage extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      levels: "",
-    };
 
   }
 
@@ -23,37 +20,54 @@ export class DanPage extends Component {
     Meteor.call('danCollection.insert');
   }
 
-  renderListItem(positionInArray,songNumber){
-    
-    if(songNumber==1){
-      return <ListGroupItem>{this.props.danInfo[0].levels[positionInArray].song1.name}</ListGroupItem>;
-    }else if(songNumber==2){
-      return <ListGroupItem>{this.props.danInfo[0].levels[positionInArray].song2.name}</ListGroupItem>;
-    }else if(songNumber==3){
-      return <ListGroupItem>{this.props.danInfo[0].levels[positionInArray].song3.name}</ListGroupItem>;
-    }else if(songNumber==4){
-      return <ListGroupItem>{this.props.danInfo[0].levels[positionInArray].song4.name}</ListGroupItem>;
+  handleListItemClick(event){
+    var res = event.target.id.split("/");
+    var positionInArray = res[0];
+    var songNumber = res[1];
+    var stringOfPassed = res[2];
+    var passed;
+    var lvlPassed = false;
+    if(stringOfPassed==1){
+      passed = true;
+    }else{
+      paseed = false;
     }
-    
-    /*
-    db.danCollection.update(
-      {_id: "uboptsMGQFCW7kntx"},
-      { $set:
-        {
-          "levels.1": {song1 : { name: "werer", passed: false },song2 : { name: "osdf", passed: false },song3 : { name: "osdf", passed: false },song4 : { name: "osdf", passed: false }  }
-        }
-      }
-    )
-    */
+    if(this.props.danInfo[0].levels[positionInArray].song1.passed && this.props.danInfo[0].levels[positionInArray].song2.passed && this.props.danInfo[0].levels[positionInArray].song3.passed && this.props.danInfo[0].levels[positionInArray].song4.passed)
+      lvlPassed = true;
+
+
+    Meteor.call('danCollection.updateSong',positionInArray,songNumber,passed,lvlPassed);
   }
 
-  componentDidMount(){
-    if(this.props.danInfo[0]!=undefined){
-      this.setState({
-        levels: this.props.danInfo[0].levels,
-      });
+  renderListItem(positionInArray,songNumber){
+    
+    var listId = positionInArray.toString()+"/"+songNumber.toString();
+
+    if(songNumber==1){
+      if(this.props.danInfo[0].levels[positionInArray].song1.passed)
+        return <ListGroupItem bsStyle="success" id={listId+"/1"} onClick={this.handleListItemClick.bind(this)}>{this.props.danInfo[0].levels[positionInArray].song1.name}</ListGroupItem>;
+      else
+        return <ListGroupItem id={listId+"/0"} onClick={this.handleListItemClick.bind(this)}>{this.props.danInfo[0].levels[positionInArray].song1.name}</ListGroupItem>;
+    }else if(songNumber==2){
+      if(this.props.danInfo[0].levels[positionInArray].song2.passed)
+        return <ListGroupItem bsStyle="success" id={listId+"/1"} onClick={this.handleListItemClick.bind(this)}>{this.props.danInfo[0].levels[positionInArray].song2.name}</ListGroupItem>;
+      else
+        return <ListGroupItem id={listId+"/0"} onClick={this.handleListItemClick.bind(this)}>{this.props.danInfo[0].levels[positionInArray].song2.name}</ListGroupItem>;
+    }else if(songNumber==3){
+      if(this.props.danInfo[0].levels[positionInArray].song3.passed)
+        return <ListGroupItem bsStyle="success" id={listId+"/1"} onClick={this.handleListItemClick.bind(this)}>{this.props.danInfo[0].levels[positionInArray].song3.name}</ListGroupItem>;
+      else
+        return <ListGroupItem id={listId+"/0"} onClick={this.handleListItemClick.bind(this)}>{this.props.danInfo[0].levels[positionInArray].song3.name}</ListGroupItem>;
+    }else if(songNumber==4){
+      if(this.props.danInfo[0].levels[positionInArray].song4.passed)
+        return <ListGroupItem bsStyle="success" id={listId+"/1"} onClick={this.handleListItemClick.bind(this)}>{this.props.danInfo[0].levels[positionInArray].song4.name}</ListGroupItem>;
+      else
+        return <ListGroupItem id={listId+"/0"} onClick={this.handleListItemClick.bind(this)}>{this.props.danInfo[0].levels[positionInArray].song4.name}</ListGroupItem>;
     }
+    
   }
+
+
 
   renderSongShiet(){
     var rows = [];
@@ -64,11 +78,33 @@ export class DanPage extends Component {
     if(this.props.danInfo[0]!=undefined){
       
       for(i=0;i<this.props.danInfo[0].levels.length;i++){
+          
+        if(this.props.danInfo[0].levels[i].song1.passed && this.props.danInfo[0].levels[i].song2.passed && this.props.danInfo[0].levels[i].song3.passed && this.props.danInfo[0].levels[i].song4.passed ){
           rows.push(
-            <Panel key={i} >
-              <Panel.Title toggle>
-                <Panel.Heading>Level {i+1}</Panel.Heading>
-              </Panel.Title>
+              <Panel key={i} bsStyle="success">
+                <Panel.Heading>
+                  <Panel.Title toggle>
+                    Level {i+1}
+                  </Panel.Title>
+                </Panel.Heading>
+                <Panel.Collapse>
+                  <ListGroup>
+                    {this.renderListItem(i,1)}
+                    {this.renderListItem(i,2)}
+                    {this.renderListItem(i,3)}
+                    {this.renderListItem(i,4)}
+                  </ListGroup>
+                </Panel.Collapse>
+              </Panel>
+          );
+        }else{
+          rows.push(
+            <Panel key={i}>
+              <Panel.Heading>
+                <Panel.Title toggle>
+                  Level {i+1}
+                </Panel.Title>
+              </Panel.Heading>
               <Panel.Collapse>
                 <ListGroup>
                   {this.renderListItem(i,1)}
@@ -78,7 +114,8 @@ export class DanPage extends Component {
                 </ListGroup>
               </Panel.Collapse>
             </Panel>
-        );
+          );
+        }
       }
       return <div>{rows}</div>;
     }

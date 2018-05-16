@@ -51,13 +51,41 @@ Meteor.methods({
       if(this.userId!=userProfileId){
         throw new Meteor.Error('not-authorized');
       }
-      UserProfiles.remove({userId: userProfileId});
+      DanCollection.remove({userId: userProfileId});
     },
-    'danCollection.updateNameDescription'(realName,description){
+    'danCollection.updateSong'(levelsPosition,songPosition,passedState,lvlPassed){
       if(!this.userId){
         throw new Meteor.Error('not-authorized');
       }
-      UserProfiles.update({userId: this.userId},{$set: {"realName": realName, "description": description}});
+
+      var toUpdate = "levels."+levelsPosition+".song"+songPosition+".passed";
+
+      /*DanCollection.update(
+        {userId: this.userId},
+        { $set:
+          {
+            [asdf]: {song1 : { name: "ass", passed: false },song2 : { name: "osdf", passed: false },song3 : { name: "osdf", passed: true },song4 : { name: "osdf", passed: true }  }
+          }
+        }
+      )*/
+      DanCollection.update(
+        {userId: this.userId},
+        {$set:{[toUpdate]:!passedState}}
+      )
+      
+
+      console.log(lvlPassed);
+
+      /*
+    db.danCollection.update(
+      {_id: "uboptsMGQFCW7kntx"},
+      { $set:
+        {
+          "levels.1": {song1 : { name: "werer", passed: true },song2 : { name: "osdf", passed: true },song3 : { name: "osdf", passed: true },song4 : { name: "osdf", passed: true }  }
+        }
+      }
+    )
+    */
     },
 
   });
