@@ -77,24 +77,31 @@ export default class PostPage extends Component {
 
     console.log(this.props.post);
 
-    for(i=0;i<this.state.comments.length;i++){
-      comentarios.push(
-        <Media key={i}>
-          <Media.Left>
-            <img width={64} height={64} src="/thumbnail.png" alt="thumbnail" />
-          </Media.Left>
-          <Media.Body>
-            <Media.Heading>
-              {this.props.post.comments[i].username}<small><i>{this.parsePostCreationDate(this.props.post.comments[i].createdAt)}</i></small>
-            </Media.Heading>
-            <p>
-              {this.props.post.comments[i].content}
-            </p>
-          </Media.Body>
-        </Media>
+    if(this.state.comments){
+      for(i=0;i<this.state.comments.length;i++){
+        comentarios.push(
+          <Media key={i}>
+            <Media.Left>
+              <img width={64} height={64} src="/thumbnail.png" alt="thumbnail" />
+            </Media.Left>
+            <Media.Body>
+              <Media.Heading>
+                {this.props.post.comments[i].username}<small><i>{this.parsePostCreationDate(this.props.post.comments[i].createdAt)}</i></small>
+              </Media.Heading>
+              <p>
+                {this.props.post.comments[i].content}
+              </p>
+            </Media.Body>
+          </Media>
+        );
+      }
+      return comentarios;
+    }
+    else{
+      return (
+        <p>No hay comentarios</p>
       );
     }
-    return comentarios;
   }
 
   onEnterPress = (e) => {
