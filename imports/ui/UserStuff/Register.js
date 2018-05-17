@@ -6,7 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import Link from 'react-router-dom/Link';
 
 export default class Register extends Component {
-  
+
   
     constructor(props) {
         super(props);
@@ -51,9 +51,10 @@ export default class Register extends Component {
               
               //Add an empty profile to the profile collection
               Meteor.call('userProfiles.insert',userId,"","",0,[]);
-              //
+              //Add an empty ranking to the dan Collection for the user
               Meteor.call('danCollection.insert');
-        }
+              window.location.href = '/';
+          }
         
         
       }

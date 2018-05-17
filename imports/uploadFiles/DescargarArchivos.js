@@ -56,7 +56,7 @@ Template.uploadedFiles.helpers({
   },
   uploadedSongs: function () {
     const instance = Template.instance();
-    return Songs.find({name: {$regex: instance.state.get('songSearchWord'), $options: 'i'},difficulties:{$gte:parseInt(instance.state.get('searchDifficultyFrom')),$lte:parseInt(instance.state.get('searchDifficultyTo'))} },{limit: instance.state.get('songsLimit')});
+    return Songs.find({name: {$regex: instance.state.get('songSearchWord'), $options: 'i'},difficulties:{$gte:parseInt(instance.state.get('searchDifficultyFrom')),$lte:parseInt(instance.state.get('searchDifficultyTo'))} },{sort: {createdAt:-1},limit: instance.state.get('songsLimit')});
   },
   equals: function(a, b) {
     return a == b;
