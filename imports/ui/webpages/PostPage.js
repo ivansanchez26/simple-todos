@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data'; 
 import { Posts } from '../../collections/Posts';
 import { PostList } from '../Forum/PostList.js';
+import { Link } from 'react-router-dom';
 
 export default class PostPage extends Component {
 
@@ -50,17 +51,18 @@ export default class PostPage extends Component {
       for(i=0;i<this.props.post.comments.length;i++){
         comentarios.push(
           <Media key={i}>
-            {/*<Media.Left>
-              <img width={64} height={64} src="/thumbnail.png" alt="thumbnail" />
-            </Media.Left>*/}
+            <Media.Left>
+              <img width={48} height={48} src="/images/blankavatar.jpg" alt="User photo" />
+            </Media.Left>
             <Media.Body>
               <Media.Heading>
-                <Link to={this.props.post.comments[i].username}/><small><i>{this.parsePostCreationDate(this.props.post.comments[i].createdAt)}</i></small>
+                <Link to={"/" + this.props.post.comments[i].owner}>{this.props.post.comments[i].username}</Link><small><i> - {this.parsePostCreationDate(this.props.post.comments[i].createdAt)}</i></small>
               </Media.Heading>
               <p>
                 {this.props.post.comments[i].content}
               </p>
             </Media.Body>
+            <hr/>
           </Media>
         );
       }
@@ -68,7 +70,7 @@ export default class PostPage extends Component {
     }
     else{
       return (
-        <p>No hay comentarios</p>
+        <p>There are no comments, be the first one</p>
       );
     }
   }
@@ -87,15 +89,16 @@ export default class PostPage extends Component {
       <div>
         <Media>
           <Media.Left>
-            <img width={64} height={64} src="/thumbnail.png" alt="thumbnail" />
+            <img width={48} height={48} src="/images/blankavatar.jpg" alt="User photo" />
           </Media.Left>
           <Media.Body>
             <Media.Heading>
-              {this.props.post.username}<small><i>{this.parsePostCreationDate(this.props.post.createdAt)}</i></small>
+              <Link to={"/" + this.props.post.owner}>{this.props.post.username}</Link><small><i>{this.parsePostCreationDate(this.props.post.createdAt)}</i></small>
             </Media.Heading>
             <p>
               {this.props.post.content}
             </p>
+            <hr/>
             {this.renderPosts()}
           </Media.Body>
         </Media>     
@@ -103,7 +106,7 @@ export default class PostPage extends Component {
           <form>
           <div className="form-group">
             <label htmlFor="comment">Comment:</label>
-            <textarea className="form-control" rows="5" ref="comment" id="comment" onKeyDown={this.onEnterPress}></textarea>
+            <textarea className="form-control" width={300} rows="5" ref="comment" id="comment" onKeyDown={this.onEnterPress}></textarea>
           </div> 
         </form> :  ''}
         </div>

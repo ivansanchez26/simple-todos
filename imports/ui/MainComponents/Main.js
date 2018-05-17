@@ -20,6 +20,7 @@ export default class Main extends Component {
                     <Route path="/howto" component={Howto} />
                     <Route exact path='/forum' component={Dashboard}/>
                     <Route path='/post/:id' component={Post}/>
+                    {/*<Route path="/profile/:id" component={Profile} />*/}
                 </Switch> 
             </main>
       );

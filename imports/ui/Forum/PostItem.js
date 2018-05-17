@@ -5,8 +5,6 @@ import { Row, Col, Button } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import Home from '../webpages/Home';
 
-const nComments = Posts.find({ comments: { $gt: 0 } }).count();
-
 // Task component - represents a single todo item
 export default class PostItem extends Component {
   constructor(props){
@@ -55,7 +53,19 @@ export default class PostItem extends Component {
     return(dt +'/' + month + '/'+ year + ', ' + hour + ':' + minute + ':' + seconds);
   }
 
-  render() {
+  getNComments(){
+    console.log(this.props.post);
+    var nComents = this.props.post.comments.length;
+    console.log(nComents);
+
+    if(nComents = 0){
+      return 0;
+    }else{
+      return nComents;
+    }
+  }
+
+  render() {    
     return (
         <div>
           <Row>
@@ -69,7 +79,7 @@ export default class PostItem extends Component {
               <p>Submitted at <strong>{this.parsePostCreationDate(this.props.post.createdAt)}</strong> by {this.props.post.username}</p>
               </Col>
             <Col xs={2}>
-              {nComments}
+              {this.getNComments()}
             </Col>
           </Row>
           <hr/>

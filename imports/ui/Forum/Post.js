@@ -35,7 +35,7 @@ class Post extends Component {
         <div>
         <Panel>
           <Panel.Body>
-            Cargado
+            <h1><strong>{this.state.post[0].title}</strong></h1><br/>
             <PostPage post={this.state.post[0]}/>
           </Panel.Body>  
         </Panel>

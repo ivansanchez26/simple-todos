@@ -28,7 +28,8 @@ Meteor.methods({
         createdAt: new Date(),
         owner: this.userId,
         pinned: false,
-        username: Meteor.users.findOne(this.userId).username
+        username: Meteor.users.findOne(this.userId).username,
+        comments: [],
       });
     },
   
