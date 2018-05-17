@@ -8,26 +8,48 @@ import PostPage from '../webpages/PostPage';
 
 /*TO ACCESS USERID SENT BY ROUTER USE "THIS.PROPS.MATCH.PARAMS.ID"*/
 
-export class Post extends Component {
+class Post extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      post : this.props.post,
+      ready : this.props.ready,
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if(prevProps != this.props) {
+      this.setState(() => ({
+       post : this.props.post,
+       ready : this.props.ready,
+      }))
+    }
+   }
 
   render() {
-    return (
+    if(!this.state.ready){
+      return ( <div>Loading</div>)
+    }else{
+      return (
         <div>
         <Panel>
           <Panel.Body>
-              <h1><strong>{this.props.post[0].title}</strong></h1>
-              <PostPage post={this.props.post[0]}/>
+            Cargado
+            <PostPage post={this.state.post[0]}/>
           </Panel.Body>  
         </Panel>
         </div>
-    );
+      );
+    }
   }
-}
+} 
 
-export default withTracker(() => {
-  Meteor.subscribe('posts');
+export default withTracker(props => {
+  let postStuff = Meteor.subscribe('posts');
+  const postId = props.match.params.id;
   return {
-    postId: this.props.match.params.id,
-    post: Posts.find({_id: this.props.postId}).fetch(),
+    ready: postStuff.ready(),
+    post: Posts.find({_id:  postId}).fetch(),
   };
 })(Post);

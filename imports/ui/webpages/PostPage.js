@@ -10,37 +10,6 @@ export default class PostPage extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      title: "",
-      content:"",
-      date: new Date(),
-      comments: [],
-      firstTime:true,
-    };
-  }
-
-  componentDidMount(){
-    if(this.props.post){
-        this.setState({
-          title : this.props.post.title,
-          content : this.props.post.content,
-          date : this.props.post.createdAt,
-          comments : this.props.post.comments,
-          firstTime : false,
-        });
-    }
-  }
-
-  componentDidUpdate(){
-    if(this.state.firstTime){
-        this.setState({
-          title : this.props.post.title,
-          content : this.props.post.content,
-          date : this.props.post.createdAt,
-          comments : this.props.post.comments,
-          firstTime : false,
-        });
-    }
   }
 
   parsePostCreationDate(date){
@@ -77,16 +46,16 @@ export default class PostPage extends Component {
 
     console.log(this.props.post);
 
-    if(this.state.comments){
-      for(i=0;i<this.state.comments.length;i++){
+    if(this.props.post.comments){
+      for(i=0;i<this.props.post.comments.length;i++){
         comentarios.push(
           <Media key={i}>
-            <Media.Left>
+            {/*<Media.Left>
               <img width={64} height={64} src="/thumbnail.png" alt="thumbnail" />
-            </Media.Left>
+            </Media.Left>*/}
             <Media.Body>
               <Media.Heading>
-                {this.props.post.comments[i].username}<small><i>{this.parsePostCreationDate(this.props.post.comments[i].createdAt)}</i></small>
+                <Link to={this.props.post.comments[i].username}/><small><i>{this.parsePostCreationDate(this.props.post.comments[i].createdAt)}</i></small>
               </Media.Heading>
               <p>
                 {this.props.post.comments[i].content}
@@ -122,13 +91,10 @@ export default class PostPage extends Component {
           </Media.Left>
           <Media.Body>
             <Media.Heading>
-              aaaa<small><i>Fecha</i></small>
+              {this.props.post.username}<small><i>{this.parsePostCreationDate(this.props.post.createdAt)}</i></small>
             </Media.Heading>
             <p>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
-              ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at,
-              tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
-              fringilla. Donec lacinia congue felis in faucibus.
+              {this.props.post.content}
             </p>
             {this.renderPosts()}
           </Media.Body>
