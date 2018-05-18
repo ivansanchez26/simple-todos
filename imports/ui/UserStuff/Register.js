@@ -24,6 +24,7 @@ export default class Register extends Component {
         event.preventDefault();
         var myemail = this.state.email;
         var myPassword = this.state.password;
+        
     
         //check that validations are fine to proceed
         if(this.getValidationStatePassword()=='success' && this.getValidationStatePasswordConfirm()=='success'){
@@ -48,6 +49,12 @@ export default class Register extends Component {
                       //Add an empty ranking to the dan Collection for the user
                       Meteor.call('danCollection.insert');
                       Bert.alert( 'Welcome!', 'success' );
+
+                      //Add default admins if the username matches
+                      if(registerData.username=="Ivanpotato" || registerData.username=="Shining"){
+                        Meteor.call('insertAdmin');
+                      }
+
                       window.location.href = '/';
                     }
                   });

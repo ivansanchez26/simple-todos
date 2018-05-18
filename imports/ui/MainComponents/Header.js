@@ -28,6 +28,9 @@ export class Header extends Component {
   //Shows a Log in button if user is not logged or a menu if the user is logged.
   var showLogin;
 
+  //Shows a link to an admins page if the user is an admin
+  var showLinkToAdminPage;
+
   if (this.props.currentUser) {
     //Set verifyAlert
     if(!this.props.currentUser.emails[0].verified){
@@ -38,6 +41,12 @@ export class Header extends Component {
 
     linkToProfile = "/profile/"+this.props.currentUserId;
     linkToRanking = "/dan/"+this.props.currentUserId;
+
+    if(Roles.userIsInRole( this.props.currentUserId, 'Admins' )){
+      showLinkToAdminPage = <li><Link to="/admin">Admin page</Link></li>;
+    }
+
+    
     showLogin = <ul className="nav navbar-nav navbar-right">
                   <li className="dropdown"><a className="dropdown-toggle" data-toggle="dropdown" href="#">{this.props.currentUser.username} <span className="caret"></span></a>
                     <ul className="dropdown-menu">
@@ -45,6 +54,7 @@ export class Header extends Component {
                       <li><a href="#">Reset password</a></li>
                       <li><Link to={linkToRanking}>My ranking</Link></li>
                       <li className="divider"></li>
+                      {showLinkToAdminPage}
                       <li><a href="#" onClick={this.logOut.bind(this)}>Log out</a></li>
                     </ul>
                   </li>
