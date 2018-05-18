@@ -13,6 +13,7 @@ body {
     line-height: 20px;
 }
 
+
 /* Buttons for file inputs */
 .btn-file {
     position: relative;
@@ -46,4 +47,9 @@ body {
     display: -ms-flexbox;
     display:         flex;
   }
+
+/*Don't allow textarea resize*/
+textarea{
+    resize: none;
+}
 

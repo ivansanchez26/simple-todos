@@ -28,7 +28,8 @@ Meteor.methods({
         createdAt: new Date(),
         owner: this.userId,
         pinned: false,
-        username: Meteor.users.findOne(this.userId).username
+        username: Meteor.users.findOne(this.userId).username,
+        comments: [],
       });
     },
   
@@ -43,7 +44,7 @@ Meteor.methods({
       Posts.update(postId, { $set: { pinned: setChecked } });
     },
 
-    'comment.insert'(content){
+    'comment.insert'(content, postId){
       check(content, String); 
 
       var comment = {
@@ -53,6 +54,6 @@ Meteor.methods({
         username: Meteor.users.findOne(this.userId).username
       }
 
-      Posts.update(postId, { $set: { comment: comment } });
-    }
+      Posts.update(postId, { $push: { comments: comment } });
+    },
   });

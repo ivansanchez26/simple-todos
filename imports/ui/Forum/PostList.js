@@ -4,12 +4,12 @@ import { Panel, ListGroupItem, ListGroup, Table, Grid, Row, Col } from 'react-bo
 import { withTracker } from 'meteor/react-meteor-data'; 
 import { Posts } from '../../collections/Posts';
 
-import Post from './Post';
+import PostItem from './PostItem';
 
 class PostList extends Component {
   renderPosts() {
     return this.props.posts.map((post) => (
-        <Post key={post._id} post={post}/>
+        <PostItem key={post._id} post={post}/>
     ));
   }
 
