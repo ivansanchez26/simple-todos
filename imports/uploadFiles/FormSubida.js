@@ -27,7 +27,7 @@ export default class FormSubida extends Component {
 }
 
 var myFile;
-var myImage;
+//var myImageId;
 
 Template.uploadForm.onCreated(function () {
   this.currentUpload = new ReactiveVar(false);
@@ -35,6 +35,10 @@ Template.uploadForm.onCreated(function () {
   this.state = new ReactiveDict();
   const instance = Template.instance();
   instance.state.set('difficultyAmount',1);
+  instance.state.set('myImageId',undefined);
+  instance.state.set('fileText',"");
+
+
 });
 
 Template.uploadForm.helpers({
@@ -53,7 +57,13 @@ Template.uploadForm.helpers({
     return arrayToReturn;
   },
   imageUploaded: function(){
-    return myImage;
+    const instance = Template.instance();
+    var idImagen = instance.state.get('myImageId');
+    return SongImages.findOne({_id : idImagen});
+  },
+  fileText: function(){
+    const instance = Template.instance();
+    return instance.state.get('fileText');
   }
 
 });
@@ -67,13 +77,13 @@ Template.uploadForm.events({
       // there was multiple files selected
       var file = e.currentTarget.files[0];
       myFile = file;
+      template.state.set('fileText',file.name);
     }
 
 
   },
   //When uploading/inputing a new image
   'change #imageInput'(e, template) {
-    console.log('aaaaaaaaaaaaa');
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       const uploader = SongImages.insert({
         file: e.currentTarget.files[0],
@@ -91,9 +101,13 @@ Template.uploadForm.events({
 
       uploader.on('uploaded', (error, fileObj) => {
         if (!error) {
-          window.alert('File "' + fileObj.name + '" successfully uploaded');
-          myImage = SongImages.find({id : fileObj._id});
-          console.log(myImage);
+          Bert.alert( "Your image has been successfully uploaded", 'success','growl-top-right');            
+
+          Meteor.call('songImage.remove',template.state.get('myImageId'));
+          template.state.set('myImageId', fileObj._id);
+          
+        }else{
+          Bert.alert( "Error during upload: "+error.reason, 'danger');  
         }
       });
 
@@ -105,7 +119,7 @@ Template.uploadForm.events({
     }
   },
   //When submitting the form
-  'submit .formularioSubida'(event,template) {
+  'submit #formularioSubida'(event,template) {
     // Prevent default browser form submit
     event.preventDefault();
  
@@ -121,15 +135,19 @@ Template.uploadForm.events({
       switch(i){
         case 0:
           toPush = target.difficulty1.value;
+          toPush = parseInt(toPush);
           break;
         case 1:
           toPush = target.difficulty2.value;
+          toPush = parseInt(toPush);
           break;
         case 2:
           toPush = target.difficulty3.value;
+          toPush = parseInt(toPush);
           break;
         case 3:
           toPush = target.difficulty4.value;
+          toPush = parseInt(toPush);
           break;
       }
 
@@ -151,17 +169,22 @@ Template.uploadForm.events({
 
       uploadInstance.on('end', function(error, fileObj) {
         if (error) {
-          window.alert('Error during upload: ' + error.reason);
+          Bert.alert( "Error during upload: "+error.reason, 'danger');  
         } else {
-          window.alert('File "' + fileObj.name + '" successfully uploaded');
-          console.log(fileObj);
-          //File has been uploaded so we insert our Song to the Mongo collection
-          Meteor.call('songs.insert',name,description,fileObj.name,fileObj._id,(fileObj.size/1024/1024).toFixed(2),arrayDifficulties);
+          Bert.alert( "Your song has been successfully uploaded", 'success');  
+          //File has been uploaded so we insert our Song to the Mongo collection of Songs, IT WILL ALSO UPLOAD SOME SONG INFO TO THE USER PROFILE
+          Meteor.call('songs.insert',name,description,fileObj.name,fileObj._id,(fileObj.size/1024/1024).toFixed(2),arrayDifficulties,template.state.get('myImageId'), );
+
+          //Reload the page so the form gets resetted and the songs are shown correctly 
+          window.location.reload(false);
+
         }
         template.currentUpload.set(false);
       });
 
       uploadInstance.start();
+    }else{
+      Bert.alert( 'You need to upload a file before being able to upload a new song', 'warning' );
     }
 
   },

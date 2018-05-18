@@ -28,4 +28,6 @@ cfs:filesystem
 aldeed:collection2@3.0.0
 reactive-dict
 accounts-ui
-meteorhacks:aggregate
+
+themeteorchef:bert
+email
