@@ -13,16 +13,19 @@ if (Meteor.isServer) {
   }
 
 Meteor.methods({
-    'userProfiles.insert'(userId,realName,description,danLvl,uploadedSongs) {
+    'userProfiles.insert'(userId,realName,description,danLvl,uploadedSongs,registerData) {
     
       if(!this.userId){
         throw new Meteor.Error('not-authorized');
       }
+
+      username = registerData.username;
       userId= this.userId;
    
       UserProfiles.insert({
         userId,
         realName,
+        username,
         description,
         danLvl,
         uploadedSongs,

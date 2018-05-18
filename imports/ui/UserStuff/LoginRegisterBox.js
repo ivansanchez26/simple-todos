@@ -18,7 +18,6 @@ export class LoginRegisterBox extends Component {
     }
 
     handleSelect(eventKey) {
-        event.preventDefault();
         this.setState({selectedTab: eventKey});
     }
 

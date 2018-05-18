@@ -10,7 +10,6 @@ import Howto from "../webpages/Howto";
 
 import Dashboard from '../Forum/Dashboard';
 import Post from '../Forum/Post';
-import Forum from "../webpages/Forum";
 import LoginPage from "../webpages/LoginPage";
 import Profile from '../UserStuff/Profile';
 import DanPage from '../DanStuff/DanPage';
