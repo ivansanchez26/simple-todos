@@ -69,6 +69,16 @@ Template.uploadedFiles.helpers({
       return true;
     else
     return false;
+  },
+  isThereMoreToLoad: function(){
+    const instance = Template.instance();
+    var numberShown = Songs.find({name: {$regex: instance.state.get('songSearchWord'), $options: 'i'},difficulties:{$gte:parseInt(instance.state.get('searchDifficultyFrom')),$lte:parseInt(instance.state.get('searchDifficultyTo'))} },{sort: {createdAt:-1},limit: instance.state.get('songsLimit')}).count();
+    var total = Songs.find().count();
+    if(numberShown<total){
+      return true;
+    }else{
+      return false;
+    }
   }
   
   
@@ -101,9 +111,10 @@ Template.uploadedFiles.events({
     template.state.set('searchDifficultyTo',number);
 
   },
-  'click #searchButton'(event,template) {
+  'click #removeSongButton'(event,template) {
 
   },
+  
 })
 
 
@@ -132,10 +143,26 @@ Template.Song.helpers({
       return true;
     else
       return false;
+  },
+  ifUserIsUploader: function(uploaderId){
+    if(uploaderId==Meteor.userId()){
+      return true;
+    }else{
+      return false;
+    }
   }
 
 
 })
+
+Template.Song.events({
+  'click #removeSongButton'(event,template) {
+    //event.target.value is the song id
+    Meteor.call('songs.remove',event.target.value);
+  },
+
+})
+
 
 
 

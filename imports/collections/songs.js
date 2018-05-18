@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import UserProfiles from './userProfiles';
+import SongFiles from '../../lib/songFiles.collection';
 
 export const Songs = new Mongo.Collection('songs');
 
@@ -45,7 +46,13 @@ Meteor.methods({
 
     },
     'songs.remove'(songId) {
-   
+      
+      var song = Songs.findOne({_id:songId});
+      
+      Meteor.call('songFile.remove',song.fileId);
+      Meteor.call('songImage.remove',song.imageId);
+
+
       Songs.remove(songId);
     },
 

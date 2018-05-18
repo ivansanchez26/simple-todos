@@ -27,7 +27,7 @@ export default class Login extends Component {
 
       if (Meteor.user()) {
         Bert.alert('Succesful login','success','growl-bottom-right');
-          
+        window.location.href = '/';  
       } else {
         Bert.alert('Error: '+error.reason,'danger','growl-top-right');
       }

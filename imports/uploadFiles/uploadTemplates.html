@@ -146,8 +146,9 @@
           {{/if}}
           {{/each}}
       </div>
-      <button id="loadMore" type="button" class="btn-primary">Load more...</button>
-        
+      {{#if isThereMoreToLoad}}
+        <button id="loadMore" type="button" class="btn-primary">Load more...</button>
+      {{/if}}
         
   </template>
 
@@ -193,6 +194,9 @@
                       <p>{{> ShowFileDownload}}</p>
                     {{/with}}
                   {{/let}}
+                  {{#if ifUserIsUploader owner}}
+                    <button id="removeSongButton" type="button" class="btn btn-danger" value={{_id}}>Remove Song!</button>
+                  {{/if}}
               </div>
           </div>
       </div> 

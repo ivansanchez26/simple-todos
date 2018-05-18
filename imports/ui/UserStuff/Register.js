@@ -43,17 +43,19 @@ export default class Register extends Component {
                       Bert.alert( error.reason, 'danger' );
                       return;
                     } else {
+                      //Add an empty profile to the profile collection
+                      Meteor.call('userProfiles.insert',userId,"","",0,[]);
+                      //Add an empty ranking to the dan Collection for the user
+                      Meteor.call('danCollection.insert');
                       Bert.alert( 'Welcome!', 'success' );
+                      window.location.href = '/';
                     }
                   });
                 }
               });
               
-              //Add an empty profile to the profile collection
-              Meteor.call('userProfiles.insert',userId,"","",0,[]);
-              //Add an empty ranking to the dan Collection for the user
-              Meteor.call('danCollection.insert');
-              window.location.href = '/';
+              
+              
           }
         
         

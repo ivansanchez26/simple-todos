@@ -84,7 +84,6 @@ Template.uploadForm.events({
   },
   //When uploading/inputing a new image
   'change #imageInput'(e, template) {
-    console.log('aaaaaaaaaaaaa');
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       const uploader = SongImages.insert({
         file: e.currentTarget.files[0],
@@ -104,6 +103,7 @@ Template.uploadForm.events({
         if (!error) {
           Bert.alert( "Your image has been successfully uploaded", 'success','growl-top-right');            
 
+          Meteor.call('songImage.remove',template.state.get('myImageId'));
           template.state.set('myImageId', fileObj._id);
           
         }else{
