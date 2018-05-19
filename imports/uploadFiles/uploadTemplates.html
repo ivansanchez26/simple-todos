@@ -170,7 +170,7 @@
 
                   <p class="">{{description}}</p>
                   <p class=""><small><strong>Size: </strong>{{size}} MB </small></p>
-                  <p class=""><small><strong>Uploaded by: </strong>{{username}}</small><br></p>
+                  <p class=""><small><strong>Uploaded by: </strong><a href="/profile/{{owner}}">{{username}}</a></small><br></p>
                   {{#each dif in difficulties}}
                     {{#if biggerThan15 dif}}
                     <span class="label label-danger">{{dif}}</span>
@@ -194,8 +194,34 @@
                       <p>{{> ShowFileDownload}}</p>
                     {{/with}}
                   {{/let}}
-                  {{#if ifUserIsUploader owner}}
-                    <button id="removeSongButton" type="button" class="btn btn-danger" value={{_id}}>Remove Song!</button>
+                  {{#if ifUserIsUploaderOrAdmin owner}}
+                    
+                    <!-- Trigger the modal with a button -->
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Remove Song!</button>
+
+                    <!-- Modal -->
+                    <div id="myModal" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Remove</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p>Do you really want to delete this song?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No D:</button>
+                            <button id="removeSongButton" type="button" class="btn btn-danger" value={{_id}} data-dismiss="modal">Remove Song!</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    
                   {{/if}}
               </div>
           </div>
@@ -212,7 +238,7 @@
       {{#unless currentUser.emails.[0].verified}}
       <p class="alert alert-warning">You need a verified account before being able to download.</p>
       {{else}}
-      <a href="{{link}}?download=true" class="btn btn-primary btn-md" download="{{name}}">Download <i class="glyphicon glyphicon-download-alt"></i></a>
+      <a href="{{link}}?download=true" class="btn btn-primary btn-lg" download="{{name}}">Download <i class="glyphicon glyphicon-download-alt"></i></a>
 
       {{/unless}}
   </template>

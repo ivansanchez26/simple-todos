@@ -72,8 +72,8 @@ Template.uploadedFiles.helpers({
   },
   isThereMoreToLoad: function(){
     const instance = Template.instance();
-    var numberShown = Songs.find({name: {$regex: instance.state.get('songSearchWord'), $options: 'i'},difficulties:{$gte:parseInt(instance.state.get('searchDifficultyFrom')),$lte:parseInt(instance.state.get('searchDifficultyTo'))} },{sort: {createdAt:-1},limit: instance.state.get('songsLimit')}).count();
-    var total = Songs.find().count();
+    var total = Songs.find({name: {$regex: instance.state.get('songSearchWord'), $options: 'i'},difficulties:{$gte:parseInt(instance.state.get('searchDifficultyFrom')),$lte:parseInt(instance.state.get('searchDifficultyTo'))} },{sort: {createdAt:-1}}).count();
+    var numberShown = instance.state.get('songsLimit');
     if(numberShown<total){
       return true;
     }else{
@@ -144,8 +144,8 @@ Template.Song.helpers({
     else
       return false;
   },
-  ifUserIsUploader: function(uploaderId){
-    if(uploaderId==Meteor.userId()){
+  ifUserIsUploaderOrAdmin: function(uploaderId){
+    if(uploaderId==Meteor.userId() || Roles.userIsInRole( Meteor.userId(), 'Admins' )){
       return true;
     }else{
       return false;
