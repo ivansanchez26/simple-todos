@@ -26,29 +26,18 @@ export class Profile extends Component {
   
   render() {
     var profileToLoad = <NotFoundProfile/>;
-    var user;
     if(this.props.currentUserId==this.props.match.params.id){
-      user = this.props.userProfile[0].username;
       profileToLoad = <OwnProfile userProfile={this.props.userProfile[0]}/>;
     }else{
       if(this.props.userProfile.length!=0){
         profileToLoad = <OtherProfile userProfile={this.props.userProfile[0]}/>;
-        user = this.props.userProfile[0].username;
       }
     }
 
     return (
         <div>
-<<<<<<< HEAD
           {this.renderProfileName()}
         <Panel>
-=======
-        <Panel>
-          <Panel.Heading>
-            {console.log({user})}
-            <h1>Profile</h1>
-          </Panel.Heading>
->>>>>>> Antonio
           <Panel.Body>
               {profileToLoad}
           </Panel.Body>  

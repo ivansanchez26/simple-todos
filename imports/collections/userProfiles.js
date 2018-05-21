@@ -19,7 +19,6 @@ Meteor.methods({
         throw new Meteor.Error('not-authorized');
       }
 
-      username = registerData.username;
       userId= this.userId;
    
       UserProfiles.insert({
