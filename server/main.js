@@ -4,6 +4,7 @@ import '../imports/collections/songs.js';
 import '/lib/songFiles.collection.js';
 import '../imports/collections/userProfiles.js';
 import '../imports/collections/danCollection.js';
+import '../imports/collections/news';
 import { Email } from 'meteor/email';
 
 
