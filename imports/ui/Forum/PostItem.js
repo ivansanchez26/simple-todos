@@ -70,9 +70,15 @@ export default class PostItem extends Component {
         <div>
           <Row>
             <Col xs={1}>
-              <Button onClick={this.handleClick}>
-                {this.state.isToggleOn ? <img src="/images/pinned.png"/> : <img src="/images/unpinned.png"/>}
-              </Button>
+            {
+              Roles.userIsInRole(Meteor.userId(), 'Admins' )? <Button onClick={this.handleClick}>
+              {this.state.isToggleOn ? <img src="/images/pinned.png"/> : <img src="/images/unpinned.png"/>}
+            </Button> :
+            <Button onClick={this.handleClick} disabled>
+            {this.state.isToggleOn ? <img src="/images/pinned.png"/> : <img src="/images/unpinned.png"/>}
+            </Button>
+            }
+              
             </Col>
             <Col xs={9}> 
               <Link to={"/post/"+this.props.post._id}>{this.props.post.title}</Link><br/>

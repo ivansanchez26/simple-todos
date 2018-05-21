@@ -54,7 +54,7 @@ export default class Login extends Component {
           <Panel.Body>
             <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
               <FormGroup controlId="formHorizontalemail">
-                <Col  sm={2}>
+                <Col sm={2}>
                   Email
                 </Col>
                 <Col sm={10}>

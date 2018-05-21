@@ -66,3 +66,13 @@ textarea{
     padding: 7px; /* firefox bug fix */
     width: auto;
 }
+
+hr{
+    width: 95%;
+    margin-left: -2%;
+}
+
+#collapsible-panel-example-2{
+    width: 95%;
+    align: center;
+}

@@ -76,8 +76,8 @@ export class Header extends Component {
           <ul className="nav navbar-nav">
             <li><Link to="/">Home</Link></li>
             <li><Link to="/downloads">Downloads</Link></li>
-            <li><Link to="/howto">How to play</Link></li>
             <li><Link to="/forum">Forum</Link></li>
+            <li><Link to="/start">Getting started</Link></li>
           </ul>
           {showLogin}
         </div>
