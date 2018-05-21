@@ -58,7 +58,7 @@ export default class PostItem extends Component {
     var nComents = this.props.post.comments.length;
     console.log(nComents);
 
-    if(nComents = 0){
+    if(nComents == 0){
       return 0;
     }else{
       return nComents;

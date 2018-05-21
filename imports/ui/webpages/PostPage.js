@@ -45,8 +45,6 @@ export default class PostPage extends Component {
   renderPosts() {
     var comentarios = []
 
-    console.log(this.props.post);
-
     if(this.props.post.comments){
       for(i=0;i<this.props.post.comments.length;i++){
         comentarios.push(
@@ -56,7 +54,7 @@ export default class PostPage extends Component {
             </Media.Left>
             <Media.Body>
               <Media.Heading>
-                <Link to={"/" + this.props.post.comments[i].owner}>{this.props.post.comments[i].username}</Link><small><i> - {this.parsePostCreationDate(this.props.post.comments[i].createdAt)}</i></small>
+                <Link to={"/profile/" + this.props.post.comments[i].owner}>{this.props.post.comments[i].username}</Link><small><i> - {this.parsePostCreationDate(this.props.post.comments[i].createdAt)}</i></small>
               </Media.Heading>
               <p>
                 {this.props.post.comments[i].content}
@@ -93,7 +91,7 @@ export default class PostPage extends Component {
           </Media.Left>
           <Media.Body>
             <Media.Heading>
-              <Link to={"/" + this.props.post.owner}>{this.props.post.username}</Link><small><i>{this.parsePostCreationDate(this.props.post.createdAt)}</i></small>
+              <Link to={"/profile/" + this.props.post.owner}>{this.props.post.username}</Link><small><i>{this.parsePostCreationDate(this.props.post.createdAt)}</i></small>
             </Media.Heading>
             <p>
               {this.props.post.content}

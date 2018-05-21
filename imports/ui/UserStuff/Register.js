@@ -45,7 +45,11 @@ export default class Register extends Component {
                       return;
                     } else {
                       //Add an empty profile to the profile collection
+<<<<<<< HEAD
                       Meteor.call('userProfiles.insert',userId,"","",0,[],registerData.username);
+=======
+                      Meteor.call('userProfiles.insert',userId,"","",0,[], registerData);
+>>>>>>> Antonio
                       //Add an empty ranking to the dan Collection for the user
                       Meteor.call('danCollection.insert');
                       Bert.alert( 'Welcome!', 'success' );
