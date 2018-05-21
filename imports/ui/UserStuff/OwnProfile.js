@@ -106,6 +106,9 @@ export class OwnProfile extends Component {
         return (
             <div>
                 <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
+
+                    
+
                     <FormGroup controlId="formHorizontalRealName">
                     <Col  sm={2}>
                         Real name 
@@ -132,7 +135,7 @@ export class OwnProfile extends Component {
                 </Form>
                 <Row>
                     <Col  sm={2}>
-                        Dan progress &emsp; <Badge>{this.state.danLvl+"/20"}</Badge>
+                        Skill progress &emsp; <Badge>{this.state.danLvl+"/20"}</Badge>
                     </Col>
                     <Col  sm={10}>
                         {this.renderDanLvlBar()}

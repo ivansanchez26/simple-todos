@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Panel, Button, ListGroup, ListGroupItem, Well } from 'react-bootstrap';
 import { withTracker } from 'meteor/react-meteor-data';
 import {UserProfiles} from '../../collections/userProfiles.js';
 import { Meteor } from 'meteor/meteor';
@@ -152,6 +152,11 @@ export class DanPage extends Component {
         </Panel>
         <Panel>
           <Panel.Body>
+            <Well>
+              <p><strong>This is your user ranking. Use this to keep track of your progress in the game.</strong></p>
+              <p><strong>How it works: each level contains 4 songs, any time you pass a song you can mark it as completed, when you pass all 4 songs the whole level will be marked as completed, the highest level completed will be shown on your profile.</strong></p>
+
+            </Well>
             {this.renderSongShiet()}
           </Panel.Body>  
         </Panel>

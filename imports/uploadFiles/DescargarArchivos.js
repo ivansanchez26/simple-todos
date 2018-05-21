@@ -31,7 +31,7 @@ export default class DescargarArchivos extends Component {
     // Just render a placeholder container that will be filled in
     return (
       <ListGroupItem>
-        <span ref="container"/>
+        <div className="panel-body" ref="container"/>
       </ListGroupItem>
     );
   }

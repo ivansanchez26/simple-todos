@@ -98,7 +98,6 @@ export class AdminPage extends Component {
                         onChange={this.handleInputChange.bind(this)}
                         placeholder="Username..."
                     />
-                    <ControlLabel>Reason:</ControlLabel>
                     <FormControl
                         type="text"
                         value={this.state.banUserReason}

@@ -13,7 +13,7 @@ export default class Downloads extends Component {
     return (
         <div>
         <Panel>
-          <Panel.Body><h1>Downloads</h1></Panel.Body>
+          <Panel.Body><h1 className="text-center">Downloads</h1></Panel.Body>
             
         </Panel>
         <FormSubida/>

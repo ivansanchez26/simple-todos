@@ -51,7 +51,6 @@ export class Header extends Component {
                   <li className="dropdown"><a className="dropdown-toggle" data-toggle="dropdown" href="#">{this.props.currentUser.username} <span className="caret"></span></a>
                     <ul className="dropdown-menu">
                       <li><Link to={linkToProfile}>My profile</Link></li>
-                      <li><a href="#">Reset password</a></li>
                       <li><Link to={linkToRanking}>My ranking</Link></li>
                       <li className="divider"></li>
                       {showLinkToAdminPage}

@@ -101,7 +101,7 @@ export class OtherProfile extends Component {
                   
               <Row>
                   <Col  sm={2}>
-                      Dan progress &emsp; <Badge>{this.state.danLvl+"/20"}</Badge>
+                      Skill progress &emsp; <Badge>{this.state.danLvl+"/20"}</Badge>
                   </Col>
                   <Col  sm={10}>
                       {this.renderDanLvlBar()}

@@ -2,7 +2,8 @@
 /* CSS declarations go here */
 
 body {
-    background-image: url("/images/tile2.jpg");
+    background-image: url("/images/lightBlue.jpg");
+    background-attachment: fixed;
 }
 
 
@@ -53,3 +54,7 @@ textarea{
     resize: none;
 }
 
+/*Attempt to make this thing look a bit better*/
+
+.panel-body {
+    background:#f5f5f5;}

@@ -157,6 +157,7 @@
 
       <div class="col-md-4">
           <div class="thumbnail">
+          <br>
               {{#let idImagen=imageId }}
                 {{#with buscarImagenArchivo idImagen}}
                   {{> ShowImageInGrid}}
@@ -166,7 +167,7 @@
                 {{/with}}
               {{/let}}
               <div class="caption">
-                  <h4 class=""><strong>{{name}}</strong></h4>
+                  <h4 class=""><a href="/song/{{_id}}"><strong>{{name}}</strong></a></h4>
 
                   <p class="">{{description}}</p>
                   <p class=""><small><strong>Size: </strong>{{size}} MB </small></p>
@@ -195,12 +196,11 @@
                     {{/with}}
                   {{/let}}
                   {{#if ifUserIsUploaderOrAdmin owner}}
-                    
                     <!-- Trigger the modal with a button -->
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Remove Song!</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#{{_id}}">Remove Song!</button>
 
                     <!-- Modal -->
-                    <div id="myModal" class="modal fade" role="dialog">
+                    <div id={{_id}} class="modal fade" role="dialog">
                       <div class="modal-dialog">
 
                         <!-- Modal content-->
@@ -243,7 +243,7 @@
       {{/unless}}
   </template>
   <template name="ShowImageInGrid">
-    <img src="{{link}}" alt="img" class="img-thumbnail" />
+    <img src="{{link}}" alt="img" width="300" />
   </template>
 
 

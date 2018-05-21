@@ -14,6 +14,7 @@ import LoginPage from "../webpages/LoginPage";
 import Profile from '../UserStuff/Profile';
 import DanPage from '../DanStuff/DanPage';
 import AdminPage from '../AdminStuff/AdminPage';
+import SongDownload from '../Songs/SongDownload';
 
 export default class Main extends Component {
     render() {
@@ -30,6 +31,7 @@ export default class Main extends Component {
                     <Route path="/profile/:id" component={Profile} />                    
                     <Route path="/dan/:id" component={DanPage} />   
                     <Route path="/admin" component={AdminPage} />
+                    <Route path="/song/:id" component={SongDownload} />
                 </Switch> 
             </main>
       );

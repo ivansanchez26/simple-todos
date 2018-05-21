@@ -11,6 +11,19 @@ import {UserProfiles} from '../../collections/userProfiles.js';
 
 export class Profile extends Component {
 
+  renderProfileName(){
+    if(this.props.userProfile[0]!=undefined){
+      return (
+        <Panel>
+          <Panel.Body>
+            <h1>{this.props.userProfile[0].username}'s profile</h1>
+          </Panel.Body>  
+        </Panel>
+      );
+    }
+  }
+
+  
   render() {
     var profileToLoad = <NotFoundProfile/>;
     if(this.props.currentUserId==this.props.match.params.id){
@@ -23,11 +36,7 @@ export class Profile extends Component {
 
     return (
         <div>
-        <Panel>
-          <Panel.Body>
-              <h1>Profile</h1>
-          </Panel.Body>  
-        </Panel>
+          {this.renderProfileName()}
         <Panel>
           <Panel.Body>
               {profileToLoad}
