@@ -62,7 +62,7 @@ export class Header extends Component {
         <nav className="navbar navbar-inverse">
         <div className="container-fluid">
           <div className="navbar-header">
-            <Link to="/" id="logo" className="navbar-brand"><img src="/images/logo.png" alt="Logo"/></Link>
+            <Link to="/" id="logo" className="navbar-left"><img src="/images/logo.png" alt="Logo"/></Link>
           </div>
           <ul className="nav navbar-nav">
             <li><Link to="/">Home</Link></li>

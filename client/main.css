@@ -4,9 +4,8 @@
 body {
     background-image: url("/images/tile4.jpg");
     background-attachment: fixed;
+    background-size: cover;
 }
-
-
 
 .navbar-nav span[role=button] {
     padding: 15px;
@@ -14,12 +13,12 @@ body {
     line-height: 20px;
 }
 
-
 /* Buttons for file inputs */
 .btn-file {
     position: relative;
     overflow: hidden;
 }
+
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -46,11 +45,20 @@ body {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
-    display:         flex;
-  }
+    display: flex;
+}
 
 /*Don't allow textarea resize*/
 textarea{
     resize: none;
 }
 
+.navbar-left{
+    padding: 0px;
+}
+
+.navbar-left>img{
+    height: 50px;
+    padding: 7px; /* firefox bug fix */
+    width: auto;
+}
