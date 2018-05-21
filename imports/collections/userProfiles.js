@@ -13,11 +13,7 @@ if (Meteor.isServer) {
   }
 
 Meteor.methods({
-<<<<<<< HEAD
     'userProfiles.insert'(userId,realName,description,danLvl,uploadedSongs,username) {
-=======
-    'userProfiles.insert'(userId,realName,description,danLvl,uploadedSongs,registerData) {
->>>>>>> Antonio
     
       if(!this.userId){
         throw new Meteor.Error('not-authorized');
