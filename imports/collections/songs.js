@@ -17,7 +17,6 @@ if (Meteor.isServer) {
 Meteor.methods({
     'songs.insert'(name,description,fileName,fileId,size,difficulties,imageId) {
     
-    
       // Make sure the user is logged in before inserting a task
       if (! this.userId) {
         throw new Meteor.Error('not-authorized');
@@ -54,12 +53,5 @@ Meteor.methods({
 
 
       Songs.remove(songId);
-    },
-
-    'songs.find'(){
-
-      return Songs.find({});
-    }
-   
-  
+    },  
   });

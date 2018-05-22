@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { Panel, FormGroup, FormControl, Form, Col, Checkbox, Button } from 'react-bootstrap';
 import Blaze from 'meteor/gadicc:blaze-react-component';
 import { Meteor } from 'meteor/meteor';
-import { Email } from 'meteor/email'
-
+import { Email } from 'meteor/email';
+import Recaptcha from 'react-recaptcha';
 
 export default class Login extends Component {
  
@@ -12,7 +12,9 @@ export default class Login extends Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      tries: 0,
+      captcha: false
     };
 
   }
@@ -23,17 +25,33 @@ export default class Login extends Component {
     var myemail = this.state.email;
     var myPassword = this.state.password;
 
-    Meteor.loginWithPassword(myemail, myPassword, function(error) {
-
-      if (Meteor.user()) {
-        Bert.alert('Succesful login','success','growl-bottom-right');
-        window.location.href = '/';  
-      } else {
-        Bert.alert('Error: '+error.reason,'danger','growl-top-right');
+    if(this.state.tries < 3){
+      Meteor.loginWithPassword(myemail, myPassword, function(error)  {
+        if (Meteor.user()) {
+          Bert.alert('Succesful login','success','growl-bottom-right');
+          window.location.href = '/';  
+        } else {
+          if(error.error == 403){
+            this.setState({tries: this.state.tries + 1});
+          }
+          Bert.alert('Error: '+error.reason,'danger','growl-top-right');
+        }
+      }.bind(this));
+    }else{
+      var responses = grecaptcha.getResponse();
+      if(responses.length !=0){
+        Meteor.loginWithPassword(myemail, myPassword, function(error)  {
+          if (Meteor.user()) {
+            Bert.alert('Succesful login','success','growl-bottom-right');
+            window.location.href = '/';  
+          } else {
+            Bert.alert('Error: '+error.reason,'danger','growl-top-right');
+          }
+        }.bind(this));
+      }else{
+        Bert.alert('Error: Captcha not checked!','danger','growl-top-right');
       }
-    });
-    
-    
+    }
   }
 
   handleInputChange(event) {
@@ -46,6 +64,14 @@ export default class Login extends Component {
     });
     
   }
+
+  handleCaptcha(event) {
+    event.preventDefault();
+    console.log(this.state.captcha)
+    this.setState({ captcha: event.target.value });
+    console.log(this.state.captcha)
+  }
+  
   
   render() {
 
@@ -55,22 +81,32 @@ export default class Login extends Component {
             <Form horizontal onSubmit={this.handleSubmit.bind(this)}>
               <FormGroup controlId="formHorizontalemail">
                 <Col sm={2}>
-                  Email
+                  Email/Username
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="email" placeholder="Email" name="email" onChange={this.handleInputChange.bind(this)} required/>
+                  <FormControl type="text" placeholder="Email/Username" name="email" onChange={this.handleInputChange.bind(this)} required/>
                 </Col>
               </FormGroup>
 
               <FormGroup controlId="formHorizontalPassword">
-                <Col  sm={2}>
+                <Col sm={2}>
                   Password
                 </Col>
                 <Col sm={10}>
                   <FormControl type="password" placeholder="Password" name="password" onChange={this.handleInputChange.bind(this)} required/>
                 </Col>
               </FormGroup>
-
+              {
+                this.state.tries >= 3 ? 
+                <FormGroup>
+                <Col smOffset={2} sm={10}>
+                <Recaptcha
+                  sitekey = "6LeJv1oUAAAAALHSgeUo1bFLM_fy1xao731JKeD2"
+                  required
+                />              
+                </Col>
+              </FormGroup> : ''
+              }
               <FormGroup>
                 <Col smOffset={2} sm={10}>
                   <Button type="submit">Sign in</Button>
