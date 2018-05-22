@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Panel, Well, Button, Modal, ControlLabel, FormControl, FormGroup } from 'react-bootstrap';
+import { Panel, Well, Button, Modal, ControlLabel, FormControl, FormGroup, Row, Col } from 'react-bootstrap';
 import { withTracker } from 'meteor/react-meteor-data';
 import { News } from '../../collections/news';
 import { Meteor } from 'meteor/meteor';
-
-
+import TransitionGroup from 'react-addons-transition-group';
+import Introduction from '../HomeStuff/Introduction';
+import Introduction2 from '../HomeStuff/Introduction2';
+import Introduction3 from '../HomeStuff/Introduction3';
 
 
 export class Home extends Component {
@@ -12,11 +14,12 @@ export class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      limit: 5,
+      limit: 6,
       show: false,
       title : "",
       content : "",
       showLoadMoreButton : true,
+      showBox : 1,
     };
 
   }
@@ -45,6 +48,16 @@ export class Home extends Component {
     this.setState({[name]: event.target.value});
   }
 
+  deleteNew(event){
+    Meteor.call('news.remove',event.target.id);
+  }
+
+  renderDeleteButton(newId){
+    if(Roles.userIsInRole(this.props.currentUserId,'Admins')){
+      return <Button bsStyle="danger" id={newId} onClick={this.deleteNew.bind(this)}>Delete</Button>;
+    }
+  }
+
   renderNews(){
 
     rows = [];
@@ -54,16 +67,54 @@ export class Home extends Component {
     }
 
     for(i=0;i<length;i++){
-      rows.push(
-        <Panel key={i}>
-          <Panel.Heading>
-            <h3>{this.props.news[i].title}</h3>
-          </Panel.Heading>
-          <Panel.Body>
-            <p>{this.props.news[i].content}</p>
-          </Panel.Body>
-        </Panel>
-      );
+      //Shows the panels in a grid of two columns per row
+      if(i%2==0){
+        if(this.props.news[i+1]!=undefined){
+          rows.push(
+            <Row key={i}>
+              <Col md={6}>
+                <Panel >
+                  <Panel.Heading>
+                    <h3>{this.props.news[i].title}</h3><p><small>Uploaded by: <strong>{this.props.news[i].uploaderUsername}</strong> </small></p><p><small>{this.props.news[i].createdAt.toLocaleDateString()}</small></p>
+                    {this.renderDeleteButton(this.props.news[i]._id)}
+                  </Panel.Heading>
+                  <Panel.Body>
+                    <p>{this.props.news[i].content}</p>
+                  </Panel.Body>
+                </Panel>
+              </Col>
+              <Col md={6}>
+                <Panel >
+                  <Panel.Heading>
+                    <h3>{this.props.news[i+1].title}</h3><p><small>Uploaded by: <strong>{this.props.news[i+1].uploaderUsername}</strong> </small></p><p><small>{this.props.news[i+1].createdAt.toLocaleDateString()}</small></p>
+                    {this.renderDeleteButton(this.props.news[i+1]._id)}
+                  </Panel.Heading>
+                  <Panel.Body>
+                    <p>{this.props.news[i+1].content}</p>
+                  </Panel.Body>
+                </Panel>
+              </Col>
+            </Row>
+          );
+        }else{
+          rows.push(
+            <Row key={i}>
+                <Col md={6}>
+                  <Panel >
+                    <Panel.Heading>
+                      <h3>{this.props.news[i].title}</h3><p><small>Uploaded by: <strong>{this.props.news[i].uploaderUsername}</strong> </small></p><p><small>{this.props.news[i].createdAt.toLocaleDateString()}</small></p>
+                      {this.renderDeleteButton(this.props.news[i]._id)}
+                    </Panel.Heading>
+                    <Panel.Body>
+                      <p>{this.props.news[i].content}</p>
+                    </Panel.Body>
+                  </Panel>
+                </Col>
+              </Row>
+          );
+        }
+      }
+      
     }
 
     return(
@@ -82,8 +133,8 @@ export class Home extends Component {
   }
 
   loadMore(){
-    this.setState({limit: this.state.limit+5});
-    if(this.state.limit+5>=this.props.news.length)
+    this.setState({limit: this.state.limit+6});
+    if(this.state.limit+6>=this.props.news.length)
       this.setState({showLoadMoreButton : false});
   }
 
@@ -96,6 +147,23 @@ export class Home extends Component {
     }
   }
 
+  toggleBox = () => {
+    this.setState({
+      showBox: this.state.showBox+1,
+    });
+  };
+
+  renderIntroduction(){
+    if(this.state.showBox==1){
+      return <Introduction/>;
+    }else if(this.state.showBox==2){
+      return <Introduction2/>;
+    }else if(this.state.showBox==3){
+      return <Introduction3/>;
+    }
+  }
+
+
   render() {
     return (
       <div>
@@ -106,7 +174,18 @@ export class Home extends Component {
         </Panel>
         <Panel>
           <Panel.Body>
-            <Well>Quienes somos y de donde surje</Well>
+            <div className="page">
+              <TransitionGroup>
+                {this.renderIntroduction()}
+              </TransitionGroup>
+
+              <button
+                className="toggle-btn"
+                onClick={this.toggleBox}
+              >
+                toggle
+              </button>
+            </div>
             <h2>News</h2>
             <div className="static-modal">
               <Modal show={this.state.show} onHide={this.handleClose.bind(this)}>

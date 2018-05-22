@@ -23,11 +23,14 @@ Meteor.methods({
       
       var created = new Date();
 
+      var uploader = Meteor.users.findOne({_id: this.userId});
+
       News.insert({
         title,
         content,
         createdAt: created,
         uploader: this.userId,
+        uploaderUsername : uploader.username,
       });
 
     },
