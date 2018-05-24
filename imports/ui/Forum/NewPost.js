@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, Button, FormGroup, ControlLabel, FormControl, Modal } from 'react-bootstrap';
+import { Panel, Button, FormGroup, ControlLabel, FormControl, Modal, Form } from 'react-bootstrap';
 import FieldGroup from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
@@ -58,7 +58,6 @@ export default class NewPost extends Component {
             <Button bsStyle="success" onClick={this.handleShow}>
                 New post
             </Button>
-        <form>
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>New post form</Modal.Title>
@@ -67,20 +66,19 @@ export default class NewPost extends Component {
               <FieldGroup
               id="formControlsText"
               type="text"
-              label="Text"
-              placeholder="Enter text"
+              label="Title"
+              placeholder="Enter title"
               inputRef={(input) => this.inputTitle = input}              
               />
               <FormGroup controlId="formControlsTextarea">
-                <ControlLabel>Textarea</ControlLabel>
-                <FormControl componentClass="textarea" placeholder="textarea" inputRef={(input) => { this.inputContent = input; }}/>
+                <ControlLabel>Content</ControlLabel>
+                <FormControl componentClass="textarea" placeholder="Post content..." inputRef={(input) => { this.inputContent = input; }}/>
               </FormGroup>
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={this.handleSubmit.bind(this)}>Submit</Button>
             </Modal.Footer>
           </Modal>
-        </form>
         </div>
     );
   }

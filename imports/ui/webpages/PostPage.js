@@ -7,7 +7,7 @@ import { Posts } from '../../collections/Posts';
 import { PostList } from '../Forum/PostList.js';
 import { Link } from 'react-router-dom';
 
-export default class PostPage extends Component {
+export class PostPage extends Component {
 
   constructor(props) {
     super(props);
@@ -39,6 +39,21 @@ export default class PostPage extends Component {
     }
 
     return(dt +'/' + month + '/'+ year + ', ' + hour + ':' + minute + ':' + seconds);
+  }
+
+  renderInsertComment(){
+    if(this.props.currentUser){
+      return(
+        <form>
+          <div className="form-group">
+            <label htmlFor="comment">Comment:</label>
+            <textarea className="form-control" width={300} rows="5" ref="comment" id="comment" onKeyDown={this.onEnterPress}></textarea>
+          </div> 
+        </form>
+      )
+    }else{
+      return '';
+    }
   }
 
 
@@ -99,15 +114,15 @@ export default class PostPage extends Component {
             <hr/>
             {this.renderPosts()}
           </Media.Body>
-        </Media>     
-        {Meteor.userId() ? 
-          <form>
-          <div className="form-group">
-            <label htmlFor="comment">Comment:</label>
-            <textarea className="form-control" width={300} rows="5" ref="comment" id="comment" onKeyDown={this.onEnterPress}></textarea>
-          </div> 
-        </form> :  ''}
+        </Media>
+        {this.renderInsertComment()}  
         </div>
       );
     }
   }
+
+  export default withTracker(props => {
+    return {
+      currentUser: Meteor.user(),
+    };
+  })(PostPage);
