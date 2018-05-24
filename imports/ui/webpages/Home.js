@@ -147,45 +147,72 @@ export class Home extends Component {
     }
   }
 
-  toggleBox = () => {
-    this.setState({
-      showBox: this.state.showBox+1,
-    });
-  };
+  
 
   renderIntroduction(){
     if(this.state.showBox==1){
       return <Introduction/>;
-    }else if(this.state.showBox==2){
+    }
+  }
+  renderIntroduction2(){
+    if(this.state.showBox==2){
       return <Introduction2/>;
-    }else if(this.state.showBox==3){
+    }
+  }
+  renderIntroduction3(){
+    if(this.state.showBox==3){
       return <Introduction3/>;
     }
   }
 
+  toggleBox = (event) => {
+
+    /*if(this.state.showBox!=3){
+      this.setState({
+        showBox: this.state.showBox+1,
+      });
+    }else{
+      this.setState({
+        showBox: this.state.showBox-2,
+      });
+    }*/
+    this.setState({
+      showBox: event.target.name,
+    });
+
+  };
 
   render() {
     return (
       <div>
         <Panel>
           <Panel.Body>
-            <h1>Home</h1>
-          </Panel.Body>
-        </Panel>
-        <Panel>
-          <Panel.Body>
-            <div className="page">
+
               <TransitionGroup>
                 {this.renderIntroduction()}
               </TransitionGroup>
+              <TransitionGroup>
+                {this.renderIntroduction2()}
+              </TransitionGroup>
+              <TransitionGroup>
+                {this.renderIntroduction3()}
+              </TransitionGroup>
+              <hr/>
 
-              <button
-                className="toggle-btn"
-                onClick={this.toggleBox}
-              >
-                toggle
-              </button>
+              <div className="homeButtons">
+              <Row>
+                <Col md={4}>
+                  <Button name="1" onClick={this.toggleBox} bsStyle="primary">Our idea</Button>
+                </Col>
+                <Col md={4}>
+                  <Button name="2" onClick={this.toggleBox} bsStyle="primary">About us</Button>
+                </Col>
+                <Col md={4}>
+                  <Button name="3" onClick={this.toggleBox} bsStyle="primary">Where it started</Button>
+                </Col>
+              </Row>
             </div>
+
             <h2>News</h2>
             <div className="static-modal">
               <Modal show={this.state.show} onHide={this.handleClose.bind(this)}>
@@ -242,6 +269,5 @@ export default withTracker(props => {
   return {
     currentUserId : Meteor.userId(),
     news : News.find({},{sort: {createdAt:-1}}).fetch(),
-
   };
 })(Home);
