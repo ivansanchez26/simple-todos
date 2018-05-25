@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import ReactDOM from 'react-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import NewPost from '/imports/ui/Forum/NewPost';
 import PostList from '/imports/ui/Forum/PostList';
@@ -7,12 +8,20 @@ import { Panel, Form, InputGroup, FormControl, FormGroup, Button } from 'react-b
 import FieldGroup from 'react-bootstrap';
 
 export class Dashboard extends Component {
+constructor(props){
+  super(props)
+  this.onEnterPress = this.onEnterPress.bind(this)
+  this.state = {
+    filter: '',
+  }
+}
+
   onEnterPress = (e) => {
-    if(e.keyCode == 13 && e.shiftKey == false) {
+    if(e.keyCode == 13) {
       e.preventDefault();
-      const text = ReactDOM.findDOMNode(this.refs.filter).value.trim();
-      Meteor.call('comment.insert', text, this.props.post._id.toString());
-      ReactDOM.findDOMNode(this.refs.filter).value = '';
+      this.setState({
+        filter: this.myInput.value.trim()
+      });
     }
   }
 
@@ -25,7 +34,7 @@ export class Dashboard extends Component {
                 <InputGroup.Button>
                     <NewPost/>
                   </InputGroup.Button>
-                <FormControl type="text" refs="filter" onKeyDown={this.onEnterPress}/>
+                <FormControl type="text" inputRef={ref => { this.myInput = ref; }} onKeyDown={this.onEnterPress.bind(this)}/>
                 </InputGroup>  
           </FormGroup>
         </form>   
@@ -47,7 +56,7 @@ export class Dashboard extends Component {
           <Panel.Body>   
             {this.renderStuff()}    
               <br /> 
-              <PostList/> 
+              <PostList filter={this.state.filter}/> 
           </Panel.Body>
         </Panel>    
     );

@@ -33,7 +33,6 @@ export default class NewPost extends Component {
       ReactDOM.findDOMNode(this.inputContent).value = '';
     }
 
-
     handleClose() {
       this.setState({ show: false });
     }
@@ -64,15 +63,21 @@ export default class NewPost extends Component {
             </Modal.Header>
             <Modal.Body>
               <FieldGroup
-              id="formControlsText"
-              type="text"
-              label="Title"
-              placeholder="Enter title"
-              inputRef={(input) => this.inputTitle = input}              
+                id="formControlsText"
+                type="text"
+                label="Title"
+                placeholder="Enter title"
+                inputRef={(input) => this.inputTitle = input}
+                required          
               />
               <FormGroup controlId="formControlsTextarea">
                 <ControlLabel>Content</ControlLabel>
-                <FormControl componentClass="textarea" placeholder="Post content..." inputRef={(input) => { this.inputContent = input; }}/>
+                <FormControl 
+                  componentClass="textarea" 
+                  placeholder="Post content..." 
+                  inputRef={(input) => { this.inputContent = input; }}
+                  required
+                />
               </FormGroup>
             </Modal.Body>
             <Modal.Footer>

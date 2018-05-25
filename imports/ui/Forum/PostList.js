@@ -28,9 +28,9 @@ class PostList extends Component {
     }
   }
 
-export default withTracker(() => {
+export default withTracker(props => {
   Meteor.subscribe('posts');
   return {
-    posts: Posts.find({},{sort:{pinned: -1,createdAt:-1}}).fetch(),
+    posts: Posts.find({title:{$regex: new RegExp(props.filter, "i")}},{sort:{pinned: -1,createdAt:-1}}).fetch(),
   };
 })(PostList);
