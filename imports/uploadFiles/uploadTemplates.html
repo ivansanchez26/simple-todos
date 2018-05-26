@@ -158,14 +158,17 @@
       <div class="col-md-4">
           <div class="thumbnail">
           <br>
+          <a href="/song/{{_id}}">
               {{#let idImagen=imageId }}
                 {{#with buscarImagenArchivo idImagen}}
+                
                   {{> ShowImageInGrid}}
 
                   {{else}}
                   <img src="/images/image_not_found.png" alt="img" width="300" class="songImage"/>
                 {{/with}}
               {{/let}}
+          </a>
               <div class="caption">
                   <h4 class=""><a href="/song/{{_id}}"><strong>{{name}}</strong></a></h4>
 

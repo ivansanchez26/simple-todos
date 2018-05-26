@@ -66,13 +66,13 @@ export default class Introduction extends React.Component {
             <div className="homeButtons">
                 <Row>
                 <Col xs={4}>
-                    <Button  className="IntroButton" name="1" onClick={this.toggleBox}  bsStyle="primary" bsSize="large">Our idea</Button>
+                    <button  className="IntroButton" name="1" onClick={this.toggleBox} >Our idea</button>
                 </Col>
                 <Col xs={4}>
-                    <Button  className="IntroButton" name="2" onClick={this.toggleBox} bsStyle="primary" bsSize="large">About us</Button>
+                    <button  className="IntroButton" name="2" onClick={this.toggleBox} >About us</button>
                 </Col>
                 <Col xs={4}>
-                    <Button  className="IntroButton" name="3" onClick={this.toggleBox} bsStyle="primary" bsSize="large">Where it started</Button>
+                    <button  className="IntroButton" name="3" onClick={this.toggleBox} >Where it started</button>
                 </Col>
                 </Row>
             </div>

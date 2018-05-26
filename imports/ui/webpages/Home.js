@@ -131,25 +131,17 @@ export class Home extends Component {
 
   loadMore(){
     this.setState({limit: this.state.limit+6});
-    if(this.state.limit+6>=this.props.news.length)
-      this.setState({showLoadMoreButton : false});
   }
 
   renderLoadMoreButton(){
     
-    if(this.state.showLoadMoreButton){
+    if(this.state.limit<this.props.news.length){
       return(
         <Button onClick={this.loadMore.bind(this)}>Load more</Button>
       );
     }
   }
 
-  
-
-
-
-
-  
 
   render() {
     return (

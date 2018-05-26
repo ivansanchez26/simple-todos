@@ -145,11 +145,7 @@ export class DanPage extends Component {
 
     return (
         <div>
-        <Panel>
-          <Panel.Body>
-              <h1>Ranking</h1>
-          </Panel.Body>  
-        </Panel>
+
         <Panel>
           <Panel.Body>
             <Well>
