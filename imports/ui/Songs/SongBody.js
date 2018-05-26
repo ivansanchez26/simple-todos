@@ -46,14 +46,17 @@ export class SongBody extends Component {
   }
 
   renderSong(){
-    var imageLink = this.props.Image.link();
+    if(this.props.Image)
+        var imageLink = this.props.Image.link();
     return(
         <div>
             <Row>
                 <Col md={12} className="text-center">
                     <h1>{this.props.Song.name}</h1>
                     <br></br>
-                    <Image src={imageLink} alt="img" width="200"/>
+                    {imageLink ?
+                    <Image src={imageLink} alt="img" width="200"/> : <Image src="/images/image_not_found.png" alt="img" width="200"/>                    
+                    }
                     
                     <p>{this.props.Song.description}</p>
                     <br></br>

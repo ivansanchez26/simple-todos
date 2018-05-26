@@ -5,8 +5,6 @@ import { News } from '../../collections/news';
 import { Meteor } from 'meteor/meteor';
 import TransitionGroup from 'react-addons-transition-group';
 import Introduction from '../HomeStuff/Introduction';
-import Introduction2 from '../HomeStuff/Introduction2';
-import Introduction3 from '../HomeStuff/Introduction3';
 
 
 export class Home extends Component {
@@ -19,7 +17,6 @@ export class Home extends Component {
       title : "",
       content : "",
       showLoadMoreButton : true,
-      showBox : 1,
     };
 
   }
@@ -149,71 +146,21 @@ export class Home extends Component {
 
   
 
-  renderIntroduction(){
-    if(this.state.showBox==1){
-      return <Introduction/>;
-    }
-  }
-  renderIntroduction2(){
-    if(this.state.showBox==2){
-      return <Introduction2/>;
-    }
-  }
-  renderIntroduction3(){
-    if(this.state.showBox==3){
-      return <Introduction3/>;
-    }
-  }
 
-  toggleBox = (event) => {
 
-    /*if(this.state.showBox!=3){
-      this.setState({
-        showBox: this.state.showBox+1,
-      });
-    }else{
-      this.setState({
-        showBox: this.state.showBox-2,
-      });
-    }*/
-    this.setState({
-      showBox: event.target.name,
-    });
 
-  };
+  
 
   render() {
     return (
       <div>
         <Panel>
           <Panel.Body>
-
-              <TransitionGroup>
-                {this.renderIntroduction()}
-              </TransitionGroup>
-              <TransitionGroup>
-                {this.renderIntroduction2()}
-              </TransitionGroup>
-              <TransitionGroup>
-                {this.renderIntroduction3()}
-              </TransitionGroup>
-              <hr/>
-
-              <div className="homeButtons">
-              <Row>
-                <Col md={4}>
-                  <Button name="1" onClick={this.toggleBox} bsStyle="primary">Our idea</Button>
-                </Col>
-                <Col md={4}>
-                  <Button name="2" onClick={this.toggleBox} bsStyle="primary">About us</Button>
-                </Col>
-                <Col md={4}>
-                  <Button name="3" onClick={this.toggleBox} bsStyle="primary">Where it started</Button>
-                </Col>
-              </Row>
-            </div>
+                <Introduction/>
+              
 
             <h2>News</h2>
+            <hr/>
             <div className="static-modal">
               <Modal show={this.state.show} onHide={this.handleClose.bind(this)}>
                 <Modal.Header>
@@ -221,7 +168,6 @@ export class Home extends Component {
                 </Modal.Header>
 
                 <Modal.Body>
-                <form>
                   <FormGroup controlId="formTitle">
                     <ControlLabel>Title</ControlLabel>
                     <FormControl
@@ -244,7 +190,6 @@ export class Home extends Component {
                       onChange={this.handleChange.bind(this)}
                     />
                   </FormGroup>
-                </form>
                 </Modal.Body>
 
                 <Modal.Footer>

@@ -163,7 +163,7 @@
                   {{> ShowImageInGrid}}
 
                   {{else}}
-                  <img src="/images/image_not_found.png" class="img-thumbnail"/>
+                  <img src="/images/image_not_found.png" alt="img" width="300" class="songImage"/>
                 {{/with}}
               {{/let}}
               <div class="caption">
@@ -243,7 +243,7 @@
       {{/unless}}
   </template>
   <template name="ShowImageInGrid">
-    <img src="{{link}}" alt="img" width="300" />
+    <img src="{{link}}" alt="img" width="300" class="songImage"/>
   </template>
 
 

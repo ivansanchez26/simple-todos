@@ -57,6 +57,12 @@ Meteor.methods({
       UserProfiles.update({userId: this.userId},{$push: {uploadedSongs: {$each: [{songId,songName,songDifficulties}] }}});
 
     },
+    'userProfiles.removeSong'(songId){
+
+      UserProfiles.update({uploadedSongs: {$elemMatch: {songId: songId}}},{$pull: {uploadedSongs:{songId: songId}} });
+
+
+    },
 
     
    

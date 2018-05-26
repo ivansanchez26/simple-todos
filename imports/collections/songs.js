@@ -51,6 +51,7 @@ Meteor.methods({
       
       Meteor.call('songFile.remove',song.fileId);
       Meteor.call('songImage.remove',song.imageId);
+      Meteor.call('userProfiles.removeSong',song._id);
 
 
       Songs.remove(songId);
