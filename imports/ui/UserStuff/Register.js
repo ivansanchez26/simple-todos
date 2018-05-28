@@ -4,6 +4,8 @@ import { Panel, FormGroup, FormControl, Form, Col, Checkbox, Button, HelpBlock }
 import Blaze from 'meteor/gadicc:blaze-react-component';
 import { Meteor } from 'meteor/meteor';
 import Link from 'react-router-dom/Link';
+import Recaptcha from 'react-recaptcha';
+import {Redirect} from 'react-router';
 
 export default class Register extends Component {
 
@@ -24,17 +26,21 @@ export default class Register extends Component {
         event.preventDefault();
         var myemail = this.state.email;
         var myPassword = this.state.password;
-        
+
+        var responses = grecaptcha.getResponse();
     
         //check that validations are fine to proceed
         if(this.getValidationStatePassword()=='success' && this.getValidationStatePasswordConfirm()=='success'){
+          if(responses.length == 0){
+            Bert.alert( 'Error: Captcha not checked!', 'danger' ,'growl-top-right');
+          }else{
             var registerData = {
-                email: this.state.email,
-                username: this.state.username,
-                password: this.state.password
-             }
-             var userId;
-             Accounts.createUser( registerData, ( error ) => {
+              email: this.state.email,
+              username: this.state.username,
+              password: this.state.password
+            }
+            var userId;
+            Accounts.createUser( registerData, ( error ) => {
                 if ( error ) {
                   Bert.alert( error.reason, 'danger' );
                   return;
@@ -55,17 +61,14 @@ export default class Register extends Component {
                         Meteor.call('insertAdmin');
                       }
 
-                      window.location.href = '/';
+                      <Redirect to="/"/>
+                      //window.location.href = '/';
                     }
                   });
                 }
               });
-              
-              
-              
-          }
-        
-        
+          } 
+        }  
       }
     
       handleInputChange(event) {
@@ -139,6 +142,14 @@ export default class Register extends Component {
                       <FormControl type="password" placeholder="Confirm Password" name="passwordConfirm" onChange={this.handleInputChange.bind(this)} required/>
                       <FormControl.Feedback />
                       <HelpBlock>Password must be at least 8 characters long.</HelpBlock>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup>
+                    <Col smOffset={2} sm={10}>
+                    <Recaptcha
+                      sitekey = "6LeJv1oUAAAAALHSgeUo1bFLM_fy1xao731JKeD2"
+                      required
+                    />              
                     </Col>
                   </FormGroup>
     

@@ -6,7 +6,7 @@ import Switch from "react-router-dom/Switch";
 
 import Home from "../webpages/Home";
 import Downloads from "../webpages/Downloads";
-import Howto from "../webpages/Howto";
+import Started from "../webpages/Started";
 
 import Dashboard from '../Forum/Dashboard';
 import Post from '../Forum/Post';
@@ -23,7 +23,7 @@ export default class Main extends Component {
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/downloads" component={Downloads} />
-                    <Route path="/howto" component={Howto} />
+                    <Route path="/start" component={Started} />
 
                     <Route exact path='/forum' component={Dashboard}/>
                     <Route path='/post/:id' component={Post}/>

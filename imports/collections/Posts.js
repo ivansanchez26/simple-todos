@@ -13,7 +13,6 @@ if (Meteor.isServer) {
 
 
 Meteor.methods({
-    
     'posts.insert'(title,content) {
       check(title, String);
       check(content, String);
@@ -43,7 +42,6 @@ Meteor.methods({
       check(setChecked, Boolean);
       Posts.update(postId, { $set: { pinned: setChecked } });
     },
-
     'comment.insert'(content, postId){
       check(content, String); 
 

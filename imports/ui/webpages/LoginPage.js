@@ -11,8 +11,11 @@ export default class LoginPage extends Component {
   render() {
     return (
         <div>
-
-        <LoginRegisterBox/>
+          <Panel>
+            <Panel.Body>
+             <LoginRegisterBox/>
+            </Panel.Body>  
+          </Panel>
         </div>
     );
   }

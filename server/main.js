@@ -16,11 +16,11 @@ Meteor.startup(() => {
 
 Accounts.validateLoginAttempt(function(info) {
   var user = info.user;
-
-  if(user.isBanned)
-   throw new Meteor.Error(403, 'You are banned, Reason: '+user.banReason);
-  else{
-    return true;
+  if(user){
+    if(user.isBanned)
+    throw new Meteor.Error(403, 'You are banned, Reason: '+user.banReason);
+    else{
+      return true;
+    }
   }
-
 });

@@ -138,3 +138,11 @@ textarea{
 
 
   
+hr{
+    width: 95%;
+    margin-left: -2%;
+}
+
+#comentarios{
+    text-align: center;
+}

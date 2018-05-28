@@ -123,7 +123,7 @@ export class AdminPage extends Component {
         }else{
             return (
                 <div>
-                    <p>Bro pls u no admin</p><br/>
+                    <p>If you're not an admin you should be here</p><br/>
                     <img src="/images/bouncer.jpg"/>
                 </div>
             )

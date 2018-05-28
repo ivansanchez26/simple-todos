@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Posts } from '../../collections/Posts';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button, Glyphicon } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import Home from '../webpages/Home';
 
@@ -9,12 +9,14 @@ import Home from '../webpages/Home';
 export default class PostItem extends Component {
   constructor(props){
     super(props);
+    
     this.state = {
-      isToggleOn: false,
+      isToggleOn: props.post.pinned,
     };
 
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
+    this.deletePost = this.deletePost.bind(this);
   }
 
   handleClick() {
@@ -23,6 +25,11 @@ export default class PostItem extends Component {
 	 		isToggleOn: !this.state.isToggleOn,
 	 	});
     Meteor.call('posts.setPinned', this.props.post._id, !this.state.isToggleOn);
+  }
+
+  deletePost(){
+    Meteor.call('posts.remove', this.props.post._id);
+    Bert.alert('Post removed.', 'success', 'growl-top-right'); 
   }
 
   parsePostCreationDate(date){
@@ -54,9 +61,7 @@ export default class PostItem extends Component {
   }
 
   getNComments(){
-    console.log(this.props.post);
     var nComents = this.props.post.comments.length;
-    console.log(nComents);
 
     if(nComents == 0){
       return 0;
@@ -70,16 +75,39 @@ export default class PostItem extends Component {
         <div>
           <Row>
             <Col xs={1}>
-              <Button onClick={this.handleClick}>
-                {this.state.isToggleOn ? <img src="/images/pinned.png"/> : <img src="/images/unpinned.png"/>}
-              </Button>
+            {
+              Roles.userIsInRole(Meteor.userId(), 'Admins' )? 
+              <div>
+                {console.log(this.state.isToggleOn)}
+                {this.state.isToggleOn ? 
+                <Button onClick={this.handleClick} active>
+                 <Glyphicon glyph="pushpin"/>
+                </Button> : 
+                <Button onClick={this.handleClick}>
+                 <Glyphicon glyph="pushpin"/>
+                </Button>}   
+                             
+                <Button onClick={this.deletePost}>
+                <Glyphicon glyph="remove"/>
+                </Button> 
+              </div>:
+              <div>
+              {this.state.isToggleOn ? 
+                <Button onClick={this.handleClick} disabled active>
+                 <Glyphicon glyph="pushpin"/>
+                </Button> : 
+                <Button onClick={this.handleClick} disabled>
+                 <Glyphicon glyph="pushpin"/>
+                </Button>}  
+              </div>
+            }     
             </Col>
             <Col xs={9}> 
               <Link to={"/post/"+this.props.post._id}>{this.props.post.title}</Link><br/>
               <p>Submitted at <strong>{this.parsePostCreationDate(this.props.post.createdAt)}</strong> by {this.props.post.username}</p>
               </Col>
             <Col xs={2}>
-              {this.getNComments()}
+              <p id="comentarios">{this.getNComments()}</p>
             </Col>
           </Row>
           <hr/>
