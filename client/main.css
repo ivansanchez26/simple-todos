@@ -140,9 +140,9 @@ textarea{
   
 hr{
     width: 95%;
-    margin-left: -2%;
+    margin-left: -1%;
 }
 
 #comentarios{
-    text-align: center;
+    padding-left: 10%;
 }

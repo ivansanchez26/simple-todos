@@ -54,7 +54,7 @@ export default class Started extends Component {
                   You may access it by click login at the right side in the navegation bar at the top of the webpage.
                   <br/><br/>
                   Once you have registered you'll need to verify your account by clicking the link sent to the email you registered with.
-                  Now you can download songs in the download section of our webpage.
+                  Now you can download songs in the download section of our webpage by clicking the download button below the song.
                 </Panel.Body>
               </Panel.Collapse>
             </Panel>

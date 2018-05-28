@@ -76,7 +76,9 @@ export class AdminPage extends Component {
                         onChange={this.handleInputChange.bind(this)}
                         placeholder="Username..."
                     />
-                    <Button onClick={this.addAdmin.bind(this)}>Add Admin</Button>
+                    <br/>
+                    <Button onClick={this.addAdmin.bind(this)} bsStyle="info">Add Admin</Button>
+                    <hr/>
                 </FormGroup>
                 <FormGroup controlId="formRemoveUser">
                     <ControlLabel>Remove user:</ControlLabel>
@@ -87,7 +89,9 @@ export class AdminPage extends Component {
                         onChange={this.handleInputChange.bind(this)}
                         placeholder="Username..."
                     />
-                    <Button onClick={this.removeUser.bind(this)}>Remove User</Button>
+                    <br/>
+                    <Button onClick={this.removeUser.bind(this)} bsStyle="info">Remove User</Button>
+                    <hr/>
                 </FormGroup>
                 <FormGroup controlId="formBanUser">
                     <ControlLabel>Ban user:</ControlLabel>
@@ -98,6 +102,7 @@ export class AdminPage extends Component {
                         onChange={this.handleInputChange.bind(this)}
                         placeholder="Username..."
                     />
+                    <br/>
                     <FormControl
                         type="text"
                         value={this.state.banUserReason}
@@ -105,7 +110,9 @@ export class AdminPage extends Component {
                         onChange={this.handleInputChange.bind(this)}
                         placeholder="Reason..."
                     />
-                    <Button onClick={this.banUser.bind(this)}>Ban User</Button>
+                    <br/>
+                    <Button onClick={this.banUser.bind(this)} bsStyle="info">Ban User</Button>
+                    <hr/>
                 </FormGroup>
                 <FormGroup controlId="formunbanUser">
                     <ControlLabel>Unban user:</ControlLabel>
@@ -116,14 +123,15 @@ export class AdminPage extends Component {
                         onChange={this.handleInputChange.bind(this)}
                         placeholder="Username..."
                     />
-                    <Button onClick={this.unbanUser.bind(this)}>Unban User</Button>
+                    <br/>
+                    <Button onClick={this.unbanUser.bind(this)} bsStyle="info">Unban User</Button>
                 </FormGroup>
             </div>
         );
         }else{
             return (
                 <div>
-                    <p>If you're not an admin you should be here</p><br/>
+                    <p>If you're not an admin you shouldn't be here</p><br/>
                     <img src="/images/bouncer.jpg"/>
                 </div>
             )
@@ -137,11 +145,7 @@ export class AdminPage extends Component {
         <div>
         <Panel>
           <Panel.Body>
-              <h1>AdminPage</h1>
-          </Panel.Body>  
-        </Panel>
-        <Panel>
-          <Panel.Body>
+            <h1>Administration page</h1><br/>
             {this.showPage()}
           </Panel.Body>  
         </Panel>

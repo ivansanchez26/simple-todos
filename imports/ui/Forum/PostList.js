@@ -8,7 +8,7 @@ import PostItem from './PostItem';
 
 class PostList extends Component {
   renderPosts() {
-    if(this.props.post){
+    if(this.props.posts.length != 0){
       return this.props.posts.map((post) => (
         <PostItem key={post._id} post={post}/>
       ));
@@ -16,7 +16,7 @@ class PostList extends Component {
   }
 
   renderIf(){
-    if(this.props.post){
+    if(this.props.posts.length != 0){
       return(
         <Row>
           <Col xs={1}> </Col>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, Row, Col, ProgressBar, Badge, ListGroup } from 'react-bootstrap';
+import { Panel, Row, Col, ProgressBar, Badge, ListGroup, FormControl, Form, FormGroup } from 'react-bootstrap';
 import { withTracker } from 'meteor/react-meteor-data';
 import { SongUploadedRow } from './SongUploadedRow';
 
@@ -77,28 +77,25 @@ export class OtherProfile extends Component {
   render() {
       return (
           <div>
-                <Row>
-                  <Col  sm={2}>
-                      Real name 
-                  </Col>
-                  <Col sm={4}>
-                    <Panel>
-                      <Panel.Body>{this.state.realName}</Panel.Body>
-                    </Panel>
-                  </Col>
-                </Row>
-                <Row>
+                <Form horizontal>
+                    <FormGroup controlId="formHorizontalRealName">
+                    <Col  sm={2}>
+                        Real name 
+                    </Col>
+                    <Col sm={4}>
+                        <FormControl type="text" name="realName" value={this.state.realName} disabled/>
+                    </Col>
+                    </FormGroup>
 
-                  <Col  sm={2}>
-                      Description  
-                  </Col>
-                  <Col sm={8}>
-                  <Panel>
-                    <Panel.Body>{this.state.description}</Panel.Body>
-                  </Panel>
-                  </Col>
-                </Row>
-                  
+                    <FormGroup controlId="formHorizontalDescription">
+                    <Col  sm={2}>
+                        Define yourself!  
+                    </Col>
+                    <Col sm={8}>
+                        <FormControl componentClass="textarea" type="text" rows="5" name="description" value={this.state.description} disabled />
+                    </Col>
+                    </FormGroup>
+                </Form>
               <Row>
                   <Col  sm={2}>
                       Skill progress &emsp; <Badge>{this.state.danLvl+"/20"}</Badge>

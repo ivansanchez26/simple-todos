@@ -53,15 +53,14 @@ export class SongBody extends Component {
             <Row>
                 <Col md={12} className="text-center">
                     <h1>{this.props.Song.name}</h1>
-                    <br></br>
+                    <br/>
                     {imageLink ?
                     <Image src={imageLink} alt="img" width="200"/> : <Image src="/images/image_not_found.png" alt="img" width="200"/>                    
-                    }
-                    
-                    <p>{this.props.Song.description}</p>
-                    <br></br>
+                    }  
+                    <p><br/>{this.props.Song.description}</p>
+                    <br/>
                     {this.renderDifs()}
-                    <br></br>
+                    <br/>
                     {this.renderLink()}
                 </Col>
             </Row>

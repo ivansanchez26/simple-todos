@@ -9,7 +9,7 @@
     "bcrypt": "*",
     "bcryptjs": "^2.4.3",
     "classnames": "^2.2.5",
-    "gsap": "^1.20.4",
+    "gsap": "^1.20.6",
     "meteor-node-stubs": "^0.3.2",
     "react": "^16.3.2",
     "react-addons-transition-group": "^15.6.2",

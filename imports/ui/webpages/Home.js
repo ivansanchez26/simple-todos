@@ -124,6 +124,7 @@ export class Home extends Component {
       return(
         <Button bsStyle="primary" bsSize="large" onClick={this.handleShow.bind(this)}>
           Insert new
+          <br/>
         </Button>
       );
     }
@@ -148,17 +149,14 @@ export class Home extends Component {
       <div>
         <Panel>
           <Panel.Body>
-                <Introduction/>
-              
-
-            <h2>News</h2>
+            <Introduction/>    
             <hr/>
+            <h2>News</h2>
             <div className="static-modal">
               <Modal show={this.state.show} onHide={this.handleClose.bind(this)}>
                 <Modal.Header>
                   <Modal.Title>Insert New</Modal.Title>
                 </Modal.Header>
-
                 <Modal.Body>
                   <FormGroup controlId="formTitle">
                     <ControlLabel>Title</ControlLabel>
@@ -183,15 +181,14 @@ export class Home extends Component {
                     />
                   </FormGroup>
                 </Modal.Body>
-
                 <Modal.Footer>
                   <Button onClick={this.handleClose.bind(this)}>Close</Button>
                   <Button bsStyle="primary" onClick={this.insertNew.bind(this)}>Add new</Button>
                 </Modal.Footer>
               </Modal>
             </div>
-
             {this.renderInsertNewButton()}
+            <hr/>
             {this.renderNews()}
             {this.renderLoadMoreButton()}
           </Panel.Body>

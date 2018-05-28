@@ -54,7 +54,7 @@ export default class NewPost extends Component {
     
     return (
         <div>    
-            <Button bsStyle="success" onClick={this.handleShow}>
+            <Button bsStyle="info" onClick={this.handleShow}>
                 New post
             </Button>
           <Modal show={this.state.show} onHide={this.handleClose}>
