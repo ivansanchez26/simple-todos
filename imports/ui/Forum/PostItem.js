@@ -100,15 +100,14 @@ export default class PostItem extends Component {
                  <Glyphicon glyph="pushpin"/>
                 </Button>}  
               </div>
-            }
-              
+            }     
             </Col>
             <Col xs={9}> 
               <Link to={"/post/"+this.props.post._id}>{this.props.post.title}</Link><br/>
               <p>Submitted at <strong>{this.parsePostCreationDate(this.props.post.createdAt)}</strong> by {this.props.post.username}</p>
               </Col>
             <Col xs={2}>
-              {this.getNComments()}
+              <p id="comentarios">{this.getNComments()}</p>
             </Col>
           </Row>
           <hr/>

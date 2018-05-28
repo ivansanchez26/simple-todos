@@ -67,9 +67,7 @@ export default class Login extends Component {
 
   handleCaptcha(event) {
     event.preventDefault();
-    console.log(this.state.captcha)
     this.setState({ captcha: event.target.value });
-    console.log(this.state.captcha)
   }
   
   

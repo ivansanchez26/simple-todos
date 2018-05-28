@@ -66,7 +66,7 @@ export default class NewPost extends Component {
                 id="formControlsText"
                 type="text"
                 label="Title"
-                placeholder="Enter title"
+                placeholder="Enter title here..."
                 inputRef={(input) => this.inputTitle = input}
                 required          
               />
@@ -74,7 +74,8 @@ export default class NewPost extends Component {
                 <ControlLabel>Content</ControlLabel>
                 <FormControl 
                   componentClass="textarea" 
-                  placeholder="Post content..." 
+                  label="Post content"
+                  placeholder="Enter post content here..." 
                   inputRef={(input) => { this.inputContent = input; }}
                   required
                 />

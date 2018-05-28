@@ -32,8 +32,7 @@ export class LoginRegisterBox extends Component {
         }
 
         return (
-            <Panel>
-                <Panel.Body>
+            <div>
                 {/*Shows the forms if there's no logged user*/}
                 { !this.props.currentUser ?
                     <div>
@@ -48,10 +47,8 @@ export class LoginRegisterBox extends Component {
                         {loginButton}
                     </div>
                      : <h3>You are logged in</h3>
-                }
-                    
-                </Panel.Body>
-            </Panel>
+                }                   
+            </div>
         );
     }
 }

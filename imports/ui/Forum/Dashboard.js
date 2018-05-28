@@ -34,7 +34,12 @@ constructor(props){
                 <InputGroup.Button>
                     <NewPost/>
                   </InputGroup.Button>
-                <FormControl type="text" inputRef={ref => { this.myInput = ref; }} onKeyDown={this.onEnterPress.bind(this)}/>
+                <FormControl 
+                type="text" 
+                inputRef={ref => { this.myInput = ref; }} 
+                onKeyDown={this.onEnterPress.bind(this)}
+                placeholder="Search post by title..."
+                />
                 </InputGroup>  
           </FormGroup>
         </form>   
@@ -43,7 +48,12 @@ constructor(props){
       return(
         <form>
           <FormGroup>
-            <FormControl type="text" />
+             <FormControl 
+                type="text" 
+                inputRef={ref => { this.myInput = ref; }} 
+                onKeyDown={this.onEnterPress.bind(this)}
+                placeholder="Search post by title..."
+              />
           </FormGroup>
         </form>   
       )

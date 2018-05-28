@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, Image } from 'react-bootstrap';
+import { Panel, Image, Row, Col } from 'react-bootstrap';
 
 export default class Started extends Component {
   constructor(props, context) {
@@ -13,26 +13,36 @@ export default class Started extends Component {
   render() {
     return (
         <Panel>
-            <h1>Getting started in K-Shoot Mania</h1><br /><br />
+            <Row>
+              <Col xs={10} xsOffset={1}>
+                <h1>Getting started in K-Shoot Mania</h1><br /><br />
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={10} xsOffset={1}>
+              <Panel id="collapsible-panel-example-2" bsStyle="info">
+                <Panel.Heading>
+                  <Panel.Title toggle>
+                    How to download the game
+                  </Panel.Title>
+                </Panel.Heading>
+                <Panel.Collapse>
+                  <Panel.Body>
+                    <p>
+                      You can download the game in the official <a href="http://www.kshootmania.com/download.html" target="_blank">K-Shoot Mania page.</a><br/>
+                      In this webpage you'll have to click this button:<br/><br/>
+                      <Image src="/images/download.png" responsive rounded/><br/>
 
-            <Panel id="collapsible-panel-example-2">
-              <Panel.Heading>
-                <Panel.Title toggle>
-                  How to download the game
-                </Panel.Title>
-              </Panel.Heading>
-              <Panel.Collapse>
-                <Panel.Body>
-                  <p>
-                    You can download the game in the official <a href="http://www.kshootmania.com/download.html" target="_blank">K-Shoot Mania page.</a><br/>
-                    In this webpage you'll have to click this button:<br/>
-                    <Image src="/images/download.png" responsive rounded/><br/>
-                    
-                  </p>
-                </Panel.Body>
-              </Panel.Collapse>
-            </Panel>
-            <Panel id="collapsible-panel-example-2">
+                      To play the game you'll have to unzip it from the file you just have downloaded and that's it, now you can play K-Shoot Mania.                    
+                    </p>
+                  </Panel.Body>
+                </Panel.Collapse>
+              </Panel>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={10} xsOffset={1}>
+            <Panel id="collapsible-panel-example-2" bsStyle="info">
               <Panel.Heading>
                 <Panel.Title toggle>
                   How to download songs
@@ -40,14 +50,19 @@ export default class Started extends Component {
               </Panel.Heading>
               <Panel.Collapse>
                 <Panel.Body>
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life
-                  accusamus terry richardson ad squid. Nihil anim keffiyeh
-                  helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                  ea proident.
+                  To download songs from this webpage you'll first have to create an account in the register form.
+                  You may access it by click login at the right side in the navegation bar at the top of the webpage.
+                  <br/><br/>
+                  Once you have registered you'll need to verify your account by clicking the link sent to the email you registered with.
+                  Now you can download songs in the download section of our webpage.
                 </Panel.Body>
               </Panel.Collapse>
             </Panel>
-            <Panel id="collapsible-panel-example-2">
+            </Col>
+            </Row>
+            <Row>
+              <Col xs={10} xsOffset={1}>
+            <Panel id="collapsible-panel-example-2" bsStyle="info" >
               <Panel.Heading>
                 <Panel.Title toggle>
                   How to install songs in the game
@@ -55,26 +70,14 @@ export default class Started extends Component {
               </Panel.Heading>
               <Panel.Collapse>
                 <Panel.Body>
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life
-                  accusamus terry richardson ad squid. Nihil anim keffiyeh
-                  helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                  ea proident.
+                  Installing a song in K-Shoot Mania is so simple, you just need to unzip the file you downloaded in the download section
+                  to the songs folder in the K-Shoot Mania folder.
                 </Panel.Body>
               </Panel.Collapse>
             </Panel>
-
-            <p>
-              
-
-            </p>
-
-            {
-              /*
-                0. Como descargar el juego
-                1. Como descargar canciones
-                2. Como meter las canciones en el juego
-              */
-            }
+            </Col>
+            </Row>
+            <br/>
         </Panel>
     );
   }

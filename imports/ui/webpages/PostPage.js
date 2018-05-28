@@ -106,7 +106,7 @@ export class PostPage extends Component {
           </Media.Left>
           <Media.Body>
             <Media.Heading>
-              <Link to={"/profile/" + this.props.post.owner}>{this.props.post.username}</Link><small><i>{this.parsePostCreationDate(this.props.post.createdAt)}</i></small>
+              <Link to={"/profile/" + this.props.post.owner}>{this.props.post.username}</Link><small> - <i>{this.parsePostCreationDate(this.props.post.createdAt)}</i></small>
             </Media.Heading>
             <p>
               {this.props.post.content}
